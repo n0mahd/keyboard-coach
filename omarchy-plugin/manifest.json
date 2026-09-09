@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "abdullah.keyboard-coach",
+  "name": "Keyboard Coach",
+  "version": "0.1.0",
+  "author": "Abdullah",
+  "description": "Top-center Luna-powered keyboard shortcut suggestions",
+  "kinds": ["panel"],
+  "keepLoaded": true,
+  "entryPoints": {
+    "panel": "Banner.qml"
+  }
+}

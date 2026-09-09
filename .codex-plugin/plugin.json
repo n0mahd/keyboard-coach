@@ -1,0 +1,19 @@
+{
+  "name": "keyboard-coach",
+  "version": "0.1.0+codex.20260909195925",
+  "description": "Suggest Luna-powered keyboard shortcuts after mouse actions.",
+  "author": {
+    "name": "n0mahd"
+  },
+  "repository": "https://github.com/n0mahd/keyboard-coach",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Keyboard Coach",
+    "shortDescription": "Turn mouse actions into keyboard shortcut suggestions.",
+    "longDescription": "Matches semantic mouse actions against app shortcuts, asks GPT Luna only when the catalog has no answer, and displays the suggestion in an Omarchy banner.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Configure Keyboard Coach to explain mouse actions with Luna-powered keyboard shortcuts."
+  }
+}
