@@ -1,47 +1,3307 @@
 {
-  "version": 1,
+  "version": 3,
+  "generated_from": [
+    "assets/commands/brave-native.json",
+    "assets/commands/brave.json",
+    "assets/commands/signal.json"
+  ],
+  "command_sets": [
+    {
+      "id": "brave-installed",
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "source": {
+        "title": "Brave and Chromium command registries",
+        "url": "https://github.com/brave/brave-core/blob/master/app/brave_command_ids.h",
+        "chromium_url": "https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/app/chrome_command_ids.h",
+        "platform": "linux",
+        "retrieved": "2026-09-10"
+      },
+      "commands": [
+        {
+          "id": "back",
+          "shortcut": "Alt+Left",
+          "description": "go back.",
+          "native_id": 33000
+        },
+        {
+          "id": "forward",
+          "shortcut": "Alt+Right",
+          "description": "go forward.",
+          "native_id": 33001
+        },
+        {
+          "id": "reload",
+          "shortcut": "Ctrl+R / F5",
+          "description": "reload the page.",
+          "native_id": 33002
+        },
+        {
+          "id": "home",
+          "shortcut": "Alt+Home",
+          "description": "open the home page.",
+          "native_id": 33003
+        },
+        {
+          "id": "hard-reload",
+          "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+          "description": "reload while bypassing cached content.",
+          "native_id": 33007
+        },
+        {
+          "id": "new-window",
+          "shortcut": "Ctrl+N",
+          "description": "open a new window.",
+          "native_id": 34000
+        },
+        {
+          "id": "new-private-window",
+          "shortcut": "Ctrl+Shift+N",
+          "description": "open a new Private window.",
+          "native_id": 34001
+        },
+        {
+          "id": "close-window",
+          "shortcut": "Ctrl+Shift+W / Alt+F4",
+          "description": "close the Brave window.",
+          "native_id": 34012
+        },
+        {
+          "id": "new-tab",
+          "shortcut": "Ctrl+T",
+          "description": "open a new tab.",
+          "native_id": 34014
+        },
+        {
+          "id": "close-tab",
+          "shortcut": "Ctrl+W / Ctrl+F4",
+          "description": "close the current tab.",
+          "native_id": 34015
+        },
+        {
+          "id": "next-tab",
+          "shortcut": "Ctrl+Tab",
+          "description": "switch to the next tab.",
+          "native_id": 34062
+        },
+        {
+          "id": "previous-tab",
+          "shortcut": "Ctrl+Shift+Tab",
+          "description": "switch to the previous tab.",
+          "native_id": 34063
+        },
+        {
+          "id": "select-tab-1",
+          "shortcut": "Ctrl+1",
+          "description": "switch directly to tab 1.",
+          "native_id": 34018
+        },
+        {
+          "id": "select-tab-2",
+          "shortcut": "Ctrl+2",
+          "description": "switch directly to tab 2.",
+          "native_id": 34019
+        },
+        {
+          "id": "select-tab-3",
+          "shortcut": "Ctrl+3",
+          "description": "switch directly to tab 3.",
+          "native_id": 34020
+        },
+        {
+          "id": "select-tab-4",
+          "shortcut": "Ctrl+4",
+          "description": "switch directly to tab 4.",
+          "native_id": 34021
+        },
+        {
+          "id": "select-tab-5",
+          "shortcut": "Ctrl+5",
+          "description": "switch directly to tab 5.",
+          "native_id": 34022
+        },
+        {
+          "id": "select-tab-6",
+          "shortcut": "Ctrl+6",
+          "description": "switch directly to tab 6.",
+          "native_id": 34023
+        },
+        {
+          "id": "select-tab-7",
+          "shortcut": "Ctrl+7",
+          "description": "switch directly to tab 7.",
+          "native_id": 34024
+        },
+        {
+          "id": "select-tab-8",
+          "shortcut": "Ctrl+8",
+          "description": "switch directly to tab 8.",
+          "native_id": 34025
+        },
+        {
+          "id": "select-last-tab",
+          "shortcut": "Ctrl+9",
+          "description": "switch directly to the last tab.",
+          "native_id": 34026
+        },
+        {
+          "id": "reopen-closed-tab",
+          "shortcut": "Ctrl+Shift+T",
+          "description": "reopen the last closed tab.",
+          "native_id": 34028
+        },
+        {
+          "id": "fullscreen",
+          "shortcut": "F11",
+          "description": "toggle full-screen mode.",
+          "native_id": 34030
+        },
+        {
+          "id": "move-tab-right",
+          "shortcut": "Ctrl+Shift+PageDown",
+          "description": "move the current tab right.",
+          "native_id": 34032
+        },
+        {
+          "id": "move-tab-left",
+          "shortcut": "Ctrl+Shift+PageUp",
+          "description": "move the current tab left.",
+          "native_id": 34033
+        },
+        {
+          "id": "collapse-vertical-tabs",
+          "shortcut": "Ctrl+Shift+L",
+          "description": "collapse or expand vertical tabs.",
+          "native_id": 34061
+        },
+        {
+          "id": "new-tab-in-group",
+          "shortcut": "Alt+Shift+C",
+          "description": "open a new tab in the current group.",
+          "native_id": 34100
+        },
+        {
+          "id": "create-tab-group",
+          "shortcut": "Alt+Shift+P",
+          "description": "create a new tab group.",
+          "native_id": 34101
+        },
+        {
+          "id": "next-tab-group",
+          "shortcut": "Alt+Shift+X",
+          "description": "focus the next tab group.",
+          "native_id": 34102
+        },
+        {
+          "id": "previous-tab-group",
+          "shortcut": "Alt+Shift+Z",
+          "description": "focus the previous tab group.",
+          "native_id": 34103
+        },
+        {
+          "id": "close-tab-group",
+          "shortcut": "Alt+Shift+W",
+          "description": "close the current tab group.",
+          "native_id": 34104
+        },
+        {
+          "id": "bookmark-tab",
+          "shortcut": "Ctrl+D",
+          "description": "bookmark this tab.",
+          "native_id": 35000
+        },
+        {
+          "id": "bookmark-all-tabs",
+          "shortcut": "Ctrl+Shift+D",
+          "description": "bookmark all open tabs.",
+          "native_id": 35001
+        },
+        {
+          "id": "view-source",
+          "shortcut": "Ctrl+U",
+          "description": "view page source.",
+          "native_id": 35002
+        },
+        {
+          "id": "print",
+          "shortcut": "Ctrl+P",
+          "description": "print this page.",
+          "native_id": 35003
+        },
+        {
+          "id": "save-page",
+          "shortcut": "Ctrl+S",
+          "description": "save this page.",
+          "native_id": 35004
+        },
+        {
+          "id": "system-print-dialog",
+          "shortcut": "Ctrl+Shift+P",
+          "description": "open the system print dialog.",
+          "native_id": 35007
+        },
+        {
+          "id": "screenshot",
+          "shortcut": "Ctrl+Shift+S",
+          "description": "capture a screenshot.",
+          "native_id": 35031
+        },
+        {
+          "id": "find",
+          "shortcut": "Ctrl+F",
+          "description": "find text on this page.",
+          "native_id": 37000
+        },
+        {
+          "id": "find-next",
+          "shortcut": "Ctrl+G / F3",
+          "description": "go to the next find result.",
+          "native_id": 37001
+        },
+        {
+          "id": "find-previous",
+          "shortcut": "Ctrl+Shift+G / Shift+F3",
+          "description": "go to the previous find result.",
+          "native_id": 37002
+        },
+        {
+          "id": "stop-loading",
+          "shortcut": "Esc",
+          "description": "stop loading the page.",
+          "native_id": 37003
+        },
+        {
+          "id": "zoom-in",
+          "shortcut": "Ctrl+= / Ctrl+Shift+=",
+          "description": "zoom in.",
+          "native_id": 38001
+        },
+        {
+          "id": "zoom-reset",
+          "shortcut": "Ctrl+0",
+          "description": "reset page zoom.",
+          "native_id": 38002
+        },
+        {
+          "id": "zoom-out",
+          "shortcut": "Ctrl+- / Ctrl+Shift+-",
+          "description": "zoom out.",
+          "native_id": 38003
+        },
+        {
+          "id": "focus-toolbar",
+          "shortcut": "Alt+Shift+T",
+          "description": "focus the first toolbar control.",
+          "native_id": 39000
+        },
+        {
+          "id": "focus-address-bar",
+          "shortcut": "Ctrl+L / Alt+D",
+          "description": "focus the address bar.",
+          "native_id": 39001
+        },
+        {
+          "id": "search-web",
+          "shortcut": "Ctrl+E / Ctrl+K",
+          "description": "search the web from the address bar.",
+          "native_id": 39002
+        },
+        {
+          "id": "focus-menu-bar",
+          "shortcut": "F10 / Alt",
+          "description": "focus the browser menu bar.",
+          "native_id": 39003
+        },
+        {
+          "id": "focus-next-pane",
+          "shortcut": "F6",
+          "description": "focus the next browser pane.",
+          "native_id": 39004
+        },
+        {
+          "id": "focus-previous-pane",
+          "shortcut": "Shift+F6",
+          "description": "focus the previous browser pane.",
+          "native_id": 39005
+        },
+        {
+          "id": "focus-bookmarks",
+          "shortcut": "Alt+Shift+B",
+          "description": "focus the bookmarks bar.",
+          "native_id": 39006
+        },
+        {
+          "id": "focus-dialog",
+          "shortcut": "Alt+Shift+A",
+          "description": "focus an open browser dialog.",
+          "native_id": 39007
+        },
+        {
+          "id": "focus-page",
+          "shortcut": "Ctrl+F6",
+          "description": "focus the webpage content.",
+          "native_id": 39009
+        },
+        {
+          "id": "open-file",
+          "shortcut": "Ctrl+O",
+          "description": "open a local file.",
+          "native_id": 40000
+        },
+        {
+          "id": "developer-tools",
+          "shortcut": "Ctrl+Shift+I",
+          "description": "open Developer Tools.",
+          "native_id": 40004
+        },
+        {
+          "id": "javascript-console",
+          "shortcut": "Ctrl+Shift+J",
+          "description": "open the JavaScript console.",
+          "native_id": 40005
+        },
+        {
+          "id": "bookmarks-bar",
+          "shortcut": "Ctrl+Shift+B",
+          "description": "show or hide the bookmarks bar.",
+          "native_id": 40009
+        },
+        {
+          "id": "history",
+          "shortcut": "Ctrl+H",
+          "description": "open browsing history.",
+          "native_id": 40010
+        },
+        {
+          "id": "bookmarks-manager",
+          "shortcut": "Ctrl+Shift+O",
+          "description": "open the Bookmarks Manager.",
+          "native_id": 40011
+        },
+        {
+          "id": "downloads",
+          "shortcut": "Ctrl+J",
+          "description": "open downloads.",
+          "native_id": 40012
+        },
+        {
+          "id": "clear-browsing-data",
+          "shortcut": "Ctrl+Shift+Delete",
+          "description": "open Clear Browsing Data.",
+          "native_id": 40013
+        },
+        {
+          "id": "help",
+          "shortcut": "F1",
+          "description": "open Brave Help.",
+          "native_id": 40019
+        },
+        {
+          "id": "main-menu",
+          "shortcut": "Alt+F / Alt+E",
+          "description": "open the Brave main menu.",
+          "native_id": 40021
+        },
+        {
+          "id": "inspect-element",
+          "shortcut": "Ctrl+Shift+C",
+          "description": "inspect a page element.",
+          "native_id": 40023
+        },
+        {
+          "id": "profile-menu",
+          "shortcut": "Ctrl+Shift+M",
+          "description": "open the profile menu.",
+          "native_id": 40134
+        },
+        {
+          "id": "developer-tools-f12",
+          "shortcut": "F12",
+          "description": "toggle Developer Tools.",
+          "native_id": 40237
+        },
+        {
+          "id": "caret-browsing",
+          "shortcut": "F7",
+          "description": "toggle caret browsing.",
+          "native_id": 40260
+        },
+        {
+          "id": "task-manager",
+          "shortcut": "Shift+Esc",
+          "description": "open Brave Task Manager.",
+          "native_id": 40286
+        },
+        {
+          "id": "tab-search",
+          "shortcut": "Ctrl+Shift+A",
+          "description": "search open tabs.",
+          "native_id": 52500
+        },
+        {
+          "id": "new-tor-window",
+          "shortcut": "Alt+Shift+N",
+          "description": "open a new Private window with Tor.",
+          "native_id": 56003
+        },
+        {
+          "id": "toggle-tab-mute",
+          "shortcut": "Ctrl+M",
+          "description": "mute or unmute the current tab.",
+          "native_id": 56041
+        },
+        {
+          "id": "toggle-sidebar",
+          "shortcut": "Ctrl+B",
+          "description": "show or hide the Brave sidebar.",
+          "native_id": 56044
+        },
+        {
+          "id": "quick-commands",
+          "shortcut": "Ctrl+Space",
+          "description": "open Brave Quick Commands.",
+          "native_id": 56301
+        }
+      ]
+    },
+    {
+      "id": "brave",
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "source": {
+        "title": "What keyboard shortcuts can I use in Brave?",
+        "url": "https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave",
+        "platform": "linux",
+        "retrieved": "2026-09-10"
+      },
+      "commands": [
+        {
+          "id": "select-tab-direct",
+          "shortcut": "Ctrl+{target_position} / Ctrl+Tab",
+          "description": "switch directly to this tab or cycle tabs."
+        },
+        {
+          "id": "select-last-tab",
+          "shortcut": "Ctrl+9 / Ctrl+Tab",
+          "description": "switch to the last tab or cycle tabs."
+        },
+        {
+          "id": "select-tab",
+          "shortcut": "Ctrl+Tab / Ctrl+Shift+Tab",
+          "description": "switch to the next or previous tab."
+        },
+        {
+          "id": "new-tab",
+          "shortcut": "Ctrl+T",
+          "description": "open a new tab."
+        },
+        {
+          "id": "new-tab-result",
+          "shortcut": "Ctrl+T",
+          "description": "open a new tab."
+        },
+        {
+          "id": "settings",
+          "shortcut": "Alt+F, then S",
+          "description": "open Brave Settings from the main menu."
+        },
+        {
+          "id": "main-menu",
+          "shortcut": "Alt+F",
+          "description": "open the Brave main menu."
+        },
+        {
+          "id": "new-window",
+          "shortcut": "Ctrl+N",
+          "description": "open a new window."
+        },
+        {
+          "id": "new-private-window",
+          "shortcut": "Ctrl+Shift+N",
+          "description": "open a new Private window."
+        },
+        {
+          "id": "reopen-closed-tab",
+          "shortcut": "Ctrl+Shift+T",
+          "description": "reopen the last closed tab."
+        },
+        {
+          "id": "close-tab",
+          "shortcut": "Ctrl+W",
+          "description": "close the current tab."
+        },
+        {
+          "id": "close-window",
+          "shortcut": "Ctrl+Shift+W / Alt+F4",
+          "description": "close the current window.",
+          "native_id": 34012
+        },
+        {
+          "id": "back",
+          "shortcut": "Alt+Left",
+          "description": "go back."
+        },
+        {
+          "id": "forward",
+          "shortcut": "Alt+Right",
+          "description": "go forward."
+        },
+        {
+          "id": "home",
+          "shortcut": "Alt+Home",
+          "description": "open the home page."
+        },
+        {
+          "id": "address-bar",
+          "shortcut": "Ctrl+L",
+          "description": "focus the address bar."
+        },
+        {
+          "id": "reload",
+          "shortcut": "Ctrl+R",
+          "description": "reload the page."
+        },
+        {
+          "id": "hard-reload",
+          "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+          "description": "reload while ignoring cached content.",
+          "native_id": 33007
+        },
+        {
+          "id": "bookmark-page",
+          "shortcut": "Ctrl+D",
+          "description": "bookmark this page."
+        },
+        {
+          "id": "bookmarks-manager",
+          "shortcut": "Ctrl+Shift+O",
+          "description": "open the Bookmarks Manager."
+        },
+        {
+          "id": "bookmarks-bar",
+          "shortcut": "Ctrl+Shift+B",
+          "description": "show or hide the bookmarks bar."
+        },
+        {
+          "id": "history",
+          "shortcut": "Ctrl+H",
+          "description": "open browsing history."
+        },
+        {
+          "id": "downloads",
+          "shortcut": "Ctrl+J",
+          "description": "open downloads."
+        },
+        {
+          "id": "find",
+          "shortcut": "Ctrl+F",
+          "description": "find text on this page."
+        },
+        {
+          "id": "print",
+          "shortcut": "Ctrl+P",
+          "description": "print this page."
+        },
+        {
+          "id": "save-page",
+          "shortcut": "Ctrl+S",
+          "description": "save this page."
+        },
+        {
+          "id": "open-file",
+          "shortcut": "Ctrl+O",
+          "description": "open a local file.",
+          "native_id": 40000
+        },
+        {
+          "id": "developer-tools",
+          "shortcut": "Ctrl+Shift+J / F12",
+          "description": "open Developer Tools."
+        },
+        {
+          "id": "clear-browsing-data",
+          "shortcut": "Ctrl+Shift+Delete",
+          "description": "open Clear Browsing Data."
+        },
+        {
+          "id": "profile-menu",
+          "shortcut": "Ctrl+Shift+M",
+          "description": "open the profile menu."
+        },
+        {
+          "id": "task-manager",
+          "shortcut": "Shift+Esc",
+          "description": "open Brave Task Manager."
+        },
+        {
+          "id": "zoom-in",
+          "shortcut": "Ctrl++",
+          "description": "zoom in."
+        },
+        {
+          "id": "zoom-out",
+          "shortcut": "Ctrl+-",
+          "description": "zoom out."
+        },
+        {
+          "id": "zoom-reset",
+          "shortcut": "Ctrl+0",
+          "description": "reset page zoom."
+        },
+        {
+          "id": "fullscreen",
+          "shortcut": "F11",
+          "description": "toggle full-screen mode."
+        },
+        {
+          "id": "view-source",
+          "shortcut": "Ctrl+U",
+          "description": "view page source.",
+          "native_id": 35002
+        },
+        {
+          "id": "screenshot",
+          "shortcut": "Ctrl+Shift+S",
+          "description": "capture a screenshot."
+        },
+        {
+          "id": "help",
+          "shortcut": "F1",
+          "description": "open Brave Help."
+        }
+      ]
+    },
+    {
+      "id": "signal-desktop",
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "source": {
+        "title": "Signal Desktop Keyboard Shortcuts",
+        "url": "https://support.signal.org/hc/en-us/articles/360036517511-Signal-Desktop-Keyboard-Shortcuts",
+        "platform": "linux",
+        "retrieved": "2026-09-10"
+      },
+      "commands": [
+        {
+          "id": "switch-chat",
+          "shortcut": "Alt+Up / Alt+Down",
+          "description": "switch to the previous or next chat."
+        },
+        {
+          "id": "jump-chat",
+          "shortcut": "Ctrl+1…9",
+          "description": "jump directly to one of the first nine chats."
+        },
+        {
+          "id": "previous-chat",
+          "shortcut": "Alt+Up / Ctrl+Shift+Tab",
+          "description": "switch to the previous chat."
+        },
+        {
+          "id": "next-chat",
+          "shortcut": "Alt+Down / Ctrl+Tab",
+          "description": "switch to the next chat."
+        },
+        {
+          "id": "previous-unread-chat",
+          "shortcut": "Alt+Shift+Up",
+          "description": "switch to the previous unread chat."
+        },
+        {
+          "id": "next-unread-chat",
+          "shortcut": "Alt+Shift+Down",
+          "description": "switch to the next unread chat."
+        },
+        {
+          "id": "preferences",
+          "shortcut": "Ctrl+,",
+          "description": "open Signal Preferences."
+        },
+        {
+          "id": "show-shortcuts",
+          "shortcut": "Ctrl+/",
+          "description": "show all Signal keyboard shortcuts."
+        },
+        {
+          "id": "navigate-section",
+          "shortcut": "Ctrl+T",
+          "description": "move focus between Signal sections."
+        },
+        {
+          "id": "focus-last-message",
+          "shortcut": "Ctrl+J",
+          "description": "focus the oldest unread or last message."
+        },
+        {
+          "id": "chat-menu",
+          "shortcut": "Ctrl+Shift+L",
+          "description": "open the current chat menu."
+        },
+        {
+          "id": "new-chat",
+          "shortcut": "Ctrl+N",
+          "description": "start a new chat."
+        },
+        {
+          "id": "search",
+          "shortcut": "Ctrl+F",
+          "description": "search Signal."
+        },
+        {
+          "id": "search-chat",
+          "shortcut": "Ctrl+Shift+F",
+          "description": "search within the current chat."
+        },
+        {
+          "id": "focus-composer",
+          "shortcut": "Ctrl+Shift+T",
+          "description": "focus the message composer."
+        },
+        {
+          "id": "all-media",
+          "shortcut": "Ctrl+Shift+M",
+          "description": "open All Media."
+        },
+        {
+          "id": "emoji-chooser",
+          "shortcut": "Ctrl+Shift+J",
+          "description": "open the emoji chooser."
+        },
+        {
+          "id": "sticker-chooser",
+          "shortcut": "Ctrl+Shift+O",
+          "description": "open the sticker chooser."
+        },
+        {
+          "id": "gif-chooser",
+          "shortcut": "Ctrl+Shift+G",
+          "description": "open the GIF chooser."
+        },
+        {
+          "id": "record-voice",
+          "shortcut": "Ctrl+Shift+Y",
+          "description": "begin recording a voice message."
+        },
+        {
+          "id": "archive-chat",
+          "shortcut": "Ctrl+Shift+A",
+          "description": "archive the current chat."
+        },
+        {
+          "id": "unarchive-chat",
+          "shortcut": "Ctrl+Shift+U",
+          "description": "unarchive the current chat."
+        },
+        {
+          "id": "scroll-top",
+          "shortcut": "Ctrl+Up",
+          "description": "scroll to the top of the chat."
+        },
+        {
+          "id": "scroll-bottom",
+          "shortcut": "Ctrl+Down",
+          "description": "scroll to the bottom of the chat."
+        },
+        {
+          "id": "close-chat",
+          "shortcut": "Ctrl+Shift+C",
+          "description": "close the current chat."
+        },
+        {
+          "id": "message-default",
+          "shortcut": "Enter",
+          "description": "perform the selected message's default action."
+        },
+        {
+          "id": "message-details",
+          "shortcut": "Ctrl+D",
+          "description": "view details for the selected message."
+        },
+        {
+          "id": "reply",
+          "shortcut": "Ctrl+Shift+R",
+          "description": "reply to the selected message."
+        },
+        {
+          "id": "react",
+          "shortcut": "Ctrl+Shift+E",
+          "description": "react to the selected message."
+        },
+        {
+          "id": "save-attachment",
+          "shortcut": "Ctrl+S",
+          "description": "save the selected attachment."
+        },
+        {
+          "id": "forward-message",
+          "shortcut": "Ctrl+Shift+S",
+          "description": "forward selected messages."
+        },
+        {
+          "id": "message-menu",
+          "shortcut": "Shift+F10",
+          "description": "open the selected message's context menu."
+        },
+        {
+          "id": "delete-message",
+          "shortcut": "Ctrl+Shift+D",
+          "description": "delete the selected message."
+        },
+        {
+          "id": "newline",
+          "shortcut": "Shift+Enter",
+          "description": "add a new line to the message."
+        },
+        {
+          "id": "expand-composer",
+          "shortcut": "Ctrl+Shift+K",
+          "description": "expand the message composer."
+        },
+        {
+          "id": "send-expanded",
+          "shortcut": "Ctrl+Enter",
+          "description": "send from the expanded composer."
+        },
+        {
+          "id": "attach-file",
+          "shortcut": "Ctrl+U",
+          "description": "attach a file."
+        },
+        {
+          "id": "bold",
+          "shortcut": "Ctrl+B",
+          "description": "format selected text as bold."
+        },
+        {
+          "id": "italic",
+          "shortcut": "Ctrl+I",
+          "description": "format selected text as italic."
+        },
+        {
+          "id": "strikethrough",
+          "shortcut": "Ctrl+Shift+X",
+          "description": "format selected text as strikethrough."
+        },
+        {
+          "id": "monospace",
+          "shortcut": "Ctrl+E",
+          "description": "format selected text as monospace."
+        },
+        {
+          "id": "spoiler",
+          "shortcut": "Ctrl+Shift+B",
+          "description": "format selected text as a spoiler."
+        },
+        {
+          "id": "toggle-mute",
+          "shortcut": "Shift+M",
+          "description": "toggle microphone mute."
+        },
+        {
+          "id": "toggle-video",
+          "shortcut": "Shift+V",
+          "description": "toggle video."
+        },
+        {
+          "id": "start-voice-call",
+          "shortcut": "Alt+Shift+C",
+          "description": "start a voice call."
+        },
+        {
+          "id": "start-video-call",
+          "shortcut": "Alt+Shift+Y",
+          "description": "start a video call."
+        },
+        {
+          "id": "end-call",
+          "shortcut": "Alt+Shift+E",
+          "description": "end the call."
+        }
+      ]
+    }
+  ],
   "entries": [
-    {"buttons":["right"],"shortcut":"Shift+F10","description":"open the context menu."},
-
-    {"widgets":["^omarchy.menu$"],"buttons":["left"],"shortcut":"Super+Space","description":"open the Omarchy menu."},
-    {"widgets":["^omarchy.workspaces$"],"buttons":["left"],"shortcut":"Super+1…0 / Super+Tab","description":"switch workspaces directly or sequentially."},
-    {"surfaces":["^bar$"],"panel_indexes":["^[1-9]$"],"buttons":["left"],"shortcut":"Super+Ctrl+{panel_index}","description":"open the {widget_name} panel."},
-    {"namespaces":["^omarchy-menu$"],"shortcut":"↑/↓ + Enter; Esc","description":"navigate, activate, or close the Omarchy menu."},
-    {"namespaces":["^omarchy-keyboard-panel$"],"shortcut":"H/J/K/L or arrow keys + Enter; Esc","description":"navigate, activate, or close this Omarchy panel."},
-    {"namespaces":["^omarchy-(emojis|clipboard|image-picker)$"],"shortcut":"Arrow keys + Enter; Esc","description":"navigate, activate, or close this Omarchy overlay."},
-
-    {"apps":["brave|chromium|chrome"],"roles":["^page tab$"],"buttons":["left"],"shortcut":"Ctrl+Tab / Ctrl+Shift+Tab","description":"switch to the next or previous tab."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["\\b(back|previous)\\b"],"shortcut":"Alt+Left","description":"go back."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["\\b(forward|next)\\b"],"shortcut":"Alt+Right","description":"go forward."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["\\b(reload|refresh)\\b"],"shortcut":"Ctrl+R","description":"reload the page."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["new tab"],"shortcut":"Ctrl+T","description":"open a new tab."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["close tab"],"shortcut":"Ctrl+W","description":"close the current tab."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["bookmark"],"shortcut":"Ctrl+D","description":"bookmark this page."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["downloads?"],"shortcut":"Ctrl+J","description":"open downloads."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["history"],"shortcut":"Ctrl+H","description":"open browsing history."},
-    {"apps":["brave|chromium|chrome|firefox"],"names":["address|location|search.*(bar|box)|omnibox"],"shortcut":"Ctrl+L","description":"focus the address bar."},
-    {"apps":["nautilus|org.gnome.nautilus"],"names":["new folder"],"shortcut":"Ctrl+Shift+N","description":"create a new folder."},
-    {"apps":["nautilus|org.gnome.nautilus"],"names":["rename"],"shortcut":"F2","description":"rename the selected item."},
-    {"apps":["nautilus|org.gnome.nautilus"],"names":["\\b(back|previous)\\b"],"shortcut":"Alt+Left","description":"go back."},
-    {"apps":["nautilus|org.gnome.nautilus"],"names":["\\bhome\\b"],"shortcut":"Alt+Home","description":"open the home folder."},
-    {"apps":["code|codium|cursor"],"names":["new file"],"shortcut":"Ctrl+N","description":"create a new file."},
-    {"apps":["code|codium|cursor"],"names":["command palette"],"shortcut":"Ctrl+Shift+P","description":"open the command palette."},
-    {"apps":["code|codium|cursor"],"names":["extensions"],"shortcut":"Ctrl+Shift+X","description":"open Extensions."},
-    {"apps":["code|codium|cursor"],"names":["source control"],"shortcut":"Ctrl+Shift+G","description":"open Source Control."},
-    {"names":["\\bcopy\\b"],"shortcut":"Ctrl+C","description":"copy."},
-    {"names":["\\bpaste\\b"],"shortcut":"Ctrl+V","description":"paste."},
-    {"names":["\\bcut\\b"],"shortcut":"Ctrl+X","description":"cut."},
-    {"names":["\\bundo\\b"],"shortcut":"Ctrl+Z","description":"undo."},
-    {"names":["\\bredo\\b"],"shortcut":"Ctrl+Shift+Z","description":"redo."},
-    {"names":["\\bsave( as)?\\b"],"shortcut":"Ctrl+S","description":"save."},
-    {"names":["\\bprint\\b"],"shortcut":"Ctrl+P","description":"print."},
-    {"names":["\\b(find|search)\\b"],"shortcut":"Ctrl+F","description":"find or search."},
-    {"names":["\\b(cancel|dismiss|close)\\b"],"roles":["button|push button|menu item"],"shortcut":"Esc","description":"dismiss this control."},
-    {"names":["\\b(ok|confirm|apply|submit)\\b"],"roles":["button|push button"],"shortcut":"Enter","description":"activate this control."},
-    {"roles":["^(check box|radio button|toggle button)$"],"buttons":["left"],"shortcut":"Space","description":"toggle the focused control."},
-    {"roles":["^(button|push button|menu item)$"],"buttons":["left"],"shortcut":"Enter or Space","description":"activate the focused control."},
-    {"roles":["^link$"],"buttons":["left"],"shortcut":"Enter","description":"open the focused link."},
-    {"roles":["^(list item|tree item)$"],"buttons":["left"],"shortcut":"Arrow keys + Enter","description":"select and open an item."}
-  ]
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^1$"
+      ],
+      "shortcut": "Ctrl+1",
+      "description": "switch directly to tab 1.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-1",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^2$"
+      ],
+      "shortcut": "Ctrl+2",
+      "description": "switch directly to tab 2.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-2",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^3$"
+      ],
+      "shortcut": "Ctrl+3",
+      "description": "switch directly to tab 3.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-3",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^4$"
+      ],
+      "shortcut": "Ctrl+4",
+      "description": "switch directly to tab 4.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-4",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^5$"
+      ],
+      "shortcut": "Ctrl+5",
+      "description": "switch directly to tab 5.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-5",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^6$"
+      ],
+      "shortcut": "Ctrl+6",
+      "description": "switch directly to tab 6.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-6",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^7$"
+      ],
+      "shortcut": "Ctrl+7",
+      "description": "switch directly to tab 7.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-7",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^8$"
+      ],
+      "shortcut": "Ctrl+8",
+      "description": "switch directly to tab 8.",
+      "priority": 280,
+      "command_id": "brave-installed.select-tab-8",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_is_last": [
+        "^true$"
+      ],
+      "shortcut": "Ctrl+9",
+      "description": "switch directly to the last tab.",
+      "priority": 275,
+      "command_id": "brave-installed.select-last-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(back|previous)\\b"
+      ],
+      "shortcut": "Alt+Left",
+      "description": "go back.",
+      "priority": 270,
+      "command_id": "brave-installed.back",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(forward|next)\\b"
+      ],
+      "shortcut": "Alt+Right",
+      "description": "go forward.",
+      "priority": 270,
+      "command_id": "brave-installed.forward",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(reload|refresh)\\b"
+      ],
+      "shortcut": "Ctrl+R / F5",
+      "description": "reload the page.",
+      "priority": 270,
+      "command_id": "brave-installed.reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bhome\\b"
+      ],
+      "shortcut": "Alt+Home",
+      "description": "open the home page.",
+      "priority": 270,
+      "command_id": "brave-installed.home",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "hard reload|reload.*cache|empty cache"
+      ],
+      "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+      "description": "reload while bypassing cached content.",
+      "priority": 270,
+      "command_id": "brave-installed.hard-reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^new window$"
+      ],
+      "shortcut": "Ctrl+N",
+      "description": "open a new window.",
+      "priority": 270,
+      "command_id": "brave-installed.new-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "new private (window|tab)"
+      ],
+      "shortcut": "Ctrl+Shift+N",
+      "description": "open a new Private window.",
+      "priority": 270,
+      "command_id": "brave-installed.new-private-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "close window|\\b(exit|quit)\\b"
+      ],
+      "shortcut": "Ctrl+Shift+W / Alt+F4",
+      "description": "close the Brave window.",
+      "priority": 270,
+      "command_id": "brave-installed.close-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bnew tab\\b"
+      ],
+      "roles": [
+        "^(button|push button)$"
+      ],
+      "shortcut": "Ctrl+T",
+      "description": "open a new tab.",
+      "priority": 270,
+      "command_id": "brave-installed.new-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bclose tab\\b"
+      ],
+      "shortcut": "Ctrl+W / Ctrl+F4",
+      "description": "close the current tab.",
+      "priority": 270,
+      "command_id": "brave-installed.close-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "address|location|search.*(bar|box)|omnibox"
+      ],
+      "shortcut": "Ctrl+L / Alt+D",
+      "description": "focus the address bar.",
+      "priority": 270,
+      "command_id": "brave-installed.focus-address-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "intents": [
+        "^open-application-menu$"
+      ],
+      "shortcut": "Alt+F / Alt+E",
+      "description": "open the Brave main menu.",
+      "priority": 270,
+      "command_id": "brave-installed.main-menu",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^[1-8]$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+{target_position} / Ctrl+Tab",
+      "description": "switch directly to this tab or cycle tabs.",
+      "priority": 240,
+      "command_id": "brave.select-tab-direct"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_is_last": [
+        "^true$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+9 / Ctrl+Tab",
+      "description": "switch to the last tab or cycle tabs.",
+      "priority": 235,
+      "command_id": "brave.select-last-tab"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+Tab / Ctrl+Shift+Tab",
+      "description": "switch to the next or previous tab.",
+      "priority": 220,
+      "command_id": "brave.select-tab"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bnew tab\\b"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+T",
+      "description": "open a new tab.",
+      "priority": 220,
+      "command_id": "brave.new-tab"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(settings|preferences)\\b"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Alt+F, then S",
+      "description": "open Brave Settings from the main menu.",
+      "priority": 220,
+      "command_id": "brave.settings"
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "roles": [
+        "^(list item|table row)$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Alt+Up / Alt+Down",
+      "description": "switch to the previous or next chat.",
+      "priority": 220,
+      "command_id": "signal-desktop.switch-chat"
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\b(preferences|settings)\\b"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+,",
+      "description": "open Signal Preferences.",
+      "priority": 220,
+      "command_id": "signal-desktop.preferences"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "titles": [
+        "^new tab(?: - brave)?$"
+      ],
+      "roles": [
+        "^$"
+      ],
+      "names": [
+        "^\\s*$"
+      ],
+      "actions": [
+        "^$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+T",
+      "description": "open a new tab.",
+      "priority": 210,
+      "command_id": "brave.new-tab-result"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "intents": [
+        "^open-application-menu$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Alt+F",
+      "description": "open the Brave main menu.",
+      "priority": 210,
+      "command_id": "brave.main-menu"
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bclose tab\\b"
+      ],
+      "shortcut": "Ctrl+W",
+      "description": "close the current tab.",
+      "priority": 180,
+      "command_id": "brave.close-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "next tab"
+      ],
+      "shortcut": "Ctrl+Tab",
+      "description": "switch to the next tab.",
+      "priority": 100,
+      "command_id": "brave-installed.next-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "previous tab"
+      ],
+      "shortcut": "Ctrl+Shift+Tab",
+      "description": "switch to the previous tab.",
+      "priority": 100,
+      "command_id": "brave-installed.previous-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "reopen.*closed (tab|window)"
+      ],
+      "shortcut": "Ctrl+Shift+T",
+      "description": "reopen the last closed tab.",
+      "priority": 100,
+      "command_id": "brave-installed.reopen-closed-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "full.?screen"
+      ],
+      "shortcut": "F11",
+      "description": "toggle full-screen mode.",
+      "priority": 100,
+      "command_id": "brave-installed.fullscreen",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "move tab right|move.*next"
+      ],
+      "shortcut": "Ctrl+Shift+PageDown",
+      "description": "move the current tab right.",
+      "priority": 100,
+      "command_id": "brave-installed.move-tab-right",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "move tab left|move.*previous"
+      ],
+      "shortcut": "Ctrl+Shift+PageUp",
+      "description": "move the current tab left.",
+      "priority": 100,
+      "command_id": "brave-installed.move-tab-left",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "(collapse|expand).*vertical tabs"
+      ],
+      "shortcut": "Ctrl+Shift+L",
+      "description": "collapse or expand vertical tabs.",
+      "priority": 100,
+      "command_id": "brave-installed.collapse-vertical-tabs",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "new tab in (this |current )?group"
+      ],
+      "shortcut": "Alt+Shift+C",
+      "description": "open a new tab in the current group.",
+      "priority": 100,
+      "command_id": "brave-installed.new-tab-in-group",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "(add|create).*tab group"
+      ],
+      "shortcut": "Alt+Shift+P",
+      "description": "create a new tab group.",
+      "priority": 100,
+      "command_id": "brave-installed.create-tab-group",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "next tab group"
+      ],
+      "shortcut": "Alt+Shift+X",
+      "description": "focus the next tab group.",
+      "priority": 100,
+      "command_id": "brave-installed.next-tab-group",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "previous tab group"
+      ],
+      "shortcut": "Alt+Shift+Z",
+      "description": "focus the previous tab group.",
+      "priority": 100,
+      "command_id": "brave-installed.previous-tab-group",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "close.*tab group"
+      ],
+      "shortcut": "Alt+Shift+W",
+      "description": "close the current tab group.",
+      "priority": 100,
+      "command_id": "brave-installed.close-tab-group",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmark (this )?(page|tab)|add bookmark"
+      ],
+      "shortcut": "Ctrl+D",
+      "description": "bookmark this tab.",
+      "priority": 100,
+      "command_id": "brave-installed.bookmark-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmark all tabs|save all.*bookmarks"
+      ],
+      "shortcut": "Ctrl+Shift+D",
+      "description": "bookmark all open tabs.",
+      "priority": 100,
+      "command_id": "brave-installed.bookmark-all-tabs",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "view (page )?source"
+      ],
+      "shortcut": "Ctrl+U",
+      "description": "view page source.",
+      "priority": 100,
+      "command_id": "brave-installed.view-source",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^print|print this page"
+      ],
+      "shortcut": "Ctrl+P",
+      "description": "print this page.",
+      "priority": 100,
+      "command_id": "brave-installed.print",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "save page|save as"
+      ],
+      "shortcut": "Ctrl+S",
+      "description": "save this page.",
+      "priority": 100,
+      "command_id": "brave-installed.save-page",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "print using system dialog|system print"
+      ],
+      "shortcut": "Ctrl+Shift+P",
+      "description": "open the system print dialog.",
+      "priority": 100,
+      "command_id": "brave-installed.system-print-dialog",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "screenshot|capture"
+      ],
+      "shortcut": "Ctrl+Shift+S",
+      "description": "capture a screenshot.",
+      "priority": 100,
+      "command_id": "brave-installed.screenshot",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^find$|find in page"
+      ],
+      "shortcut": "Ctrl+F",
+      "description": "find text on this page.",
+      "priority": 100,
+      "command_id": "brave-installed.find",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "next match|next result"
+      ],
+      "shortcut": "Ctrl+G / F3",
+      "description": "go to the next find result.",
+      "priority": 100,
+      "command_id": "brave-installed.find-next",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "previous match|previous result"
+      ],
+      "shortcut": "Ctrl+Shift+G / Shift+F3",
+      "description": "go to the previous find result.",
+      "priority": 100,
+      "command_id": "brave-installed.find-previous",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "stop loading|^stop$"
+      ],
+      "shortcut": "Esc",
+      "description": "stop loading the page.",
+      "priority": 100,
+      "command_id": "brave-installed.stop-loading",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "zoom in"
+      ],
+      "shortcut": "Ctrl+= / Ctrl+Shift+=",
+      "description": "zoom in.",
+      "priority": 100,
+      "command_id": "brave-installed.zoom-in",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "reset zoom|100%"
+      ],
+      "shortcut": "Ctrl+0",
+      "description": "reset page zoom.",
+      "priority": 100,
+      "command_id": "brave-installed.zoom-reset",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "zoom out"
+      ],
+      "shortcut": "Ctrl+- / Ctrl+Shift+-",
+      "description": "zoom out.",
+      "priority": 100,
+      "command_id": "brave-installed.zoom-out",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "toolbar|browser controls"
+      ],
+      "shortcut": "Alt+Shift+T",
+      "description": "focus the first toolbar control.",
+      "priority": 100,
+      "command_id": "brave-installed.focus-toolbar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmarks bar"
+      ],
+      "shortcut": "Alt+Shift+B",
+      "description": "focus the bookmarks bar.",
+      "priority": 100,
+      "command_id": "brave-installed.focus-bookmarks",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "roles": [
+        "dialog|alert"
+      ],
+      "shortcut": "Alt+Shift+A",
+      "description": "focus an open browser dialog.",
+      "priority": 100,
+      "command_id": "brave-installed.focus-dialog",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "open file"
+      ],
+      "shortcut": "Ctrl+O",
+      "description": "open a local file.",
+      "priority": 100,
+      "command_id": "brave-installed.open-file",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "developer tools"
+      ],
+      "shortcut": "Ctrl+Shift+I",
+      "description": "open Developer Tools.",
+      "priority": 100,
+      "command_id": "brave-installed.developer-tools",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "javascript console|console"
+      ],
+      "shortcut": "Ctrl+Shift+J",
+      "description": "open the JavaScript console.",
+      "priority": 100,
+      "command_id": "brave-installed.javascript-console",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "show bookmarks bar|bookmarks bar"
+      ],
+      "shortcut": "Ctrl+Shift+B",
+      "description": "show or hide the bookmarks bar.",
+      "priority": 100,
+      "command_id": "brave-installed.bookmarks-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^history$|show.*history"
+      ],
+      "shortcut": "Ctrl+H",
+      "description": "open browsing history.",
+      "priority": 100,
+      "command_id": "brave-installed.history",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmark manager"
+      ],
+      "shortcut": "Ctrl+Shift+O",
+      "description": "open the Bookmarks Manager.",
+      "priority": 100,
+      "command_id": "brave-installed.bookmarks-manager",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^downloads?$|show.*downloads"
+      ],
+      "shortcut": "Ctrl+J",
+      "description": "open downloads.",
+      "priority": 100,
+      "command_id": "brave-installed.downloads",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "clear browsing data"
+      ],
+      "shortcut": "Ctrl+Shift+Delete",
+      "description": "open Clear Browsing Data.",
+      "priority": 100,
+      "command_id": "brave-installed.clear-browsing-data",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "^help$|help center"
+      ],
+      "shortcut": "F1",
+      "description": "open Brave Help.",
+      "priority": 100,
+      "command_id": "brave-installed.help",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "inspect|inspect element"
+      ],
+      "shortcut": "Ctrl+Shift+C",
+      "description": "inspect a page element.",
+      "priority": 100,
+      "command_id": "brave-installed.inspect-element",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "profile|account"
+      ],
+      "roles": [
+        "button|push button|menu item"
+      ],
+      "shortcut": "Ctrl+Shift+M",
+      "description": "open the profile menu.",
+      "priority": 100,
+      "command_id": "brave-installed.profile-menu",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "caret browsing"
+      ],
+      "shortcut": "F7",
+      "description": "toggle caret browsing.",
+      "priority": 100,
+      "command_id": "brave-installed.caret-browsing",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "task manager"
+      ],
+      "shortcut": "Shift+Esc",
+      "description": "open Brave Task Manager.",
+      "priority": 100,
+      "command_id": "brave-installed.task-manager",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "tab search|search tabs"
+      ],
+      "shortcut": "Ctrl+Shift+A",
+      "description": "search open tabs.",
+      "priority": 100,
+      "command_id": "brave-installed.tab-search",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "new private window with tor|new tor window"
+      ],
+      "shortcut": "Alt+Shift+N",
+      "description": "open a new Private window with Tor.",
+      "priority": 100,
+      "command_id": "brave-installed.new-tor-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "mute (site|tab)|unmute (site|tab)"
+      ],
+      "shortcut": "Ctrl+M",
+      "description": "mute or unmute the current tab.",
+      "priority": 100,
+      "command_id": "brave-installed.toggle-tab-mute",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "show sidebar|hide sidebar|toggle sidebar"
+      ],
+      "shortcut": "Ctrl+B",
+      "description": "show or hide the Brave sidebar.",
+      "priority": 100,
+      "command_id": "brave-installed.toggle-sidebar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "quick commands|command palette"
+      ],
+      "shortcut": "Ctrl+Space",
+      "description": "open Brave Quick Commands.",
+      "priority": 100,
+      "command_id": "brave-installed.quick-commands",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bnew window\\b"
+      ],
+      "shortcut": "Ctrl+N",
+      "description": "open a new window.",
+      "priority": 100,
+      "command_id": "brave.new-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bnew private (window|tab)\\b"
+      ],
+      "shortcut": "Ctrl+Shift+N",
+      "description": "open a new Private window.",
+      "priority": 100,
+      "command_id": "brave.new-private-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "reopen.*closed tab"
+      ],
+      "shortcut": "Ctrl+Shift+T",
+      "description": "reopen the last closed tab.",
+      "priority": 100,
+      "command_id": "brave.reopen-closed-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "close window|\\b(exit|quit)\\b"
+      ],
+      "shortcut": "Ctrl+Shift+W / Alt+F4",
+      "description": "close the current window.",
+      "priority": 100,
+      "command_id": "brave.close-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(back|previous)\\b"
+      ],
+      "shortcut": "Alt+Left",
+      "description": "go back.",
+      "priority": 100,
+      "command_id": "brave.back",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(forward|next)\\b"
+      ],
+      "shortcut": "Alt+Right",
+      "description": "go forward.",
+      "priority": 100,
+      "command_id": "brave.forward",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bhome\\b"
+      ],
+      "shortcut": "Alt+Home",
+      "description": "open the home page.",
+      "priority": 100,
+      "command_id": "brave.home",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "address|location|search.*(bar|box)|omnibox"
+      ],
+      "shortcut": "Ctrl+L",
+      "description": "focus the address bar.",
+      "priority": 100,
+      "command_id": "brave.address-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(reload|refresh)\\b"
+      ],
+      "shortcut": "Ctrl+R",
+      "description": "reload the page.",
+      "priority": 100,
+      "command_id": "brave.reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "hard reload|reload.*cache|empty cache"
+      ],
+      "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+      "description": "reload while ignoring cached content.",
+      "priority": 100,
+      "command_id": "brave.hard-reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(add )?bookmark( this (page|tab))?\\b"
+      ],
+      "shortcut": "Ctrl+D",
+      "description": "bookmark this page.",
+      "priority": 100,
+      "command_id": "brave.bookmark-page",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmark manager"
+      ],
+      "shortcut": "Ctrl+Shift+O",
+      "description": "open the Bookmarks Manager.",
+      "priority": 100,
+      "command_id": "brave.bookmarks-manager",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "bookmarks bar"
+      ],
+      "shortcut": "Ctrl+Shift+B",
+      "description": "show or hide the bookmarks bar.",
+      "priority": 100,
+      "command_id": "brave.bookmarks-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bhistory\\b"
+      ],
+      "shortcut": "Ctrl+H",
+      "description": "open browsing history.",
+      "priority": 100,
+      "command_id": "brave.history",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bdownloads?\\b"
+      ],
+      "shortcut": "Ctrl+J",
+      "description": "open downloads.",
+      "priority": 100,
+      "command_id": "brave.downloads",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bfind\\b"
+      ],
+      "shortcut": "Ctrl+F",
+      "description": "find text on this page.",
+      "priority": 100,
+      "command_id": "brave.find",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bprint\\b"
+      ],
+      "shortcut": "Ctrl+P",
+      "description": "print this page.",
+      "priority": 100,
+      "command_id": "brave.print",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bsave page\\b"
+      ],
+      "shortcut": "Ctrl+S",
+      "description": "save this page.",
+      "priority": 100,
+      "command_id": "brave.save-page",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "open file"
+      ],
+      "shortcut": "Ctrl+O",
+      "description": "open a local file.",
+      "priority": 100,
+      "command_id": "brave.open-file",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "developer tools"
+      ],
+      "shortcut": "Ctrl+Shift+J / F12",
+      "description": "open Developer Tools.",
+      "priority": 100,
+      "command_id": "brave.developer-tools",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "clear browsing data"
+      ],
+      "shortcut": "Ctrl+Shift+Delete",
+      "description": "open Clear Browsing Data.",
+      "priority": 100,
+      "command_id": "brave.clear-browsing-data",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\b(profile|account)\\b"
+      ],
+      "roles": [
+        "button|push button"
+      ],
+      "shortcut": "Ctrl+Shift+M",
+      "description": "open the profile menu.",
+      "priority": 100,
+      "command_id": "brave.profile-menu",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "task manager"
+      ],
+      "shortcut": "Shift+Esc",
+      "description": "open Brave Task Manager.",
+      "priority": 100,
+      "command_id": "brave.task-manager",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "zoom in"
+      ],
+      "shortcut": "Ctrl++",
+      "description": "zoom in.",
+      "priority": 100,
+      "command_id": "brave.zoom-in",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "zoom out"
+      ],
+      "shortcut": "Ctrl+-",
+      "description": "zoom out.",
+      "priority": 100,
+      "command_id": "brave.zoom-out",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "reset zoom|100%"
+      ],
+      "shortcut": "Ctrl+0",
+      "description": "reset page zoom.",
+      "priority": 100,
+      "command_id": "brave.zoom-reset",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "full.?screen"
+      ],
+      "shortcut": "F11",
+      "description": "toggle full-screen mode.",
+      "priority": 100,
+      "command_id": "brave.fullscreen",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "view (page )?source"
+      ],
+      "shortcut": "Ctrl+U",
+      "description": "view page source.",
+      "priority": 100,
+      "command_id": "brave.view-source",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "screenshot|capture"
+      ],
+      "shortcut": "Ctrl+Shift+S",
+      "description": "capture a screenshot.",
+      "priority": 100,
+      "command_id": "brave.screenshot",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "names": [
+        "\\bhelp( center)?\\b"
+      ],
+      "shortcut": "F1",
+      "description": "open Brave Help.",
+      "priority": 100,
+      "command_id": "brave.help",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "keyboard shortcuts"
+      ],
+      "shortcut": "Ctrl+/",
+      "description": "show all Signal keyboard shortcuts.",
+      "priority": 100,
+      "command_id": "signal-desktop.show-shortcuts",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "chat menu|conversation menu"
+      ],
+      "shortcut": "Ctrl+Shift+L",
+      "description": "open the current chat menu.",
+      "priority": 100,
+      "command_id": "signal-desktop.chat-menu",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "new (chat|conversation|message)"
+      ],
+      "shortcut": "Ctrl+N",
+      "description": "start a new chat.",
+      "priority": 100,
+      "command_id": "signal-desktop.new-chat",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "^search$|search signal"
+      ],
+      "shortcut": "Ctrl+F",
+      "description": "search Signal.",
+      "priority": 100,
+      "command_id": "signal-desktop.search",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "search.*(chat|conversation)"
+      ],
+      "shortcut": "Ctrl+Shift+F",
+      "description": "search within the current chat.",
+      "priority": 100,
+      "command_id": "signal-desktop.search-chat",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "all media|media view"
+      ],
+      "shortcut": "Ctrl+Shift+M",
+      "description": "open All Media.",
+      "priority": 100,
+      "command_id": "signal-desktop.all-media",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "emoji"
+      ],
+      "shortcut": "Ctrl+Shift+J",
+      "description": "open the emoji chooser.",
+      "priority": 100,
+      "command_id": "signal-desktop.emoji-chooser",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "sticker"
+      ],
+      "shortcut": "Ctrl+Shift+O",
+      "description": "open the sticker chooser.",
+      "priority": 100,
+      "command_id": "signal-desktop.sticker-chooser",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\bgif\\b"
+      ],
+      "shortcut": "Ctrl+Shift+G",
+      "description": "open the GIF chooser.",
+      "priority": 100,
+      "command_id": "signal-desktop.gif-chooser",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "voice (message|note)|record audio"
+      ],
+      "shortcut": "Ctrl+Shift+Y",
+      "description": "begin recording a voice message.",
+      "priority": 100,
+      "command_id": "signal-desktop.record-voice",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "^archive"
+      ],
+      "shortcut": "Ctrl+Shift+A",
+      "description": "archive the current chat.",
+      "priority": 100,
+      "command_id": "signal-desktop.archive-chat",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "unarchive"
+      ],
+      "shortcut": "Ctrl+Shift+U",
+      "description": "unarchive the current chat.",
+      "priority": 100,
+      "command_id": "signal-desktop.unarchive-chat",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "close (chat|conversation)"
+      ],
+      "shortcut": "Ctrl+Shift+C",
+      "description": "close the current chat.",
+      "priority": 100,
+      "command_id": "signal-desktop.close-chat",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "message details|info"
+      ],
+      "shortcut": "Ctrl+D",
+      "description": "view details for the selected message.",
+      "priority": 100,
+      "command_id": "signal-desktop.message-details",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\breply\\b"
+      ],
+      "shortcut": "Ctrl+Shift+R",
+      "description": "reply to the selected message.",
+      "priority": 100,
+      "command_id": "signal-desktop.reply",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "react|reaction"
+      ],
+      "shortcut": "Ctrl+Shift+E",
+      "description": "react to the selected message.",
+      "priority": 100,
+      "command_id": "signal-desktop.react",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "save attachment|download"
+      ],
+      "shortcut": "Ctrl+S",
+      "description": "save the selected attachment.",
+      "priority": 100,
+      "command_id": "signal-desktop.save-attachment",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\bforward\\b"
+      ],
+      "shortcut": "Ctrl+Shift+S",
+      "description": "forward selected messages.",
+      "priority": 100,
+      "command_id": "signal-desktop.forward-message",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "delete message"
+      ],
+      "shortcut": "Ctrl+Shift+D",
+      "description": "delete the selected message.",
+      "priority": 100,
+      "command_id": "signal-desktop.delete-message",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "attach|add attachment"
+      ],
+      "shortcut": "Ctrl+U",
+      "description": "attach a file.",
+      "priority": 100,
+      "command_id": "signal-desktop.attach-file",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\bbold\\b"
+      ],
+      "shortcut": "Ctrl+B",
+      "description": "format selected text as bold.",
+      "priority": 100,
+      "command_id": "signal-desktop.bold",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "\\bitalic\\b"
+      ],
+      "shortcut": "Ctrl+I",
+      "description": "format selected text as italic.",
+      "priority": 100,
+      "command_id": "signal-desktop.italic",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "strikethrough"
+      ],
+      "shortcut": "Ctrl+Shift+X",
+      "description": "format selected text as strikethrough.",
+      "priority": 100,
+      "command_id": "signal-desktop.strikethrough",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "monospace"
+      ],
+      "shortcut": "Ctrl+E",
+      "description": "format selected text as monospace.",
+      "priority": 100,
+      "command_id": "signal-desktop.monospace",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "spoiler"
+      ],
+      "shortcut": "Ctrl+Shift+B",
+      "description": "format selected text as a spoiler.",
+      "priority": 100,
+      "command_id": "signal-desktop.spoiler",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "mute|microphone"
+      ],
+      "shortcut": "Shift+M",
+      "description": "toggle microphone mute.",
+      "priority": 100,
+      "command_id": "signal-desktop.toggle-mute",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "video|camera"
+      ],
+      "shortcut": "Shift+V",
+      "description": "toggle video.",
+      "priority": 100,
+      "command_id": "signal-desktop.toggle-video",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "(voice|audio) call"
+      ],
+      "shortcut": "Alt+Shift+C",
+      "description": "start a voice call.",
+      "priority": 100,
+      "command_id": "signal-desktop.start-voice-call",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "video call"
+      ],
+      "shortcut": "Alt+Shift+Y",
+      "description": "start a video call.",
+      "priority": 100,
+      "command_id": "signal-desktop.start-video-call",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
+      ],
+      "names": [
+        "end call|hang up"
+      ],
+      "shortcut": "Alt+Shift+E",
+      "description": "end the call.",
+      "priority": 100,
+      "command_id": "signal-desktop.end-call",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "buttons": [
+        "right"
+      ],
+      "shortcut": "Shift+F10",
+      "description": "open the context menu."
+    },
+    {
+      "widgets": [
+        "^omarchy.menu$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Super+Space",
+      "description": "open the Omarchy menu."
+    },
+    {
+      "widgets": [
+        "^omarchy.workspaces$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Super+1…0 / Super+Tab",
+      "description": "switch workspaces directly or sequentially."
+    },
+    {
+      "surfaces": [
+        "^bar$"
+      ],
+      "panel_indexes": [
+        "^[1-9]$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Super+Ctrl+{panel_index}",
+      "description": "open the {widget_name} panel."
+    },
+    {
+      "namespaces": [
+        "^omarchy-menu$"
+      ],
+      "shortcut": "↑/↓ + Enter; Esc",
+      "description": "navigate, activate, or close the Omarchy menu."
+    },
+    {
+      "namespaces": [
+        "^omarchy-keyboard-panel$"
+      ],
+      "shortcut": "H/J/K/L or arrow keys + Enter; Esc",
+      "description": "navigate, activate, or close this Omarchy panel."
+    },
+    {
+      "namespaces": [
+        "^omarchy-(emojis|clipboard|image-picker)$"
+      ],
+      "shortcut": "Arrow keys + Enter; Esc",
+      "description": "navigate, activate, or close this Omarchy overlay."
+    },
+    {
+      "apps": [
+        "nautilus|org.gnome.nautilus"
+      ],
+      "names": [
+        "new folder"
+      ],
+      "shortcut": "Ctrl+Shift+N",
+      "description": "create a new folder."
+    },
+    {
+      "apps": [
+        "nautilus|org.gnome.nautilus"
+      ],
+      "names": [
+        "rename"
+      ],
+      "shortcut": "F2",
+      "description": "rename the selected item."
+    },
+    {
+      "apps": [
+        "nautilus|org.gnome.nautilus"
+      ],
+      "names": [
+        "\\b(back|previous)\\b"
+      ],
+      "shortcut": "Alt+Left",
+      "description": "go back."
+    },
+    {
+      "apps": [
+        "nautilus|org.gnome.nautilus"
+      ],
+      "names": [
+        "\\bhome\\b"
+      ],
+      "shortcut": "Alt+Home",
+      "description": "open the home folder."
+    },
+    {
+      "apps": [
+        "code|codium|cursor"
+      ],
+      "names": [
+        "new file"
+      ],
+      "shortcut": "Ctrl+N",
+      "description": "create a new file."
+    },
+    {
+      "apps": [
+        "code|codium|cursor"
+      ],
+      "names": [
+        "command palette"
+      ],
+      "shortcut": "Ctrl+Shift+P",
+      "description": "open the command palette."
+    },
+    {
+      "apps": [
+        "code|codium|cursor"
+      ],
+      "names": [
+        "extensions"
+      ],
+      "shortcut": "Ctrl+Shift+X",
+      "description": "open Extensions."
+    },
+    {
+      "apps": [
+        "code|codium|cursor"
+      ],
+      "names": [
+        "source control"
+      ],
+      "shortcut": "Ctrl+Shift+G",
+      "description": "open Source Control."
+    },
+    {
+      "names": [
+        "\\bcopy\\b"
+      ],
+      "shortcut": "Ctrl+C",
+      "description": "copy."
+    },
+    {
+      "names": [
+        "\\bpaste\\b"
+      ],
+      "shortcut": "Ctrl+V",
+      "description": "paste."
+    },
+    {
+      "names": [
+        "\\bcut\\b"
+      ],
+      "shortcut": "Ctrl+X",
+      "description": "cut."
+    },
+    {
+      "names": [
+        "\\bundo\\b"
+      ],
+      "shortcut": "Ctrl+Z",
+      "description": "undo."
+    },
+    {
+      "names": [
+        "\\bredo\\b"
+      ],
+      "shortcut": "Ctrl+Shift+Z",
+      "description": "redo."
+    },
+    {
+      "names": [
+        "\\bsave( as)?\\b"
+      ],
+      "shortcut": "Ctrl+S",
+      "description": "save."
+    },
+    {
+      "names": [
+        "\\bprint\\b"
+      ],
+      "shortcut": "Ctrl+P",
+      "description": "print."
+    },
+    {
+      "names": [
+        "\\b(find|search)\\b"
+      ],
+      "shortcut": "Ctrl+F",
+      "description": "find or search."
+    },
+    {
+      "names": [
+        "\\b(cancel|dismiss|close)\\b"
+      ],
+      "roles": [
+        "button|push button|menu item"
+      ],
+      "shortcut": "Esc",
+      "description": "dismiss this control."
+    },
+    {
+      "names": [
+        "\\b(ok|confirm|apply|submit)\\b"
+      ],
+      "roles": [
+        "button|push button"
+      ],
+      "shortcut": "Enter",
+      "description": "activate this control."
+    },
+    {
+      "roles": [
+        "^(check box|radio button|toggle button)$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Space",
+      "description": "toggle the focused control."
+    },
+    {
+      "roles": [
+        "^(button|push button|menu item)$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Enter or Space",
+      "description": "activate the focused control."
+    },
+    {
+      "roles": [
+        "^link$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Enter",
+      "description": "open the focused link."
+    },
+    {
+      "roles": [
+        "^(list item|tree item)$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Arrow keys + Enter",
+      "description": "select and open an item."
+    }
+  ],
+  "system_index": {}
 }
-
