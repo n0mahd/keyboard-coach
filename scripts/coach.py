@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import collections
 import fcntl
 import hashlib
 import json
@@ -13,6 +14,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import threading
 import time
 import traceback
 from typing import Any
@@ -914,11 +916,297 @@ def installed_widget_launcher_suggestion(context: dict[str, Any], button: str, c
     return None
 
 
+# --- herdr --------------------------------------------------------------------
+#
+# herdr draws its sidebar, tab bar and panes as terminal text, so the terminal
+# window has no accessible controls. herdr's API reports its state and every
+# focus and layout change instead: a click is resolved by what it changed, such
+# as the focused tab going from 1 to 3, which Alt+3 also does.
+
+HERDR_EVENTS = (
+    "workspace.created", "workspace.closed", "workspace.focused", "tab.created", "tab.closed", "tab.focused",
+    "pane.created", "pane.closed", "pane.focused", "layout.updated",
+)
+# How long before the daemon hears about a press herdr may already have acted
+# on it, and how long after the release its events may still arrive.
+HERDR_PRESS_LEAD_SECONDS = 0.3
+HERDR_RELEASE_SETTLE_SECONDS = 0.12
+
+
+def herdr_state(snapshot: dict[str, Any]) -> dict[str, Any]:
+    """The parts of a herdr session snapshot a click can change."""
+    return {
+        "workspace": snapshot.get("focused_workspace_id"),
+        "tab": snapshot.get("focused_tab_id"),
+        "pane": snapshot.get("focused_pane_id"),
+        "workspaces": [
+            {"id": item.get("workspace_id"), "number": item.get("number"), "label": item.get("label", "")}
+            for item in snapshot.get("workspaces", [])
+        ],
+        "tabs": [
+            {"id": item.get("tab_id"), "workspace": item.get("workspace_id"), "number": item.get("number"),
+             "label": item.get("label", "")}
+            for item in snapshot.get("tabs", [])
+        ],
+        "layouts": {
+            str(layout.get("tab_id")): {
+                "zoomed": bool(layout.get("zoomed")),
+                "panes": {str(pane.get("pane_id")): pane.get("rect", {}) for pane in layout.get("panes", [])},
+            }
+            for layout in snapshot.get("layouts", [])
+        },
+    }
+
+
+def _herdr_request(socket_path: str, method: str, params: dict[str, Any], timeout: float = 0.5) -> dict[str, Any]:
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
+        client.settimeout(timeout)
+        client.connect(socket_path)
+        stream = client.makefile("rwb")
+        stream.write(json.dumps({"id": "keyboard-coach", "method": method, "params": params}).encode() + b"\n")
+        stream.flush()
+        reply = json.loads(stream.readline() or b"{}")
+    if "result" not in reply:
+        raise OSError(f"herdr {method} failed: {reply.get('error')}")
+    return reply["result"]
+
+
+class HerdrWatcher:
+    """Follow one herdr server, keeping each state change with the state before it."""
+
+    def __init__(self, socket_path: str):
+        self.socket_path = socket_path
+        self.lock = threading.Lock()
+        self.state: dict[str, Any] | None = None
+        self.changes: collections.deque[tuple[float, dict[str, Any], dict[str, Any]]] = collections.deque(maxlen=64)
+        threading.Thread(target=self._run, name=f"herdr {socket_path}", daemon=True).start()
+
+    def _snapshot(self) -> dict[str, Any]:
+        return herdr_state(_herdr_request(self.socket_path, "session.snapshot", {}).get("snapshot", {}))
+
+    def _run(self) -> None:
+        while True:
+            try:
+                with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as events:
+                    events.connect(self.socket_path)
+                    stream = events.makefile("rwb")
+                    request = {"subscriptions": [{"type": event} for event in HERDR_EVENTS]}
+                    stream.write(json.dumps({"id": "keyboard-coach", "method": "events.subscribe", "params": request}).encode() + b"\n")
+                    stream.flush()
+                    stream.readline()
+                    self.state = self._snapshot()
+                    while stream.readline():
+                        # One action emits several events; each re-read only records a real change.
+                        state = self._snapshot()
+                        with self.lock:
+                            if self.state is not None and state != self.state:
+                                self.changes.append((time.monotonic(), self.state, state))
+                            self.state = state
+            except (OSError, ValueError):
+                pass
+            with self.lock:
+                self.state = None
+                self.changes.clear()
+            time.sleep(2)
+
+    def effect(self, since: float) -> dict[str, Any] | None:
+        """The state before the first change after `since`, and the state now."""
+        with self.lock:
+            recent = [change for change in self.changes if change[0] >= since]
+            if not recent or self.state is None:
+                return None
+            return {"before": recent[0][1], "after": self.state}
+
+
+_herdr_watchers: dict[str, HerdrWatcher] = {}
+
+
+def herdr_sessions() -> dict[str, str]:
+    """Running herdr session names and their API sockets."""
+    if not shutil.which("herdr"):
+        return {}
+    try:
+        output = subprocess.run(["herdr", "session", "list"], capture_output=True, text=True, timeout=2).stdout
+    except (OSError, subprocess.SubprocessError):
+        return {}
+    sessions = {}
+    for line in output.splitlines()[1:]:
+        fields = line.split()
+        if len(fields) >= 4 and fields[1] == "running" and fields[-1].endswith(".sock"):
+            sessions[fields[0]] = fields[-1]
+    return sessions
+
+
+def herdr_client_session(pid: int) -> str | None:
+    """The session a herdr client running under a terminal's process is attached to."""
+    pending, seen = [pid], set()
+    while pending and len(seen) < 256:
+        current = pending.pop()
+        if current in seen:
+            continue
+        seen.add(current)
+        try:
+            argv = Path(f"/proc/{current}/cmdline").read_bytes().split(b"\0")
+            children = [
+                int(child)
+                for task in Path(f"/proc/{current}/task").iterdir()
+                for child in (task / "children").read_text().split()
+            ]
+        except (OSError, ValueError):
+            continue
+        args = [arg.decode(errors="replace") for arg in argv if arg]
+        if args and os.path.basename(args[0]) == "herdr" and current != pid:
+            options = args[1:]
+            # Remote clients show another machine's server; other subcommands are not clients.
+            if "--remote" in options or "--no-session" in options:
+                return None
+            if "--session" in options and options.index("--session") + 1 < len(options):
+                return options[options.index("--session") + 1]
+            if options[:2] == ["session", "attach"] and len(options) >= 3:
+                return options[2]
+            return "default" if not options else None
+        pending.extend(children)
+    return None
+
+
+_herdr_session_sockets: dict[str, str] = {}
+
+
+def herdr_watcher(session: str) -> HerdrWatcher | None:
+    if session not in _herdr_session_sockets:
+        _herdr_session_sockets.update(herdr_sessions())
+    socket_path = _herdr_session_sockets.get(session)
+    if socket_path is None:
+        return None
+    if socket_path not in _herdr_watchers:
+        _herdr_watchers[socket_path] = HerdrWatcher(socket_path)
+    return _herdr_watchers[socket_path]
+
+
+def attach_herdr(context: dict[str, Any], pressed_at: float) -> None:
+    """Mark a click in a terminal running a herdr client, starting to follow its server."""
+    pid = int(context.get("pid") or 0)
+    if not pid or context.get("omarchy"):
+        return
+    session = herdr_client_session(pid)
+    if session is not None and herdr_watcher(session) is not None:
+        context["herdr"] = {"session": session, "pressed_at": pressed_at}
+
+
+def resolve_herdr_effect(context: dict[str, Any], released_at: float) -> None:
+    """Add the herdr state before and after the click, once its events have arrived."""
+    herdr = context.get("herdr")
+    if not herdr:
+        return
+    watcher = herdr_watcher(str(herdr.get("session")))
+    pressed_at = float(herdr.pop("pressed_at", released_at))
+    if watcher is None:
+        return
+    time.sleep(max(0.0, released_at + HERDR_RELEASE_SETTLE_SECONDS - time.monotonic()))
+    herdr.update(watcher.effect(pressed_at - HERDR_PRESS_LEAD_SECONDS) or {})
+
+
+def _herdr_neighbor(source: dict[str, Any], target: dict[str, Any], rects: list[dict[str, Any]]) -> str | None:
+    """The direction from `source` in which `target` is the only adjacent pane."""
+    def span(rect, axis):
+        start = rect.get("x" if axis == "x" else "y", 0)
+        return start, start + rect.get("width" if axis == "x" else "height", 0)
+
+    def adjacent(direction, rect):
+        across = "y" if direction in {"left", "right"} else "x"
+        along = "x" if across == "y" else "y"
+        (a0, a1), (b0, b1) = span(source, across), span(rect, across)
+        if min(a1, b1) <= max(a0, b0):
+            return None
+        (s0, s1), (r0, r1) = span(source, along), span(rect, along)
+        gap = r0 - s1 if direction in {"right", "down"} else s0 - r1
+        return gap if gap >= 0 else None
+
+    for direction in ("left", "right", "up", "down"):
+        gaps = [(adjacent(direction, rect), rect) for rect in rects if rect is not source]
+        gaps = [(gap, rect) for gap, rect in gaps if gap is not None]
+        if not gaps:
+            continue
+        nearest = min(gap for gap, _ in gaps)
+        closest = [rect for gap, rect in gaps if gap == nearest]
+        if closest == [target]:
+            return direction
+    return None
+
+
+def herdr_effect(before: dict[str, Any], after: dict[str, Any]) -> tuple[str, dict[str, Any]] | None:
+    """Name the herdr command that has the same effect as a click."""
+    workspaces = {item["id"]: item for item in after.get("workspaces", [])}
+    old_workspaces = {item["id"] for item in before.get("workspaces", [])}
+    tabs = {item["id"]: item for item in after.get("tabs", [])}
+    old_tabs = {item["id"] for item in before.get("tabs", [])}
+    if after.get("workspace") != before.get("workspace"):
+        if after.get("workspace") not in old_workspaces:
+            return "New workspace", {}
+        if before.get("workspace") not in workspaces:
+            return "Close workspace", {}
+        target = workspaces[after["workspace"]]
+        offset = int(target.get("number") or 0) - int(workspaces[before["workspace"]].get("number") or 0)
+        if offset == -1:
+            return "Previous workspace", {}
+        if offset == 1:
+            return "Next workspace", {}
+        return "Workspace picker", {"label": target.get("label") or str(target.get("number"))}
+    if after.get("tab") != before.get("tab"):
+        if after.get("tab") not in old_tabs:
+            return "New tab", {}
+        if before.get("tab") not in tabs:
+            return "Close tab", {}
+        number = int(tabs[after["tab"]].get("number") or 0)
+        return ("Switch tab", {"number": number}) if 1 <= number <= 9 else None
+    layout, old_layout = after.get("layouts", {}).get(str(after.get("tab"))), before.get("layouts", {}).get(str(before.get("tab")))
+    if not layout or not old_layout:
+        return None
+    if after.get("pane") != before.get("pane"):
+        if before.get("pane") not in layout["panes"]:
+            return "Close pane", {}
+        if after.get("pane") not in old_layout["panes"]:
+            return None
+        rects = list(layout["panes"].values())
+        direction = _herdr_neighbor(layout["panes"][before["pane"]], layout["panes"][after["pane"]], rects)
+        return (f"Focus pane {direction}", {}) if direction else None
+    if layout["zoomed"] != old_layout["zoomed"]:
+        return "Zoom", {}
+    return None
+
+
+def herdr_suggestion(context: dict[str, Any], catalog: dict[str, Any]) -> str | None:
+    herdr = context.get("herdr") or {}
+    if not herdr.get("before") or not herdr.get("after"):
+        return None
+    effect = herdr_effect(herdr["before"], herdr["after"])
+    if effect is None:
+        return None
+    title, details = effect
+    entry = next((app for app in (catalog.get("harvested") or {}).get("apps", []) if app.get("id") == "herdr"), None)
+    shortcut = next(
+        (item for item in (entry or {}).get("shortcuts", []) if item.get("title") == title and not item.get("section")), None,
+    )
+    if shortcut is None or not shortcut.get("keys"):
+        return None
+    keys = list(shortcut["keys"])
+    if "number" in details:
+        keys = [key.replace("1..9", str(details["number"])) for key in keys]
+    # Direct chords first: they are one keystroke instead of prefix and key.
+    keys.sort(key=lambda key: ", " in key)
+    description = {
+        "Switch tab": f"switch to tab {details.get('number')}",
+        "Workspace picker": f"open the workspace picker, then choose {details.get('label')}",
+    }.get(title, title[0].lower() + title[1:])
+    return f"{' / '.join(keys[:2])} — {description}."
+
+
 def deterministic_suggestion(
     context: dict[str, Any], button: str, catalog: dict[str, Any] | None = None,
 ) -> tuple[str | None, str]:
     catalog = catalog if catalog is not None else load_catalog()
     for source, resolve in (
+        ("herdr", lambda: herdr_suggestion(context, catalog) if button == "left" else None),
         ("catalog", lambda: catalog_suggestion(context, button, catalog, app_commands_only=True)),
         ("system", lambda: indexed_system_suggestion(context, catalog, button)),
         ("app", lambda: exposed_shortcut(context.get("target", {})) if button == "left" else None),
@@ -960,6 +1248,7 @@ def snapshot_click(button: str, catalog: dict[str, Any]) -> int:
     try:
         snapshot = {"time": time.time(), "context": current_context(catalog)}
         snapshot["context"]["capture_ms"] = round((time.monotonic() - started) * 1000)
+        attach_herdr(snapshot["context"], started)
     except HyprlandUnavailable as error:
         log(str(error))
         return 0
@@ -988,6 +1277,7 @@ def _write_private(path: Path, text: str) -> None:
 def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
     if paused():
         return 0
+    released_at = time.monotonic()
     run_dir = runtime_dir()
     with (run_dir / "worker.lock").open("w") as lock:
         try:
@@ -1000,6 +1290,7 @@ def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
         except HyprlandUnavailable as error:
             log(str(error))
             return 0
+        resolve_herdr_effect(context, released_at)
         suggestion, source = deterministic_suggestion(context, button, catalog)
         _write_private(run_dir / "last-context.json", json.dumps({"button": button, "context": context}, indent=2))
         (run_dir / "last-suggestion").write_text(suggestion or "", encoding="utf-8")
@@ -1155,6 +1446,10 @@ def serve() -> int:
     server.bind(str(socket_path))
     socket_path.chmod(0o600)
     server.settimeout(5)
+    # Follow running herdr sessions from the start, so the first click in one
+    # already has the state before it.
+    for session in herdr_sessions():
+        herdr_watcher(session)
     catalog = load_catalog()
     observed = observed_stamp()
     signature = discovery_signature()

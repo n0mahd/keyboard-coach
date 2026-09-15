@@ -19,6 +19,12 @@ pointer before the UI can change:
   into window-local coordinates, and scaled inside Chromium/Electron web documents, which publish
   physical pixels. Controls inside a web page are marked as page content and carry the page host.
 
+- **herdr.** herdr draws its sidebar, tabs and panes as terminal text, which has no accessible
+  controls. When the window runs a herdr client, the daemon follows that session's API events and
+  resolves the click by what it changed: focusing tab 3 is `Alt+3`, the next workspace in the
+  sidebar is `Alt+Down`, the pane to the left is `Ctrl+Alt+Left`. Keys come from the herdr
+  shortcut index, so they follow your `config.toml`.
+
 The first matching source wins:
 
 1. App command packs from `assets/commands/` and `~/.config/keyboard-coach/commands/`, plus

@@ -267,6 +267,8 @@ fn lazygit_key(value: &str) -> Option<String> {
 
 /// Output of Omarchy's `omarchy-menu-{tmux,herdr}-keybindings --print`:
 /// `PREFIX + c   → Create window`, with the first line defining PREFIX.
+/// Alternatives are separated by ` / ` (`PREFIX + P / ALT + LEFT`), and a
+/// digit range keeps its `1..9` form (`ALT + 1..9`).
 pub fn omarchy_menu(text: &str) -> Vec<Shortcut> {
     let mut prefix: Option<String> = None;
     let mut shortcuts = Vec::new();
@@ -277,28 +279,43 @@ pub fn omarchy_menu(text: &str) -> Vec<Shortcut> {
             prefix = title.split(" / ").next().and_then(omarchy_chord);
             continue;
         }
-        let (mode, chord_text) = match binding.split_once(" + ") {
-            Some((mode, rest)) if mode.chars().all(|c| c.is_ascii_uppercase() || c == ' ') && modifier_word(mode).is_none() => {
-                (Some(mode), rest)
+        let mut keys = Vec::new();
+        let mut section = None;
+        for alternative in binding.split(" / ") {
+            let Some((key, mode)) = omarchy_binding(alternative.trim(), prefix.as_deref()) else { continue };
+            if keys.is_empty() {
+                section = mode;
             }
-            _ => (None, binding),
-        };
-        let Some(chord) = omarchy_chord(chord_text) else { continue };
-        let (rendered, section) = match mode {
-            Some("PREFIX") => match &prefix {
-                Some(prefix) => (format!("{prefix}, {chord}"), None),
-                None => continue,
-            },
-            Some(mode) => {
-                let name = upper_first(&mode.to_lowercase());
-                let section = if name.ends_with(" mode") { name } else { format!("{name} mode") };
-                (chord, Some(section))
+            if !keys.contains(&key) {
+                keys.push(key);
             }
-            None => (chord, None),
-        };
-        shortcuts.push(Shortcut { title: title.to_string(), keys: vec![rendered], aliases: Vec::new(), section, action: None, site: None });
+        }
+        if keys.is_empty() {
+            continue;
+        }
+        shortcuts.push(Shortcut { title: title.to_string(), keys, aliases: Vec::new(), section, action: None, site: None });
     }
     shortcuts
+}
+
+/// One alternative of a menu binding, rendered, with the mode it needs.
+fn omarchy_binding(binding: &str, prefix: Option<&str>) -> Option<(String, Option<String>)> {
+    let (mode, chord_text) = match binding.split_once(" + ") {
+        Some((mode, rest)) if mode.chars().all(|c| c.is_ascii_uppercase() || c == ' ') && modifier_word(mode).is_none() => {
+            (Some(mode), rest)
+        }
+        _ => (None, binding),
+    };
+    let chord = omarchy_chord(chord_text)?;
+    Some(match mode {
+        Some("PREFIX") => (format!("{}, {chord}", prefix?), None),
+        Some(mode) => {
+            let name = upper_first(&mode.to_lowercase());
+            let section = if name.ends_with(" mode") { name } else { format!("{name} mode") };
+            (chord, Some(section))
+        }
+        None => (chord, None),
+    })
 }
 
 fn modifier_word(word: &str) -> Option<keys::Modifier> {
@@ -415,6 +432,20 @@ mod tests {
             ("Create window", "Ctrl+Space, c", None),
             ("Resize pane left", "Ctrl+Alt+Shift+Left", None),
             ("Begin selection", "v", Some("Copy mode".to_string())),
+        ]);
+    }
+
+    #[test]
+    fn omarchy_menu_alternatives_and_ranges() {
+        let text = "PREFIX                           → CTRL + SPACE\nPREFIX + P / ALT + LEFT          → Previous tab\nPREFIX + 1..9 / ALT + 1..9       → Switch tab\nPREFIX + X / ALT + ESC           → Close pane\n";
+
+        let shortcuts = omarchy_menu(text);
+
+        let rows: Vec<_> = shortcuts.iter().map(|s| (s.title.as_str(), s.keys.join(" / "))).collect();
+        assert_eq!(rows, vec![
+            ("Previous tab", "Ctrl+Space, P / Alt+Left".to_string()),
+            ("Switch tab", "Ctrl+Space, 1..9 / Alt+1..9".to_string()),
+            ("Close pane", "Ctrl+Space, X / Alt+Esc".to_string()),
         ]);
     }
 }

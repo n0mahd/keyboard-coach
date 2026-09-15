@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
 import importlib.util
+import json
 from pathlib import Path
+import socket
+import tempfile
+import threading
+import time
 import unittest
 
 
@@ -378,6 +383,100 @@ class ClickSequenceTest(unittest.TestCase):
 
         rendered = [[call[0], json.loads(call[1])["message"]] if call[0] == "show" else call for call in calls]
         self.assertEqual(rendered, [["show", "k — Play."], ["show", "Ctrl+B — Sidebar."], ["close"]])
+
+
+class FakeHerdrServer:
+    """A herdr API socket that serves snapshots and pushes an event on demand."""
+
+    def __init__(self, path):
+        self.snapshot = {"focused_workspace_id": "w1", "focused_tab_id": "w1:t1", "focused_pane_id": "w1:p1", "tabs": [], "workspaces": [], "layouts": []}
+        self.subscribers = []
+        self.server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.server.bind(path)
+        self.server.listen()
+        threading.Thread(target=self._accept, daemon=True).start()
+
+    def _accept(self):
+        while True:
+            try:
+                connection, _ = self.server.accept()
+            except OSError:
+                return
+            threading.Thread(target=self._serve, args=(connection,), daemon=True).start()
+
+    def _serve(self, connection):
+        stream = connection.makefile("rwb")
+        request = json.loads(stream.readline())
+        if request["method"] == "session.snapshot":
+            reply = {"type": "session_snapshot", "snapshot": self.snapshot}
+        else:
+            reply = {"type": "subscription_started"}
+            self.subscribers.append(stream)
+        stream.write(json.dumps({"id": request["id"], "result": reply}).encode() + b"\n")
+        stream.flush()
+        if request["method"] == "session.snapshot":
+            connection.close()
+
+    def focus_tab(self, tab):
+        self.snapshot = {**self.snapshot, "focused_tab_id": tab}
+        for stream in self.subscribers:
+            stream.write(b'{"event":"tab_focused","data":{}}\n')
+            stream.flush()
+
+    def close(self):
+        self.server.close()
+
+
+class HerdrTest(unittest.TestCase):
+    def wait_for(self, condition):
+        deadline = time.monotonic() + 2
+        while not condition():
+            self.assertLess(time.monotonic(), deadline)
+            time.sleep(0.01)
+
+    def test_watcher_reports_the_state_before_a_click_changed_it(self):
+        with tempfile.TemporaryDirectory() as directory:
+            server = FakeHerdrServer(f"{directory}/herdr.sock")
+            try:
+                watcher = coach.HerdrWatcher(f"{directory}/herdr.sock")
+                self.wait_for(lambda: watcher.state is not None and server.subscribers)
+                self.assertIsNone(watcher.effect(0))
+
+                pressed_at = time.monotonic()
+                server.focus_tab("w1:t2")
+                self.wait_for(lambda: watcher.state["tab"] == "w1:t2")
+
+                effect = watcher.effect(pressed_at)
+                self.assertEqual((effect["before"]["tab"], effect["after"]["tab"]), ("w1:t1", "w1:t2"))
+                self.assertIsNone(watcher.effect(time.monotonic()))
+            finally:
+                server.close()
+
+    def test_client_session_from_the_terminal_process_tree(self):
+        with tempfile.TemporaryDirectory() as directory:
+            proc = Path(directory)
+
+            def process(pid, argv, children=()):
+                (proc / str(pid) / "task" / str(pid)).mkdir(parents=True)
+                (proc / str(pid) / "cmdline").write_bytes(b"\0".join(arg.encode() for arg in argv) + b"\0")
+                (proc / str(pid) / "task" / str(pid) / "children").write_text(" ".join(map(str, children)))
+
+            process(10, ["foot"], [11])
+            process(11, ["/bin/bash"], [12])
+            process(12, ["herdr", "--session", "work"])
+            process(20, ["foot"], [21])
+            process(21, ["herdr", "--remote", "pi"])
+            process(30, ["foot"], [31])
+            process(31, ["/usr/bin/herdr"])
+
+            real_path = coach.Path
+            coach.Path = lambda value: real_path(str(value).replace("/proc", directory, 1))
+            try:
+                self.assertEqual(coach.herdr_client_session(10), "work")
+                self.assertIsNone(coach.herdr_client_session(20))
+                self.assertEqual(coach.herdr_client_session(30), "default")
+            finally:
+                coach.Path = real_path
 
 
 class CoverageTest(unittest.TestCase):

@@ -4001,6 +4001,323 @@
         ]
       },
       {
+        "id": "herdr",
+        "name": "Herdr",
+        "classes": [],
+        "processes": [
+          "herdr"
+        ],
+        "toolkit": "terminal",
+        "sources": [],
+        "shortcuts": [
+          {
+            "title": "Help",
+            "keys": [
+              "Ctrl+Space, ?"
+            ]
+          },
+          {
+            "title": "Settings",
+            "keys": [
+              "Ctrl+Space, S"
+            ]
+          },
+          {
+            "title": "Detach",
+            "keys": [
+              "Ctrl+Space, D"
+            ]
+          },
+          {
+            "title": "Reload config",
+            "keys": [
+              "Ctrl+Space, Q"
+            ]
+          },
+          {
+            "title": "Open notification target",
+            "keys": [
+              "Ctrl+Space, O"
+            ]
+          },
+          {
+            "title": "Workspace picker",
+            "keys": [
+              "Ctrl+Space, W"
+            ]
+          },
+          {
+            "title": "Goto",
+            "keys": [
+              "Ctrl+Space, G"
+            ]
+          },
+          {
+            "title": "New workspace",
+            "keys": [
+              "Ctrl+Space, Shift+C"
+            ]
+          },
+          {
+            "title": "New worktree",
+            "keys": [
+              "Ctrl+Space, Shift+G"
+            ]
+          },
+          {
+            "title": "Rename workspace",
+            "keys": [
+              "Ctrl+Space, Shift+R"
+            ]
+          },
+          {
+            "title": "Close workspace",
+            "keys": [
+              "Ctrl+Space, Shift+K"
+            ]
+          },
+          {
+            "title": "Previous workspace",
+            "keys": [
+              "Ctrl+Space, Shift+P",
+              "Alt+Up"
+            ]
+          },
+          {
+            "title": "Next workspace",
+            "keys": [
+              "Ctrl+Space, Shift+N",
+              "Alt+Down"
+            ]
+          },
+          {
+            "title": "Remote image paste",
+            "keys": [
+              "Ctrl+V"
+            ]
+          },
+          {
+            "title": "New tab",
+            "keys": [
+              "Ctrl+Space, C"
+            ]
+          },
+          {
+            "title": "Rename tab",
+            "keys": [
+              "Ctrl+Space, R"
+            ]
+          },
+          {
+            "title": "Previous tab",
+            "keys": [
+              "Ctrl+Space, P",
+              "Alt+Left"
+            ]
+          },
+          {
+            "title": "Next tab",
+            "keys": [
+              "Ctrl+Space, N",
+              "Alt+Right"
+            ]
+          },
+          {
+            "title": "Move tab previous",
+            "keys": [
+              "Alt+Shift+Left"
+            ]
+          },
+          {
+            "title": "Move tab next",
+            "keys": [
+              "Alt+Shift+Right"
+            ]
+          },
+          {
+            "title": "Switch tab",
+            "keys": [
+              "Ctrl+Space, 1..9",
+              "Alt+1..9"
+            ]
+          },
+          {
+            "title": "Close tab",
+            "keys": [
+              "Ctrl+Space, K"
+            ]
+          },
+          {
+            "title": "Rename pane",
+            "keys": [
+              "Ctrl+Space, Shift+O"
+            ]
+          },
+          {
+            "title": "Edit scrollback",
+            "keys": [
+              "Ctrl+Space, E"
+            ]
+          },
+          {
+            "title": "Focus pane left",
+            "keys": [
+              "Ctrl+Alt+Left"
+            ]
+          },
+          {
+            "title": "Focus pane down",
+            "keys": [
+              "Ctrl+Alt+Down"
+            ]
+          },
+          {
+            "title": "Focus pane up",
+            "keys": [
+              "Ctrl+Alt+Up"
+            ]
+          },
+          {
+            "title": "Focus pane right",
+            "keys": [
+              "Ctrl+Alt+Right"
+            ]
+          },
+          {
+            "title": "Cycle pane next",
+            "keys": [
+              "Ctrl+Space, Tab"
+            ]
+          },
+          {
+            "title": "Cycle pane previous",
+            "keys": [
+              "Ctrl+Space, Shift+Tab"
+            ]
+          },
+          {
+            "title": "Last pane",
+            "keys": [
+              "Ctrl+Space, ;"
+            ]
+          },
+          {
+            "title": "Split vertical",
+            "keys": [
+              "Ctrl+Space, V",
+              "Alt+Shift+Enter"
+            ]
+          },
+          {
+            "title": "Split horizontal",
+            "keys": [
+              "Ctrl+Space, H",
+              "Alt+Enter"
+            ]
+          },
+          {
+            "title": "Close pane",
+            "keys": [
+              "Ctrl+Space, X",
+              "Alt+Esc"
+            ]
+          },
+          {
+            "title": "Zoom",
+            "keys": [
+              "Ctrl+Space, Z"
+            ]
+          },
+          {
+            "title": "Resize mode",
+            "keys": [
+              "Ctrl+Space, Ctrl+Left",
+              "Ctrl+Space, Ctrl+Down",
+              "Ctrl+Space, Ctrl+Up",
+              "Ctrl+Space, Ctrl+Right"
+            ]
+          },
+          {
+            "title": "Resize pane left",
+            "keys": [
+              "Ctrl+Alt+Shift+Left"
+            ]
+          },
+          {
+            "title": "Resize pane down",
+            "keys": [
+              "Ctrl+Alt+Shift+Down"
+            ]
+          },
+          {
+            "title": "Resize pane up",
+            "keys": [
+              "Ctrl+Alt+Shift+Up"
+            ]
+          },
+          {
+            "title": "Resize pane right",
+            "keys": [
+              "Ctrl+Alt+Shift+Right"
+            ]
+          },
+          {
+            "title": "Toggle sidebar",
+            "keys": [
+              "Ctrl+Space, B"
+            ]
+          },
+          {
+            "title": "Workspace up",
+            "keys": [
+              "Up"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Workspace down",
+            "keys": [
+              "Down"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Pane left",
+            "keys": [
+              "H"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Pane down",
+            "keys": [
+              "J"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Pane up",
+            "keys": [
+              "K"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Pane right",
+            "keys": [
+              "L"
+            ],
+            "section": "Navigate mode"
+          },
+          {
+            "title": "Copy mode",
+            "keys": [
+              "Ctrl+Space, ["
+            ]
+          }
+        ]
+      },
+      {
         "id": "linguist",
         "name": "linguist",
         "classes": [

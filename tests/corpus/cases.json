@@ -1258,6 +1258,1590 @@
     "suggestion": null,
     "source": "none"
    }
+  },
+  {
+   "name": "herdr click on a tab switches to it by number",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w1",
+      "tab": "w1:t3",
+      "pane": "w1:p5",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+3 / Ctrl+Space, 3 — switch to tab 3.",
+    "source": "herdr"
+   }
+  },
+  {
+   "name": "herdr click on the next workspace in the sidebar",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w2",
+      "tab": "w2:t1",
+      "pane": "w2:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+Down / Ctrl+Space, Shift+N — next workspace.",
+    "source": "herdr"
+   }
+  },
+  {
+   "name": "herdr click on a distant workspace opens the picker",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w3",
+      "tab": "w3:t1",
+      "pane": "w3:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Space, W — open the workspace picker, then choose bluetooth.",
+    "source": "herdr"
+   }
+  },
+  {
+   "name": "herdr click on the pane to the left",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p2",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Alt+Left — focus pane left.",
+    "source": "herdr"
+   }
+  },
+  {
+   "name": "herdr click on one of two panes to the right has no single direction",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p3",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "herdr click inside a pane that changes nothing",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy-air: keyboard-coach",
+    "pid": 4242,
+    "omarchy": {},
+    "target": {},
+    "herdr": {
+     "session": "default",
+     "before": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     },
+     "after": {
+      "workspace": "w1",
+      "tab": "w1:t1",
+      "pane": "w1:p1",
+      "workspaces": [
+       {
+        "id": "w1",
+        "number": 1,
+        "label": "keyboard-coach"
+       },
+       {
+        "id": "w2",
+        "number": 2,
+        "label": "raspberry pi"
+       },
+       {
+        "id": "w3",
+        "number": 3,
+        "label": "bluetooth"
+       }
+      ],
+      "tabs": [
+       {
+        "id": "w1:t1",
+        "workspace": "w1",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w1:t2",
+        "workspace": "w1",
+        "number": 2,
+        "label": "logs"
+       },
+       {
+        "id": "w1:t3",
+        "workspace": "w1",
+        "number": 3,
+        "label": "tests"
+       },
+       {
+        "id": "w2:t1",
+        "workspace": "w2",
+        "number": 1,
+        "label": "1"
+       },
+       {
+        "id": "w3:t1",
+        "workspace": "w3",
+        "number": 1,
+        "label": "1"
+       }
+      ],
+      "layouts": {
+       "w1:t1": {
+        "zoomed": false,
+        "panes": {
+         "w1:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 40,
+          "height": 42
+         },
+         "w1:p2": {
+          "x": 68,
+          "y": 1,
+          "width": 40,
+          "height": 21
+         },
+         "w1:p3": {
+          "x": 68,
+          "y": 23,
+          "width": 40,
+          "height": 20
+         }
+        }
+       },
+       "w1:t2": {
+        "zoomed": false,
+        "panes": {
+         "w1:p4": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w1:t3": {
+        "zoomed": false,
+        "panes": {
+         "w1:p5": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w2:t1": {
+        "zoomed": false,
+        "panes": {
+         "w2:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       },
+       "w3:t1": {
+        "zoomed": false,
+        "panes": {
+         "w3:p1": {
+          "x": 27,
+          "y": 1,
+          "width": 81,
+          "height": 42
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
   }
  ]
 }
