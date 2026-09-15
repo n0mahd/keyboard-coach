@@ -1,0 +1,122 @@
+{
+ "schema_version": 1,
+ "generated_at": 0,
+ "apps": [
+  {
+   "id": "libreoffice-writer",
+   "name": "LibreOffice Writer",
+   "classes": [
+    "libreoffice-writer"
+   ],
+   "toolkit": "libreoffice",
+   "sources": [],
+   "shortcuts": [
+    {
+     "title": "Bold",
+     "keys": [
+      "Ctrl+B"
+     ],
+     "action": ".uno:Bold"
+    },
+    {
+     "title": "Center",
+     "keys": [
+      "Ctrl+E"
+     ],
+     "aliases": [
+      "Align Center"
+     ],
+     "action": ".uno:CenterPara"
+    },
+    {
+     "title": "Save",
+     "keys": [
+      "Ctrl+S"
+     ],
+     "action": ".uno:Save"
+    },
+    {
+     "title": "Save As...",
+     "keys": [
+      "Ctrl+Shift+S"
+     ],
+     "action": ".uno:SaveAs"
+    }
+   ]
+  },
+  {
+   "id": "org.gnome.Nautilus",
+   "name": "Files",
+   "classes": [
+    "nautilus",
+    "org.gnome.nautilus"
+   ],
+   "toolkit": "libadwaita",
+   "sources": [],
+   "shortcuts": [
+    {
+     "title": "Create Folder",
+     "keys": [
+      "Ctrl+Shift+N"
+     ]
+    },
+    {
+     "title": "Show/Hide Hidden Files",
+     "keys": [
+      "Ctrl+H"
+     ]
+    },
+    {
+     "title": "Go Back",
+     "keys": [
+      "Alt+Left"
+     ],
+     "section": "Navigation"
+    },
+    {
+     "title": "Search Current Folder",
+     "keys": [
+      "Ctrl+F"
+     ],
+     "section": "Search"
+    }
+   ]
+  },
+  {
+   "id": "t3code",
+   "name": "T3 Code",
+   "classes": [
+    "t3-code.appimage",
+    "t3code"
+   ],
+   "toolkit": "electron",
+   "sources": [],
+   "shortcuts": [
+    {
+     "title": "Toggle sidebar",
+     "keys": [
+      "Ctrl+B"
+     ],
+     "aliases": [
+      "Toggle main sidebar",
+      "Sidebar: Toggle"
+     ],
+     "action": "sidebar.toggle"
+    },
+    {
+     "title": "New thread",
+     "keys": [
+      "Ctrl+N",
+      "Ctrl+Shift+O"
+     ],
+     "aliases": [
+      "New chat",
+      "Chat: New"
+     ],
+     "section": "!terminalFocus",
+     "action": "chat.new"
+    }
+   ]
+  }
+ ]
+}

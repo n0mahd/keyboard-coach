@@ -1,7 +1,7 @@
 {
   "name": "keyboard-coach",
   "version": "0.1.0+codex.20260913192528",
-  "description": "Suggest Luna-powered keyboard shortcuts after mouse actions.",
+  "description": "Suggest deterministic keyboard shortcuts after mouse actions.",
   "author": {
     "name": "n0mahd"
   },
@@ -10,10 +10,10 @@
   "interface": {
     "displayName": "Keyboard Coach",
     "shortDescription": "Turn mouse actions into keyboard shortcut suggestions.",
-    "longDescription": "Matches semantic mouse actions against app shortcuts, asks GPT Luna only when the catalog has no answer, and displays the suggestion in an Omarchy banner.",
+    "longDescription": "Identifies the clicked control through Hyprland and AT-SPI, matches it against indexed Omarchy bindings and sourced app shortcut packs, and displays the suggestion in an Omarchy banner. Unmatched clicks stay silent and are logged for coverage work.",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "Configure Keyboard Coach to explain mouse actions with Luna-powered keyboard shortcuts."
+    "defaultPrompt": "Help me extend Keyboard Coach's shortcut coverage."
   }
 }

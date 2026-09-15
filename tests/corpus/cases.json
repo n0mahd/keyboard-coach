@@ -1,0 +1,1263 @@
+{
+ "schema_version": 1,
+ "description": "Click contexts and the suggestion each must produce against tests/corpus/catalog.json. A null suggestion means the coach must stay silent. Shared by every implementation.",
+ "cases": [
+  {
+   "name": "brave toolbar back button",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Back",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+Left — go back.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave tab in the first eight gets a direct shortcut",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "page tab",
+     "name": "Example",
+     "description": "",
+     "actions": [],
+     "in_document": false,
+     "position": 3,
+     "set_size": 5,
+     "is_last": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+3 — switch directly to tab 3.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave last tab beyond eight",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "page tab",
+     "name": "Example",
+     "description": "",
+     "actions": [],
+     "in_document": false,
+     "position": 12,
+     "set_size": 12,
+     "is_last": true
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+9 — switch directly to the last tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave middle tab beyond eight cycles",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "page tab",
+     "name": "Example",
+     "description": "",
+     "actions": [],
+     "in_document": false,
+     "position": 10,
+     "set_size": 14,
+     "is_last": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Tab / Ctrl+Shift+Tab — switch to the next or previous tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave menu button ignores the incidental Escape binding",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "More options",
+     "description": "",
+     "in_document": false,
+     "actions": [
+      {
+       "name": "click",
+       "description": "",
+       "key_binding": "Escape"
+      }
+     ]
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F / Alt+E — open the Brave main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave settings menu item",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Settings",
+     "description": "",
+     "in_document": false,
+     "actions": [
+      {
+       "name": "click",
+       "key_binding": "Escape"
+      }
+     ]
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F, then S — open Brave Settings from the main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave new tab button",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "New tab",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+T — open a new tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave address bar",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "entry",
+     "name": "Address and search bar",
+     "description": "",
+     "actions": [],
+     "key_shortcuts": "Ctrl+L",
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+L / Alt+D — focus the address bar.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "web pagination link named Previous is not browser back",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Results - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "Previous",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web link named Back to results is not browser back",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Results - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "Back to results",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web link containing console is not devtools",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Google Cloud - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "Google Cloud Console",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "cloud.google.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web save button is not Ctrl+S",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Settings - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Save changes",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "github.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web account settings link is not Brave settings",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Account - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "Account settings",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web search button is not find in page",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "YouTube - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Search",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "www.youtube.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web copy button is not clipboard copy",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Docs - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Copy",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "docs.example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "site-declared aria-keyshortcuts are suggested",
+   "button": "left",
+   "context": {
+    "app": "brave-chatgpt.com__-Default",
+    "title": "ChatGPT",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "New chat",
+     "description": "",
+     "actions": [],
+     "key_shortcuts": "Control+Shift+O",
+     "in_document": true,
+     "site": "chatgpt.com"
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Shift+O — New chat.",
+    "source": "app"
+   }
+  },
+  {
+   "name": "right click on a web link",
+   "button": "right",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "link",
+     "name": "Docs",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": "Shift+F10 / Menu — open the context menu for the focused item.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "signal chat list item",
+   "button": "left",
+   "context": {
+    "app": "signal",
+    "title": "Signal",
+    "omarchy": {},
+    "target": {
+     "role": "list item",
+     "name": "Ada",
+     "description": "",
+     "actions": [],
+     "in_document": true
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+Up / Alt+Down — switch to the previous or next chat.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "signal message text mentioning video is not a call control",
+   "button": "left",
+   "context": {
+    "app": "signal",
+    "title": "Signal",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Watch this video",
+     "description": "",
+     "actions": [],
+     "in_document": true
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "signal video call button",
+   "button": "left",
+   "context": {
+    "app": "signal",
+    "title": "Signal",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Start video call",
+     "description": "",
+     "actions": [],
+     "in_document": true
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+Shift+Y — start a video call.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "terminal left click has nothing to teach",
+   "button": "left",
+   "context": {
+    "app": "foot",
+    "title": "omarchy: ~",
+    "omarchy": {},
+    "target": {}
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "terminal right click is not Shift+F10",
+   "button": "right",
+   "context": {
+    "app": "foot",
+    "title": "omarchy: ~",
+    "omarchy": {},
+    "target": {}
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "bar panel widget prefers its named binding over its position",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "omarchy.audio",
+     "section": "right",
+     "widget_name": "Audio",
+     "panel_index": 1
+    }
+   },
+   "expect": {
+    "suggestion": "Super+Ctrl+A — audio.",
+    "source": "system"
+   }
+  },
+  {
+   "name": "bar panel widget without a named binding uses its position binding",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "example.settings",
+     "section": "right",
+     "widget_name": "Settings",
+     "panel_index": 2
+    }
+   },
+   "expect": {
+    "suggestion": "Super+Ctrl+2 — open the Settings panel.",
+    "source": "system"
+   }
+  },
+  {
+   "name": "bar panel beyond the indexed position bindings stays silent",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "example.other",
+     "section": "right",
+     "widget_name": "Other",
+     "panel_index": 7
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "clock widget uses the calendar binding",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "omarchy.clock",
+     "section": "center"
+    }
+   },
+   "expect": {
+    "suggestion": "Super+Ctrl+Alt+D — calendar.",
+    "source": "system"
+   }
+  },
+  {
+   "name": "omarchy menu widget",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "omarchy.menu",
+     "section": "left"
+    }
+   },
+   "expect": {
+    "suggestion": "Super+Space — open the Omarchy menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "workspaces widget",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "omarchy.workspaces",
+     "section": "left"
+    }
+   },
+   "expect": {
+    "suggestion": "Super+1…9 / Super+0 — switch directly to that workspace.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "left-section widget named after an installed app routes through the apps launcher",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "example.omasettings",
+     "section": "left",
+     "widget_name": "OmaSettings"
+    }
+   },
+   "expect": {
+    "suggestion": "Super+Alt+Space, type OmaSettings, Enter — open OmaSettings.",
+    "source": "system"
+   }
+  },
+  {
+   "name": "right click on the bar is not Shift+F10",
+   "button": "right",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-bar",
+     "surface": "bar",
+     "widget": "omarchy.clock",
+     "section": "center"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "click inside the open omarchy menu teaches navigation, not the opener",
+   "button": "left",
+   "context": {
+    "app": "",
+    "title": "",
+    "target": {},
+    "omarchy": {
+     "namespace": "omarchy-menu",
+     "surface": "layer"
+    }
+   },
+   "expect": {
+    "suggestion": "↑/↓ + Enter; Esc — navigate, activate, or close the Omarchy menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "gtk copy menu item",
+   "button": "left",
+   "context": {
+    "app": "org.gnome.Nautilus",
+    "title": "Home",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Copy",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+C — copy.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "gtk button without a shortcut stays silent",
+   "button": "left",
+   "context": {
+    "app": "org.gnome.Nautilus",
+    "title": "Home",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Sort",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "gtk dialog cancel button",
+   "button": "left",
+   "context": {
+    "app": "org.gnome.Nautilus",
+    "title": "Rename",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Cancel",
+     "description": "",
+     "actions": [],
+     "in_document": false,
+     "in_dialog": true
+    }
+   },
+   "expect": {
+    "suggestion": "Esc — dismiss this dialog.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave close button on the selected tab closes the current tab",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Close",
+     "description": "",
+     "in_document": false,
+     "actions": [
+      {
+       "name": "click",
+       "description": "",
+       "key_binding": ""
+      },
+      {
+       "name": "showContextMenu",
+       "description": "",
+       "key_binding": ""
+      }
+     ],
+     "parent_role": "page tab",
+     "parent_selected": true,
+     "in_dialog": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+W / Ctrl+F4 — close the current tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave close button on a background tab has no shortcut",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Close",
+     "description": "",
+     "in_document": false,
+     "actions": [
+      {
+       "name": "click",
+       "description": "",
+       "key_binding": ""
+      },
+      {
+       "name": "showContextMenu",
+       "description": "",
+       "key_binding": ""
+      }
+     ],
+     "parent_role": "page tab",
+     "parent_selected": false,
+     "in_dialog": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "close button outside a dialog is not Esc",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Close",
+     "description": "",
+     "in_document": false,
+     "actions": [],
+     "parent_role": "panel",
+     "in_dialog": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "gtk accelerator published over accessibility",
+   "button": "left",
+   "context": {
+    "app": "org.gnome.TextEditor",
+    "title": "Untitled",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Open",
+     "description": "",
+     "in_document": false,
+     "actions": [
+      {
+       "name": "click",
+       "description": "",
+       "key_binding": "<Primary>o"
+      }
+     ]
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+O — Open.",
+    "source": "app"
+   }
+  },
+  {
+   "name": "harvested libreoffice toolbar button",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Save",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+S — Save.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "harvested libreoffice tooltip alias",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "toggle button",
+     "name": "Align Center",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+E — Center.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "harvested menu label with ellipsis",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Save As…",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Shift+S — Save As.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "harvested gtk4 shortcuts dialog title",
+   "button": "left",
+   "context": {
+    "app": "org.gnome.Nautilus",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Go Back",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+Left — Go Back.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "harvested shortcuts are scoped to the module's window class",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-calc",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "toggle button",
+     "name": "Align Center",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "harvested label match ignores non-control roles",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "label",
+     "name": "Save",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "web tooltip hint on the clicked button",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Play (k)",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "www.youtube.com"
+    }
+   },
+   "expect": {
+    "suggestion": "k — Play.",
+    "source": "app"
+   }
+  },
+  {
+   "name": "web tooltip hint in the description",
+   "button": "left",
+   "context": {
+    "app": "t3code",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Sidebar",
+     "description": "Toggle sidebar (Ctrl+B)",
+     "actions": [],
+     "in_document": true,
+     "site": ""
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+B — Toggle sidebar.",
+    "source": "app"
+   }
+  },
+  {
+   "name": "parenthesized count is not a shortcut",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Comments (3)",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "www.youtube.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "qt menu mnemonic is not a shortcut",
+   "button": "left",
+   "context": {
+    "app": "linguist",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Open Read-Only...",
+     "description": "",
+     "actions": [
+      {
+       "name": "Press",
+       "description": "",
+       "key_binding": "Alt+N"
+      }
+     ],
+     "in_document": false,
+     "parent_role": "popup menu"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "qt menu bar mnemonic opens the menu",
+   "button": "left",
+   "context": {
+    "app": "linguist",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "menu item",
+     "name": "Validation",
+     "description": "",
+     "actions": [
+      {
+       "name": "ShowMenu",
+       "description": "",
+       "key_binding": "Alt+A"
+      }
+     ],
+     "in_document": false,
+     "parent_role": "menu bar"
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+A — Validation.",
+    "source": "app"
+   }
+  },
+  {
+   "name": "observed menu shortcut for a toolbar button",
+   "button": "left",
+   "context": {
+    "app": "linguist",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Open",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+O — Open.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "observed site shortcut after the tooltip is gone",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Play",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "www.youtube.com"
+    }
+   },
+   "expect": {
+    "suggestion": "k — Play.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "observed site shortcut applies in a web app window",
+   "button": "left",
+   "context": {
+    "app": "brave-www.youtube.com__-default",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Play",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "www.youtube.com"
+    }
+   },
+   "expect": {
+    "suggestion": "k — Play.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "observed site shortcut stays on its site",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Play",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "vimeo.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "observed electron shortcut inside the app document",
+   "button": "left",
+   "context": {
+    "app": "t3code",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Sidebar",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": ""
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+B — Toggle sidebar.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "application shortcuts do not apply inside pages",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Save",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "observed and installed shortcuts merge for one app",
+   "button": "left",
+   "context": {
+    "app": "libreoffice-writer",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "Word Count",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Shift+G — Word Count.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "electron app keybinding matches its own interface",
+   "button": "left",
+   "context": {
+    "app": "t3code",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "toggle button",
+     "name": "Toggle main sidebar",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": ""
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+B — Toggle sidebar.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "electron app keybinding lists alternatives",
+   "button": "left",
+   "context": {
+    "app": "t3code",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "New thread",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": ""
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+N / Ctrl+Shift+O — New thread.",
+    "source": "harvested"
+   }
+  },
+  {
+   "name": "electron app keybinding does not apply to a website",
+   "button": "left",
+   "context": {
+    "app": "t3code",
+    "title": "",
+    "omarchy": {},
+    "target": {
+     "role": "push button",
+     "name": "New thread",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  }
+ ]
+}

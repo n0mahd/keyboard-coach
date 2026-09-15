@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -19,8 +20,9 @@ from typing import Any
 
 
 MATCH_FIELDS = {
-    "actions", "buttons", "intents", "names", "namespaces", "panel_indexes", "roles", "surfaces",
-    "target_is_last", "target_positions", "target_set_sizes", "titles", "widgets",
+    "actions", "buttons", "intents", "names", "namespaces", "panel_indexes", "parent_roles", "roles", "sites",
+    "surfaces", "target_in_dialog", "target_in_document", "target_is_last", "target_parent_selected",
+    "target_positions", "target_set_sizes", "titles", "widgets",
 }
 
 
@@ -57,24 +59,138 @@ def format_hypr_binding(binding: dict[str, Any]) -> str:
     return "+".join([*parts, key]) if key else ""
 
 
-def discover_hypr_bindings() -> list[dict[str, Any]]:
+MODIFIER_NAMES = {
+    "SUPER": "Super", "WIN": "Super", "LOGO": "Super", "MOD4": "Super",
+    "CTRL": "Ctrl", "CONTROL": "Ctrl", "ALT": "Alt", "MOD1": "Alt", "SHIFT": "Shift",
+}
+MODIFIER_ORDER = ("Super", "Ctrl", "Alt", "Shift")
+KEY_NAMES = {
+    "space": "Space", "return": "Enter", "enter": "Enter", "escape": "Esc", "tab": "Tab",
+    "backspace": "Backspace", "delete": "Delete", "insert": "Insert", "print": "Print",
+    "home": "Home", "end": "End", "prior": "PageUp", "page_up": "PageUp", "next": "PageDown",
+    "page_down": "PageDown", "left": "Left", "right": "Right", "up": "Up", "down": "Down",
+    "comma": ",", "period": ".", "slash": "/", "backslash": "\\", "minus": "-", "equal": "=",
+    "grave": "`", "semicolon": ";", "apostrophe": "'", "bracketleft": "[", "bracketright": "]",
+}
+# Hyprland keycodes are evdev codes plus eight: code:10 is the 1 key.
+KEYCODE_NAMES = {**{10 + index: str((index + 1) % 10) for index in range(10)}, 20: "-", 21: "="}
+
+
+def format_hypr_keys(keys: str) -> str:
+    """Render a Hyprland Lua key string such as `SUPER + CTRL + code:10`."""
+    modifiers = set()
+    key = ""
+    for part in (item.strip() for item in keys.split("+")):
+        if not part:
+            continue
+        if part.upper() in MODIFIER_NAMES:
+            modifiers.add(MODIFIER_NAMES[part.upper()])
+            continue
+        code = re.fullmatch(r"code:(\d+)", part)
+        if code:
+            key = KEYCODE_NAMES.get(int(code.group(1)), part)
+        elif len(part) == 1:
+            key = part.upper()
+        else:
+            key = KEY_NAMES.get(part.lower(), part)
+    if not key:
+        return ""
+    return "+".join([*(name for name in MODIFIER_ORDER if name in modifiers), key])
+
+
+def hypr_dump_script() -> Path | None:
+    configured = os.environ.get("KEYBOARD_COACH_HYPR_DUMP")
+    for candidate in (
+        Path(configured) if configured else None,
+        Path(__file__).resolve().with_name("hypr-bind-dump.lua"),
+        default_data_dir() / "hypr-bind-dump.lua",
+    ):
+        if candidate and candidate.is_file():
+            return candidate
+    return None
+
+
+def lua_interpreter() -> str | None:
+    # Hyprland embeds Lua 5.5; prefer the matching interpreter.
+    for name in ("lua5.5", "lua"):
+        found = shutil.which(name)
+        if found:
+            return found
+    return None
+
+
+def replay_hypr_config(entry: Path | None = None) -> dict[str, Any] | None:
+    script, lua = hypr_dump_script(), lua_interpreter()
+    if script is None or lua is None:
+        return None
+    argv = [lua, str(script)] + ([str(entry)] if entry else [])
+    try:
+        result = subprocess.run(argv, text=True, capture_output=True, timeout=15, check=True)
+        payload = json.loads(result.stdout)
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def bindings_from_replay(payload: dict[str, Any], live: list[dict[str, Any]] | None) -> list[dict[str, Any]]:
+    live_descriptions: dict[str, int] = {}
+    for item in live or []:
+        if isinstance(item, dict):
+            description = str(item.get("description") or "")
+            live_descriptions[description] = live_descriptions.get(description, 0) + 1
     records = []
-    raw = run_json(["hyprctl", "binds", "-j"], [])
-    for item in raw if isinstance(raw, list) else []:
+    for item in payload.get("bindings", []):
         if not isinstance(item, dict):
             continue
-        shortcut = format_hypr_binding(item)
-        if not shortcut or item.get("mouse"):
+        keys = str(item.get("keys") or "")
+        flags = item.get("flags") if isinstance(item.get("flags"), dict) else {}
+        # Mouse and scroll bindings have no keyboard equivalent to teach.
+        if "mouse" in keys.lower() or flags.get("mouse"):
             continue
+        shortcut = format_hypr_keys(keys)
+        if not shortcut:
+            continue
+        description = str(item.get("description") or "")
+        record = {
+            "shortcut": shortcut,
+            "keys": keys,
+            "description": description,
+            "command": str(item.get("command") or ""),
+            "dispatcher": str(item.get("dispatcher") or item.get("kind") or ""),
+            "source": str(item.get("source") or ""),
+            "confidence": "configured",
+        }
+        if live is not None:
+            record["live"] = live_descriptions.get(description, 0) > 0
+        records.append(record)
+    return records
+
+
+def discover_hypr_bindings() -> tuple[list[dict[str, Any]], str]:
+    """Index bindings from the Lua config, falling back to hyprctl's reduced view."""
+    live = run_json(["hyprctl", "binds", "-j"], None)
+    live = live if isinstance(live, list) else None
+    payload = replay_hypr_config()
+    if payload is not None and payload.get("bindings"):
+        return bindings_from_replay(payload, live), "lua-replay"
+    records = []
+    for item in live or []:
+        if not isinstance(item, dict) or item.get("mouse"):
+            continue
+        shortcut = format_hypr_binding(item)
+        if not shortcut:
+            continue
+        # Lua-registered bindings report only an opaque `__lua <ref>` argument.
+        command = "" if item.get("dispatcher") == "__lua" else str(item.get("arg") or "")
         records.append({
             "shortcut": shortcut,
             "description": str(item.get("description") or ""),
-            "command": str(item.get("arg") or ""),
+            "command": command,
             "dispatcher": str(item.get("dispatcher") or ""),
             "source": "hyprland-live",
             "confidence": "effective",
         })
-    return records
+    return records, "hyprctl"
 
 
 def desktop_app_roots() -> list[Path]:
@@ -198,6 +314,22 @@ def _markdown_shortcut_inventory(plugin_dir: Path) -> list[dict[str, str]]:
     return list(unique.values())
 
 
+def bar_panel_widget(manifest_path: Path, manifest: dict[str, Any]) -> bool:
+    """Detect the open/close/opened contract Omarchy's numbered panel bindings use."""
+    if "bar-widget" not in (manifest.get("kinds") or []):
+        return False
+    entry = str((manifest.get("entryPoints") or {}).get("barWidget") or "")
+    try:
+        qml = (manifest_path.parent / entry).read_text(encoding="utf-8") if entry else ""
+    except OSError:
+        return False
+    if re.search(r"^\s*(?:\w+\.)?Panel\s*\{", qml, re.MULTILINE):
+        return True
+    return all(re.search(pattern, qml, re.MULTILINE) for pattern in (
+        r"\bproperty\s+bool\s+opened\b", r"\bfunction\s+open\s*\(", r"\bfunction\s+close\s*\(",
+    ))
+
+
 def discover_plugins(roots: list[Path] | None = None) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     plugins_by_id: dict[str, dict[str, Any]] = {}
     entries_by_id: dict[str, list[dict[str, Any]]] = {}
@@ -222,6 +354,8 @@ def discover_plugins(roots: list[Path] | None = None) -> tuple[list[dict[str, An
             documented = _markdown_shortcut_inventory(manifest_path.parent)
             plugins_by_id[plugin_id] = {
                 "id": plugin_id, "name": str(manifest.get("name") or plugin_id),
+                "display_name": str((manifest.get("barWidget") or {}).get("displayName") or manifest.get("name") or plugin_id),
+                "bar_panel": bar_panel_widget(manifest_path, manifest),
                 "kinds": manifest.get("kinds") or [], "path": str(manifest_path.parent),
                 "declared_shortcuts": declared, "source_shortcuts": inferred,
                 "documented_shortcuts": documented,
@@ -253,10 +387,12 @@ def discover_system_index() -> dict[str, Any]:
         packages = [line.strip() for line in package_path.read_text(encoding="utf-8").splitlines() if line.strip() and not line.lstrip().startswith("#")]
     except OSError:
         packages = []
+    bindings, binding_source = discover_hypr_bindings()
     return {
         "generated_at": int(time.time()),
         "desktop_apps": discover_desktop_apps(),
-        "hypr_bindings": discover_hypr_bindings(),
+        "hypr_bindings": bindings,
+        "hypr_binding_source": binding_source,
         "global_shortcuts": run_json(["hyprctl", "globalshortcuts", "-j"], {}),
         "omarchy_commands": [
             {key: item.get(key) for key in ("route", "binary", "summary", "args", "aliases")}
@@ -294,6 +430,11 @@ def validate_pack(path: Path, pack: Any) -> dict[str, Any]:
     validate_patterns(path, "apps", pack.get("apps"))
     if not isinstance(pack.get("source"), dict) or not pack["source"].get("url"):
         raise ValueError(f"{path}: source.url is required")
+    default_match = pack.get("default_match", {})
+    if not isinstance(default_match, dict) or set(default_match) - MATCH_FIELDS:
+        raise ValueError(f"{path}: default_match has unsupported fields")
+    for field, patterns in default_match.items():
+        validate_patterns(path, f"default_match.{field}", patterns)
     commands = pack.get("commands")
     if not isinstance(commands, list) or not commands:
         raise ValueError(f"{path}: commands must be a non-empty array")
@@ -403,6 +544,8 @@ def compile_catalog(
                 continue
             entry = {
                 "apps": pack["apps"],
+                # A command's own match fields override the pack-wide defaults.
+                **pack.get("default_match", {}),
                 **command["match"],
                 "shortcut": command["shortcut"],
                 "description": command["description"],

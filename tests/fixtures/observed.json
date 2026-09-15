@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "generated_at": 0,
+  "apps": [
+    {
+      "id": "linguist",
+      "name": "linguist",
+      "classes": ["linguist"],
+      "toolkit": "Qt",
+      "sources": [{"harvester": "accessibility", "origin": "Qt", "shortcuts": 3}],
+      "shortcuts": [
+        {"title": "Open...", "keys": ["Ctrl+O"]},
+        {"title": "File", "keys": ["Alt+F"]},
+        {"title": "Find Next", "keys": ["F3"]}
+      ]
+    },
+    {
+      "id": "brave-browser",
+      "name": "brave-browser",
+      "classes": ["brave-browser"],
+      "toolkit": "Chromium",
+      "sources": [{"harvester": "accessibility", "origin": "Chromium", "shortcuts": 2}],
+      "shortcuts": [
+        {"title": "Play", "keys": ["k"], "aliases": ["Play (k)"], "site": "www.youtube.com"},
+        {"title": "New chat", "keys": ["Ctrl+Shift+O"], "site": "chatgpt.com"}
+      ]
+    },
+    {
+      "id": "t3code",
+      "name": "t3code",
+      "classes": ["t3code"],
+      "toolkit": "Chromium",
+      "sources": [{"harvester": "accessibility", "origin": "Chromium", "shortcuts": 1}],
+      "shortcuts": [
+        {"title": "Toggle sidebar", "keys": ["Ctrl+B"], "aliases": ["Toggle sidebar (Ctrl+B)", "Sidebar"], "site": ""}
+      ]
+    },
+    {
+      "id": "libreoffice-writer",
+      "name": "libreoffice-writer",
+      "classes": ["libreoffice-writer"],
+      "toolkit": "VCL",
+      "sources": [{"harvester": "accessibility", "origin": "VCL", "shortcuts": 1}],
+      "shortcuts": [
+        {"title": "Word Count", "keys": ["Ctrl+Shift+G"]}
+      ]
+    }
+  ]
+}

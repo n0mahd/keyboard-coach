@@ -80,6 +80,12 @@
           "native_id": 34015
         },
         {
+          "id": "close-tab-button",
+          "shortcut": "Ctrl+W / Ctrl+F4",
+          "description": "close the current tab.",
+          "native_id": 34015
+        },
+        {
           "id": "next-tab",
           "shortcut": "Ctrl+Tab",
           "description": "switch to the next tab.",
@@ -273,7 +279,7 @@
         },
         {
           "id": "zoom-in",
-          "shortcut": "Ctrl+= / Ctrl+Shift+=",
+          "shortcut": "Ctrl++",
           "description": "zoom in.",
           "native_id": 38001
         },
@@ -285,7 +291,7 @@
         },
         {
           "id": "zoom-out",
-          "shortcut": "Ctrl+- / Ctrl+Shift+-",
+          "shortcut": "Ctrl+-",
           "description": "zoom out.",
           "native_id": 38003
         },
@@ -498,11 +504,6 @@
           "description": "open a new tab."
         },
         {
-          "id": "new-tab-result",
-          "shortcut": "Ctrl+T",
-          "description": "open a new tab."
-        },
-        {
           "id": "settings",
           "shortcut": "Alt+F, then S",
           "description": "open Brave Settings from the main menu."
@@ -533,8 +534,13 @@
           "description": "close the current tab."
         },
         {
+          "id": "close-tab-button",
+          "shortcut": "Ctrl+W",
+          "description": "close the current tab."
+        },
+        {
           "id": "close-window",
-          "shortcut": "Ctrl+Shift+W / Alt+F4",
+          "shortcut": "Ctrl+Shift+W",
           "description": "close the current window.",
           "native_id": 34012
         },
@@ -565,7 +571,7 @@
         },
         {
           "id": "hard-reload",
-          "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+          "shortcut": "Ctrl+Shift+R",
           "description": "reload while ignoring cached content.",
           "native_id": 33007
         },
@@ -928,6 +934,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -945,6 +954,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "^page tab$"
@@ -964,6 +976,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -981,6 +996,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "^page tab$"
@@ -1000,6 +1018,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -1017,6 +1038,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "^page tab$"
@@ -1036,6 +1060,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -1053,6 +1080,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "^page tab$"
@@ -1072,6 +1102,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -1090,6 +1123,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\b(back|previous)\\b"
       ],
@@ -1104,6 +1140,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(forward|next)\\b"
@@ -1120,6 +1159,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\b(reload|refresh)\\b"
       ],
@@ -1134,6 +1176,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bhome\\b"
@@ -1150,6 +1195,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "hard reload|reload.*cache|empty cache"
       ],
@@ -1164,6 +1212,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "^new window$"
@@ -1180,6 +1231,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "new private (window|tab)"
       ],
@@ -1195,6 +1249,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "close window|\\b(exit|quit)\\b"
       ],
@@ -1209,6 +1266,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bnew tab\\b"
@@ -1228,6 +1288,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bclose tab\\b"
       ],
@@ -1242,6 +1305,36 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^(button|push button)$"
+      ],
+      "names": [
+        "^close$"
+      ],
+      "parent_roles": [
+        "^page tab$"
+      ],
+      "target_parent_selected": [
+        "^true$"
+      ],
+      "shortcut": "Ctrl+W / Ctrl+F4",
+      "description": "close the current tab.",
+      "priority": 270,
+      "command_id": "brave-installed.close-tab-button",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "address|location|search.*(bar|box)|omnibox"
@@ -1258,6 +1351,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "intents": [
         "^open-application-menu$"
       ],
@@ -1272,6 +1368,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "^page tab$"
@@ -1291,6 +1390,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -1309,6 +1411,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "roles": [
         "^page tab$"
       ],
@@ -1324,6 +1429,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bnew tab\\b"
       ],
@@ -1338,6 +1446,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(settings|preferences)\\b"
@@ -1370,7 +1481,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\b(preferences|settings)\\b"
+        "^(preferences|settings)$"
       ],
       "buttons": [
         "left"
@@ -1384,29 +1495,8 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
-      "titles": [
-        "^new tab(?: - brave)?$"
-      ],
-      "roles": [
-        "^$"
-      ],
-      "names": [
-        "^\\s*$"
-      ],
-      "actions": [
-        "^$"
-      ],
-      "buttons": [
-        "left"
-      ],
-      "shortcut": "Ctrl+T",
-      "description": "open a new tab.",
-      "priority": 210,
-      "command_id": "brave.new-tab-result"
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      "target_in_document": [
+        "^false$"
       ],
       "intents": [
         "^open-application-menu$"
@@ -1423,6 +1513,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bclose tab\\b"
       ],
@@ -1437,6 +1530,36 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^(button|push button)$"
+      ],
+      "names": [
+        "^close$"
+      ],
+      "parent_roles": [
+        "^page tab$"
+      ],
+      "target_parent_selected": [
+        "^true$"
+      ],
+      "shortcut": "Ctrl+W",
+      "description": "close the current tab.",
+      "priority": 180,
+      "command_id": "brave.close-tab-button",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "next tab"
@@ -1453,6 +1576,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "previous tab"
       ],
@@ -1467,6 +1593,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "reopen.*closed (tab|window)"
@@ -1483,6 +1612,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "full.?screen"
       ],
@@ -1497,6 +1629,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "move tab right|move.*next"
@@ -1513,6 +1648,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "move tab left|move.*previous"
       ],
@@ -1527,6 +1665,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "(collapse|expand).*vertical tabs"
@@ -1543,6 +1684,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "new tab in (this |current )?group"
       ],
@@ -1557,6 +1701,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "(add|create).*tab group"
@@ -1573,6 +1720,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "next tab group"
       ],
@@ -1587,6 +1737,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "previous tab group"
@@ -1603,6 +1756,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "close.*tab group"
       ],
@@ -1617,6 +1773,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "bookmark (this )?(page|tab)|add bookmark"
@@ -1633,6 +1792,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "bookmark all tabs|save all.*bookmarks"
       ],
@@ -1647,6 +1809,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "view (page )?source"
@@ -1663,6 +1828,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "^print|print this page"
       ],
@@ -1677,6 +1845,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "save page|save as"
@@ -1693,6 +1864,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "print using system dialog|system print"
       ],
@@ -1707,6 +1881,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "screenshot|capture"
@@ -1723,6 +1900,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "^find$|find in page"
       ],
@@ -1737,6 +1917,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "next match|next result"
@@ -1753,6 +1936,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "previous match|previous result"
       ],
@@ -1767,6 +1953,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "stop loading|^stop$"
@@ -1783,10 +1972,13 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "zoom in"
       ],
-      "shortcut": "Ctrl+= / Ctrl+Shift+=",
+      "shortcut": "Ctrl++",
       "description": "zoom in.",
       "priority": 100,
       "command_id": "brave-installed.zoom-in",
@@ -1797,6 +1989,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "reset zoom|100%"
@@ -1813,10 +2008,13 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "zoom out"
       ],
-      "shortcut": "Ctrl+- / Ctrl+Shift+-",
+      "shortcut": "Ctrl+-",
       "description": "zoom out.",
       "priority": 100,
       "command_id": "brave-installed.zoom-out",
@@ -1827,6 +2025,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "toolbar|browser controls"
@@ -1843,6 +2044,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "bookmarks bar"
       ],
@@ -1857,6 +2061,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "roles": [
         "dialog|alert"
@@ -1873,6 +2080,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "open file"
       ],
@@ -1887,6 +2097,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "developer tools"
@@ -1903,6 +2116,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "javascript console|console"
       ],
@@ -1917,6 +2133,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "show bookmarks bar|bookmarks bar"
@@ -1933,6 +2152,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "^history$|show.*history"
       ],
@@ -1947,6 +2169,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "bookmark manager"
@@ -1963,6 +2188,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "^downloads?$|show.*downloads"
       ],
@@ -1977,6 +2205,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "clear browsing data"
@@ -1993,6 +2224,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "^help$|help center"
       ],
@@ -2008,6 +2242,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "inspect|inspect element"
       ],
@@ -2022,6 +2259,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "profile|account"
@@ -2041,6 +2281,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "caret browsing"
       ],
@@ -2055,6 +2298,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "task manager"
@@ -2071,6 +2317,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "tab search|search tabs"
       ],
@@ -2085,6 +2334,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "new private window with tor|new tor window"
@@ -2101,6 +2353,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "mute (site|tab)|unmute (site|tab)"
       ],
@@ -2115,6 +2370,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "show sidebar|hide sidebar|toggle sidebar"
@@ -2131,6 +2389,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "quick commands|command palette"
       ],
@@ -2145,6 +2406,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bnew window\\b"
@@ -2161,6 +2425,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bnew private (window|tab)\\b"
       ],
@@ -2175,6 +2442,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "reopen.*closed tab"
@@ -2191,10 +2461,13 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "close window|\\b(exit|quit)\\b"
       ],
-      "shortcut": "Ctrl+Shift+W / Alt+F4",
+      "shortcut": "Ctrl+Shift+W",
       "description": "close the current window.",
       "priority": 100,
       "command_id": "brave.close-window",
@@ -2205,6 +2478,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(back|previous)\\b"
@@ -2221,6 +2497,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\b(forward|next)\\b"
       ],
@@ -2235,6 +2514,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bhome\\b"
@@ -2251,6 +2533,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "address|location|search.*(bar|box)|omnibox"
       ],
@@ -2265,6 +2550,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(reload|refresh)\\b"
@@ -2281,10 +2569,13 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "hard reload|reload.*cache|empty cache"
       ],
-      "shortcut": "Ctrl+Shift+R / Ctrl+F5",
+      "shortcut": "Ctrl+Shift+R",
       "description": "reload while ignoring cached content.",
       "priority": 100,
       "command_id": "brave.hard-reload",
@@ -2295,6 +2586,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(add )?bookmark( this (page|tab))?\\b"
@@ -2311,6 +2605,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "bookmark manager"
       ],
@@ -2325,6 +2622,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "bookmarks bar"
@@ -2341,6 +2641,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bhistory\\b"
       ],
@@ -2355,6 +2658,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bdownloads?\\b"
@@ -2371,6 +2677,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bfind\\b"
       ],
@@ -2385,6 +2694,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bprint\\b"
@@ -2401,6 +2713,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "\\bsave page\\b"
       ],
@@ -2415,6 +2730,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "open file"
@@ -2431,6 +2749,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "developer tools"
       ],
@@ -2446,6 +2767,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "clear browsing data"
       ],
@@ -2460,6 +2784,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\b(profile|account)\\b"
@@ -2479,6 +2806,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "task manager"
       ],
@@ -2493,6 +2823,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "zoom in"
@@ -2509,6 +2842,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "zoom out"
       ],
@@ -2523,6 +2859,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "reset zoom|100%"
@@ -2539,6 +2878,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "full.?screen"
       ],
@@ -2553,6 +2895,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "view (page )?source"
@@ -2569,6 +2914,9 @@
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
       ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
         "screenshot|capture"
       ],
@@ -2583,6 +2931,9 @@
     {
       "apps": [
         "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
       ],
       "names": [
         "\\bhelp( center)?\\b"
@@ -2600,7 +2951,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "keyboard shortcuts"
+        "^(show )?keyboard shortcuts$"
       ],
       "shortcut": "Ctrl+/",
       "description": "show all Signal keyboard shortcuts.",
@@ -2615,7 +2966,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "chat menu|conversation menu"
+        "^(chat|conversation) (menu|settings)$"
       ],
       "shortcut": "Ctrl+Shift+L",
       "description": "open the current chat menu.",
@@ -2630,7 +2981,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "new (chat|conversation|message)"
+        "^new (chat|conversation|message)$"
       ],
       "shortcut": "Ctrl+N",
       "description": "start a new chat.",
@@ -2645,7 +2996,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "^search$|search signal"
+        "^search( signal)?$"
       ],
       "shortcut": "Ctrl+F",
       "description": "search Signal.",
@@ -2660,7 +3011,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "search.*(chat|conversation)"
+        "^search (in )?(this )?(chat|conversation)$"
       ],
       "shortcut": "Ctrl+Shift+F",
       "description": "search within the current chat.",
@@ -2675,7 +3026,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "all media|media view"
+        "^(all media|media view)$"
       ],
       "shortcut": "Ctrl+Shift+M",
       "description": "open All Media.",
@@ -2690,7 +3041,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "emoji"
+        "^(emoji|open emoji (picker|chooser))$"
       ],
       "shortcut": "Ctrl+Shift+J",
       "description": "open the emoji chooser.",
@@ -2705,7 +3056,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "sticker"
+        "^(stickers?|open sticker (picker|chooser))$"
       ],
       "shortcut": "Ctrl+Shift+O",
       "description": "open the sticker chooser.",
@@ -2720,7 +3071,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\bgif\\b"
+        "^(gifs?|open gif (picker|chooser))$"
       ],
       "shortcut": "Ctrl+Shift+G",
       "description": "open the GIF chooser.",
@@ -2735,7 +3086,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "voice (message|note)|record audio"
+        "^(record )?(voice (message|note)|audio)$"
       ],
       "shortcut": "Ctrl+Shift+Y",
       "description": "begin recording a voice message.",
@@ -2750,7 +3101,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "^archive"
+        "^archive( chat| conversation)?$"
       ],
       "shortcut": "Ctrl+Shift+A",
       "description": "archive the current chat.",
@@ -2765,7 +3116,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "unarchive"
+        "^unarchive( chat| conversation)?$"
       ],
       "shortcut": "Ctrl+Shift+U",
       "description": "unarchive the current chat.",
@@ -2780,7 +3131,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "close (chat|conversation)"
+        "^close (chat|conversation)$"
       ],
       "shortcut": "Ctrl+Shift+C",
       "description": "close the current chat.",
@@ -2795,7 +3146,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "message details|info"
+        "^(message details|more info|info)$"
       ],
       "shortcut": "Ctrl+D",
       "description": "view details for the selected message.",
@@ -2810,7 +3161,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\breply\\b"
+        "^reply( to message)?$"
       ],
       "shortcut": "Ctrl+Shift+R",
       "description": "reply to the selected message.",
@@ -2825,7 +3176,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "react|reaction"
+        "^(react|react to message|add reaction)$"
       ],
       "shortcut": "Ctrl+Shift+E",
       "description": "react to the selected message.",
@@ -2840,7 +3191,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "save attachment|download"
+        "^(save attachment|download( attachment)?)$"
       ],
       "shortcut": "Ctrl+S",
       "description": "save the selected attachment.",
@@ -2855,7 +3206,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\bforward\\b"
+        "^forward( message)?$"
       ],
       "shortcut": "Ctrl+Shift+S",
       "description": "forward selected messages.",
@@ -2870,7 +3221,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "delete message"
+        "^delete( message| for me)?$"
       ],
       "shortcut": "Ctrl+Shift+D",
       "description": "delete the selected message.",
@@ -2885,7 +3236,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "attach|add attachment"
+        "^(attach( file)?|add attachment)$"
       ],
       "shortcut": "Ctrl+U",
       "description": "attach a file.",
@@ -2900,7 +3251,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\bbold\\b"
+        "^bold$"
       ],
       "shortcut": "Ctrl+B",
       "description": "format selected text as bold.",
@@ -2915,7 +3266,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "\\bitalic\\b"
+        "^italic$"
       ],
       "shortcut": "Ctrl+I",
       "description": "format selected text as italic.",
@@ -2930,7 +3281,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "strikethrough"
+        "^strikethrough$"
       ],
       "shortcut": "Ctrl+Shift+X",
       "description": "format selected text as strikethrough.",
@@ -2945,7 +3296,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "monospace"
+        "^monospace$"
       ],
       "shortcut": "Ctrl+E",
       "description": "format selected text as monospace.",
@@ -2960,7 +3311,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "spoiler"
+        "^spoiler$"
       ],
       "shortcut": "Ctrl+Shift+B",
       "description": "format selected text as a spoiler.",
@@ -2975,7 +3326,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "mute|microphone"
+        "^(mute|unmute)( mic| microphone)?$"
       ],
       "shortcut": "Shift+M",
       "description": "toggle microphone mute.",
@@ -2990,7 +3341,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "video|camera"
+        "^(start|stop|turn on|turn off) (video|camera)$"
       ],
       "shortcut": "Shift+V",
       "description": "toggle video.",
@@ -3005,7 +3356,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "(voice|audio) call"
+        "^(start )?(voice|audio) call$"
       ],
       "shortcut": "Alt+Shift+C",
       "description": "start a voice call.",
@@ -3020,7 +3371,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "video call"
+        "^(start )?video call$"
       ],
       "shortcut": "Alt+Shift+Y",
       "description": "start a video call.",
@@ -3035,7 +3386,7 @@
         "^(signal|signal-desktop|org\\.signal\\.Signal.*)$"
       ],
       "names": [
-        "end call|hang up"
+        "^(end call|hang up|leave call)$"
       ],
       "shortcut": "Alt+Shift+E",
       "description": "end the call.",
@@ -3046,15 +3397,11 @@
       ]
     },
     {
-      "buttons": [
-        "right"
-      ],
-      "shortcut": "Shift+F10",
-      "description": "open the context menu."
-    },
-    {
       "widgets": [
-        "^omarchy.menu$"
+        "^omarchy\\.menu$"
+      ],
+      "surfaces": [
+        "^bar$"
       ],
       "buttons": [
         "left"
@@ -3064,26 +3411,16 @@
     },
     {
       "widgets": [
-        "^omarchy.workspaces$"
+        "^omarchy\\.workspaces$"
       ],
-      "buttons": [
-        "left"
-      ],
-      "shortcut": "Super+1…0 / Super+Tab",
-      "description": "switch workspaces directly or sequentially."
-    },
-    {
       "surfaces": [
         "^bar$"
       ],
-      "panel_indexes": [
-        "^[1-9]$"
-      ],
       "buttons": [
         "left"
       ],
-      "shortcut": "Super+Ctrl+{panel_index}",
-      "description": "open the {widget_name} panel."
+      "shortcut": "Super+1…9 / Super+0",
+      "description": "switch directly to that workspace."
     },
     {
       "namespaces": [
@@ -3108,200 +3445,630 @@
     },
     {
       "apps": [
-        "nautilus|org.gnome.nautilus"
+        "^(org\\.gnome\\.nautilus|nautilus)$"
       ],
       "names": [
-        "new folder"
+        "^new folder"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Shift+N",
       "description": "create a new folder."
     },
     {
       "apps": [
-        "nautilus|org.gnome.nautilus"
+        "^(org\\.gnome\\.nautilus|nautilus)$"
       ],
       "names": [
-        "rename"
+        "^rename"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "F2",
       "description": "rename the selected item."
     },
     {
       "apps": [
-        "nautilus|org.gnome.nautilus"
+        "^(org\\.gnome\\.nautilus|nautilus)$"
       ],
       "names": [
-        "\\b(back|previous)\\b"
+        "^(back|previous location)$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Alt+Left",
       "description": "go back."
     },
     {
       "apps": [
-        "nautilus|org.gnome.nautilus"
+        "^(org\\.gnome\\.nautilus|nautilus)$"
       ],
       "names": [
-        "\\bhome\\b"
+        "^home$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Alt+Home",
       "description": "open the home folder."
     },
     {
       "apps": [
-        "code|codium|cursor"
+        "^(code|code-oss|codium|vscodium|cursor)$"
       ],
       "names": [
-        "new file"
+        "^new file"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+N",
       "description": "create a new file."
     },
     {
       "apps": [
-        "code|codium|cursor"
+        "^(code|code-oss|codium|vscodium|cursor)$"
       ],
       "names": [
-        "command palette"
+        "^command palette"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Shift+P",
       "description": "open the command palette."
     },
     {
       "apps": [
-        "code|codium|cursor"
+        "^(code|code-oss|codium|vscodium|cursor)$"
       ],
       "names": [
-        "extensions"
+        "^extensions\\b"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Shift+X",
       "description": "open Extensions."
     },
     {
       "apps": [
-        "code|codium|cursor"
+        "^(code|code-oss|codium|vscodium|cursor)$"
       ],
       "names": [
-        "source control"
+        "^source control\\b"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Shift+G",
       "description": "open Source Control."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bcopy\\b"
+        "^copy(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+C",
       "description": "copy."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bpaste\\b"
+        "^paste(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+V",
       "description": "paste."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bcut\\b"
+        "^cut(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+X",
       "description": "cut."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bundo\\b"
+        "^undo\\b"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Z",
       "description": "undo."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bredo\\b"
+        "^redo\\b"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+Shift+Z",
       "description": "redo."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bsave( as)?\\b"
+        "^save(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+S",
       "description": "save."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\bprint\\b"
+        "^print(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+P",
       "description": "print."
     },
     {
+      "roles": [
+        "^(menu item|push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
       "names": [
-        "\\b(find|search)\\b"
+        "^find(\\.\\.\\.|…)?$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Ctrl+F",
-      "description": "find or search."
+      "description": "find."
     },
     {
-      "names": [
-        "\\b(cancel|dismiss|close)\\b"
-      ],
       "roles": [
-        "button|push button|menu item"
+        "^(push button|button)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "target_in_dialog": [
+        "^true$"
+      ],
+      "names": [
+        "^(cancel|close|dismiss)$"
+      ],
+      "buttons": [
+        "left"
       ],
       "shortcut": "Esc",
-      "description": "dismiss this control."
-    },
-    {
-      "names": [
-        "\\b(ok|confirm|apply|submit)\\b"
-      ],
-      "roles": [
-        "button|push button"
-      ],
-      "shortcut": "Enter",
-      "description": "activate this control."
+      "description": "dismiss this dialog."
     },
     {
       "roles": [
-        "^(check box|radio button|toggle button)$"
+        "."
+      ],
+      "target_in_document": [
+        "^(true|false)$"
       ],
       "buttons": [
-        "left"
+        "right"
       ],
-      "shortcut": "Space",
-      "description": "toggle the focused control."
-    },
-    {
-      "roles": [
-        "^(button|push button|menu item)$"
-      ],
-      "buttons": [
-        "left"
-      ],
-      "shortcut": "Enter or Space",
-      "description": "activate the focused control."
-    },
-    {
-      "roles": [
-        "^link$"
-      ],
-      "buttons": [
-        "left"
-      ],
-      "shortcut": "Enter",
-      "description": "open the focused link."
-    },
-    {
-      "roles": [
-        "^(list item|tree item)$"
-      ],
-      "buttons": [
-        "left"
-      ],
-      "shortcut": "Arrow keys + Enter",
-      "description": "select and open an item."
+      "shortcut": "Shift+F10 / Menu",
+      "description": "open the context menu for the focused item."
     }
   ],
-  "system_index": {}
+  "system_index": {
+    "hypr_bindings": [
+      {
+        "shortcut": "Super+Ctrl+V",
+        "keys": "SUPER + CTRL + V",
+        "description": "Clipboard manager",
+        "command": "omarchy-shell shell toggle omarchy.clipboard",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/clipboard.lua:48",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+1",
+        "keys": "SUPER + code:10",
+        "description": "Switch to workspace 1",
+        "command": "",
+        "dispatcher": "focus",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/tiling.lua:23",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Space",
+        "keys": "SUPER + SPACE",
+        "description": "Omarchy menu",
+        "command": "omarchy-menu toggle",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:1",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Alt+Space",
+        "keys": "SUPER + ALT + SPACE",
+        "description": "Apps menu",
+        "command": "omarchy-menu toggle apps",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:2",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Shift+code:201",
+        "keys": "SUPER + SHIFT + code:201",
+        "description": "Omarchy menu",
+        "command": "omarchy-menu toggle root",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:7",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+A",
+        "keys": "SUPER + CTRL + A",
+        "description": "Audio",
+        "command": "omarchy-shell shell toggle omarchy.audio",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:101",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+Alt+D",
+        "keys": "SUPER + CTRL + ALT + D",
+        "description": "Calendar",
+        "command": "omarchy-shell shell toggle omarchy.clock",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:104",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+W",
+        "keys": "SUPER + CTRL + W",
+        "description": "Network",
+        "command": "omarchy-shell shell toggle omarchy.network",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:105",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+1",
+        "keys": "SUPER + CTRL + code:10",
+        "description": "Bar panel 1",
+        "command": "omarchy-shell -q shell togglePanelAt right 1",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+2",
+        "keys": "SUPER + CTRL + code:11",
+        "description": "Bar panel 2",
+        "command": "omarchy-shell -q shell togglePanelAt right 2",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Ctrl+3",
+        "keys": "SUPER + CTRL + code:12",
+        "description": "Bar panel 3",
+        "command": "omarchy-shell -q shell togglePanelAt right 3",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114",
+        "confidence": "configured"
+      },
+      {
+        "shortcut": "Super+Shift+C",
+        "keys": "SUPER + SHIFT + C",
+        "description": "Calendar",
+        "command": "omarchy-launch-webapp 'https://app.hey.com/calendar/weeks/'",
+        "dispatcher": "exec",
+        "source": "$OMARCHY_PATH/default/hypr/bindings/applications.lua:24",
+        "confidence": "configured"
+      }
+    ],
+    "hypr_binding_source": "lua-replay",
+    "desktop_apps": [
+      {
+        "id": "omasettings",
+        "name": "OmaSettings",
+        "exec": "omasettings",
+        "executable": "omasettings",
+        "startup_wm_class": ""
+      },
+      {
+        "id": "org.gnome.Nautilus",
+        "name": "Files",
+        "exec": "nautilus --new-window",
+        "executable": "nautilus",
+        "startup_wm_class": ""
+      }
+    ],
+    "plugins": [
+      {
+        "id": "omarchy.audio",
+        "name": "Audio",
+        "display_name": "Audio",
+        "bar_panel": true
+      },
+      {
+        "id": "example.settings",
+        "name": "Example Settings",
+        "display_name": "Settings",
+        "bar_panel": true
+      }
+    ]
+  },
+  "harvested": {
+    "schema_version": 1,
+    "generated_at": 0,
+    "apps": [
+      {
+        "id": "libreoffice-writer",
+        "name": "LibreOffice Writer",
+        "classes": [
+          "libreoffice-writer"
+        ],
+        "toolkit": "libreoffice",
+        "sources": [
+          {
+            "harvester": "accessibility",
+            "origin": "VCL",
+            "shortcuts": 1
+          }
+        ],
+        "shortcuts": [
+          {
+            "title": "Word Count",
+            "keys": [
+              "Ctrl+Shift+G"
+            ]
+          },
+          {
+            "title": "Bold",
+            "keys": [
+              "Ctrl+B"
+            ],
+            "action": ".uno:Bold"
+          },
+          {
+            "title": "Center",
+            "keys": [
+              "Ctrl+E"
+            ],
+            "aliases": [
+              "Align Center"
+            ],
+            "action": ".uno:CenterPara"
+          },
+          {
+            "title": "Save",
+            "keys": [
+              "Ctrl+S"
+            ],
+            "action": ".uno:Save"
+          },
+          {
+            "title": "Save As...",
+            "keys": [
+              "Ctrl+Shift+S"
+            ],
+            "action": ".uno:SaveAs"
+          }
+        ]
+      },
+      {
+        "id": "org.gnome.Nautilus",
+        "name": "Files",
+        "classes": [
+          "nautilus",
+          "org.gnome.nautilus"
+        ],
+        "toolkit": "libadwaita",
+        "sources": [],
+        "shortcuts": [
+          {
+            "title": "Create Folder",
+            "keys": [
+              "Ctrl+Shift+N"
+            ]
+          },
+          {
+            "title": "Show/Hide Hidden Files",
+            "keys": [
+              "Ctrl+H"
+            ]
+          },
+          {
+            "title": "Go Back",
+            "keys": [
+              "Alt+Left"
+            ],
+            "section": "Navigation"
+          },
+          {
+            "title": "Search Current Folder",
+            "keys": [
+              "Ctrl+F"
+            ],
+            "section": "Search"
+          }
+        ]
+      },
+      {
+        "id": "t3code",
+        "name": "T3 Code",
+        "classes": [
+          "t3-code.appimage",
+          "t3code"
+        ],
+        "toolkit": "electron",
+        "sources": [
+          {
+            "harvester": "accessibility",
+            "origin": "Chromium",
+            "shortcuts": 1
+          }
+        ],
+        "shortcuts": [
+          {
+            "title": "Toggle sidebar",
+            "keys": [
+              "Ctrl+B"
+            ],
+            "aliases": [
+              "Toggle sidebar (Ctrl+B)",
+              "Sidebar"
+            ],
+            "site": ""
+          },
+          {
+            "title": "Toggle sidebar",
+            "keys": [
+              "Ctrl+B"
+            ],
+            "aliases": [
+              "Toggle main sidebar",
+              "Sidebar: Toggle"
+            ],
+            "action": "sidebar.toggle"
+          },
+          {
+            "title": "New thread",
+            "keys": [
+              "Ctrl+N",
+              "Ctrl+Shift+O"
+            ],
+            "aliases": [
+              "New chat",
+              "Chat: New"
+            ],
+            "section": "!terminalFocus",
+            "action": "chat.new"
+          }
+        ]
+      },
+      {
+        "id": "linguist",
+        "name": "linguist",
+        "classes": [
+          "linguist"
+        ],
+        "toolkit": "Qt",
+        "sources": [
+          {
+            "harvester": "accessibility",
+            "origin": "Qt",
+            "shortcuts": 3
+          }
+        ],
+        "shortcuts": [
+          {
+            "title": "Open...",
+            "keys": [
+              "Ctrl+O"
+            ]
+          },
+          {
+            "title": "File",
+            "keys": [
+              "Alt+F"
+            ]
+          },
+          {
+            "title": "Find Next",
+            "keys": [
+              "F3"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "brave-browser",
+        "name": "brave-browser",
+        "classes": [
+          "brave-browser"
+        ],
+        "toolkit": "Chromium",
+        "sources": [
+          {
+            "harvester": "accessibility",
+            "origin": "Chromium",
+            "shortcuts": 2
+          }
+        ],
+        "shortcuts": [
+          {
+            "title": "Play",
+            "keys": [
+              "k"
+            ],
+            "aliases": [
+              "Play (k)"
+            ],
+            "site": "www.youtube.com"
+          },
+          {
+            "title": "New chat",
+            "keys": [
+              "Ctrl+Shift+O"
+            ],
+            "site": "chatgpt.com"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,0 +1,100 @@
+{
+ "bindings": [
+  {
+   "command": "omarchy-shell shell toggle omarchy.clipboard",
+   "description": "Clipboard manager",
+   "flags": {},
+   "keys": "SUPER + CTRL + V",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/clipboard.lua:48"
+  },
+  {
+   "description": "Switch to workspace 1",
+   "dispatcher": "focus",
+   "flags": {},
+   "keys": "SUPER + code:10",
+   "kind": "dispatcher",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/tiling.lua:23"
+  },
+  {
+   "command": "omarchy-menu toggle",
+   "description": "Omarchy menu",
+   "flags": {},
+   "keys": "SUPER + SPACE",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:1"
+  },
+  {
+   "command": "omarchy-menu toggle apps",
+   "description": "Apps menu",
+   "flags": {},
+   "keys": "SUPER + ALT + SPACE",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:2"
+  },
+  {
+   "command": "omarchy-menu toggle root",
+   "description": "Omarchy menu",
+   "flags": {},
+   "keys": "SUPER + SHIFT + code:201",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:7"
+  },
+  {
+   "command": "omarchy-shell shell toggle omarchy.audio",
+   "description": "Audio",
+   "flags": {},
+   "keys": "SUPER + CTRL + A",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:101"
+  },
+  {
+   "command": "omarchy-shell shell toggle omarchy.clock",
+   "description": "Calendar",
+   "flags": {},
+   "keys": "SUPER + CTRL + ALT + D",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:104"
+  },
+  {
+   "command": "omarchy-shell shell toggle omarchy.network",
+   "description": "Network",
+   "flags": {},
+   "keys": "SUPER + CTRL + W",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:105"
+  },
+  {
+   "command": "omarchy-shell -q shell togglePanelAt right 1",
+   "description": "Bar panel 1",
+   "flags": {},
+   "keys": "SUPER + CTRL + code:10",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114"
+  },
+  {
+   "command": "omarchy-shell -q shell togglePanelAt right 2",
+   "description": "Bar panel 2",
+   "flags": {},
+   "keys": "SUPER + CTRL + code:11",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114"
+  },
+  {
+   "command": "omarchy-shell -q shell togglePanelAt right 3",
+   "description": "Bar panel 3",
+   "flags": {},
+   "keys": "SUPER + CTRL + code:12",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/utilities.lua:114"
+  },
+  {
+   "command": "omarchy-launch-webapp 'https://app.hey.com/calendar/weeks/'",
+   "description": "Calendar",
+   "flags": {},
+   "keys": "SUPER + SHIFT + C",
+   "kind": "exec",
+   "source": "$OMARCHY_PATH/default/hypr/bindings/applications.lua:24"
+  }
+ ]
+}

@@ -5,6 +5,7 @@ plugin_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 bin_path="$HOME/.local/bin/keyboard-coach"
 emit_path="$HOME/.local/bin/keyboard-coach-emit"
 ingest_path="$HOME/.local/bin/keyboard-coach-ingest"
+harvest_path="$HOME/.local/bin/keyboard-coach-harvest"
 shell_plugin_dir="$HOME/.config/omarchy/plugins/abdullah.keyboard-coach"
 data_dir="$HOME/.local/share/keyboard-coach"
 config_dir="$HOME/.config/keyboard-coach"
@@ -28,6 +29,11 @@ if ! command -v socat >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! command -v lua5.5 >/dev/null 2>&1 && ! command -v lua >/dev/null 2>&1; then
+  printf 'Warning: no Lua interpreter found. Hyprland bindings will be indexed without their commands,\n' >&2
+  printf 'so Omarchy widget shortcuts cannot be resolved. Install the lua package to fix this.\n' >&2
+fi
+
 # Preserve existing user data on the first renamed install. The legacy trees are
 # intentionally retained as a rollback copy and are never read after migration.
 for migration in \
@@ -46,18 +52,34 @@ done
 install -Dm755 "$plugin_root/scripts/coach.py" "$bin_path"
 install -Dm755 "$plugin_root/scripts/emit.sh" "$emit_path"
 install -Dm755 "$plugin_root/scripts/ingest_catalog.py" "$ingest_path"
+
+# The shortcut harvester is built from the Rust crate at the repository root.
+if command -v cargo >/dev/null 2>&1; then
+  cargo build --release --manifest-path "$plugin_root/Cargo.toml"
+elif command -v mise >/dev/null 2>&1; then
+  (cd "$plugin_root" && mise exec -- cargo build --release)
+else
+  printf 'Keyboard Coach requires a Rust toolchain (cargo) to build keyboard-coach-harvest.\n' >&2
+  exit 1
+fi
+install -Dm755 "$plugin_root/target/release/keyboard-coach-harvest" "$harvest_path"
 install -Dm644 "$plugin_root/systemd/keyboard-coach.service" "$service_path"
 install -Dm644 "$plugin_root/omarchy-plugin/manifest.json" "$shell_plugin_dir/manifest.json"
 install -Dm644 "$plugin_root/omarchy-plugin/Banner.qml" "$shell_plugin_dir/Banner.qml"
 install -Dm644 "$plugin_root/assets/base-catalog.json" "$data_dir/base-catalog.json"
+install -Dm644 "$plugin_root/scripts/hypr-bind-dump.lua" "$data_dir/hypr-bind-dump.lua"
 for command_pack in "$plugin_root"/assets/commands/*.json; do
   install -Dm644 "$command_pack" "$data_dir/commands/$(basename "$command_pack")"
 done
 "$ingest_path"
+"$harvest_path"
 
 systemctl --user disable --now mouse-keyboard-coach.service 2>/dev/null || true
 rm -f -- "$old_service_path"
 systemctl --user daemon-reload
+# Re-enable so an install that was wanted by default.target moves to the
+# graphical session; the old link started the daemon before Hyprland existed.
+systemctl --user disable keyboard-coach.service 2>/dev/null || true
 systemctl --user enable keyboard-coach.service
 systemctl --user restart keyboard-coach.service
 

@@ -3,6 +3,7 @@
   "id": "brave-installed",
   "apps": ["^(brave-browser|brave|com\\.brave\\.Browser.*)$"],
   "accelerator_source": "brave_preferences",
+  "default_match": {"target_in_document": ["^false$"]},
   "source": {
     "title": "Brave and Chromium command registries",
     "url": "https://github.com/brave/brave-core/blob/master/app/brave_command_ids.h",
@@ -22,6 +23,7 @@
     {"id":"close-window","native_id":34012,"shortcut":"Ctrl+Shift+W / Alt+F4","description":"close the Brave window.","priority":270,"match":{"names":["close window|\\b(exit|quit)\\b"]}},
     {"id":"new-tab","native_id":34014,"shortcut":"Ctrl+T","description":"open a new tab.","priority":270,"match":{"names":["\\bnew tab\\b"],"roles":["^(button|push button)$"]}},
     {"id":"close-tab","native_id":34015,"shortcut":"Ctrl+W / Ctrl+F4","description":"close the current tab.","priority":270,"match":{"names":["\\bclose tab\\b"]}},
+    {"id":"close-tab-button","native_id":34015,"shortcut":"Ctrl+W / Ctrl+F4","description":"close the current tab.","priority":270,"match":{"roles":["^(button|push button)$"],"names":["^close$"],"parent_roles":["^page tab$"],"target_parent_selected":["^true$"]}},
     {"id":"next-tab","native_id":34062,"shortcut":"Ctrl+Tab","description":"switch to the next tab.","match":{"names":["next tab"]}},
     {"id":"previous-tab","native_id":34063,"shortcut":"Ctrl+Shift+Tab","description":"switch to the previous tab.","match":{"names":["previous tab"]}},
     {"id":"select-tab-1","native_id":34018,"shortcut":"Ctrl+1","description":"switch directly to tab 1.","priority":280,"match":{"roles":["^page tab$"],"target_positions":["^1$"]}},
