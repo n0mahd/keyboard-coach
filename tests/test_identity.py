@@ -9,7 +9,7 @@ PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 class PluginIdentityTest(unittest.TestCase):
     def test_all_public_entry_points_use_keyboard_coach(self):
         plugin = json.loads((PLUGIN_ROOT / ".codex-plugin/plugin.json").read_text())
-        shell = json.loads((PLUGIN_ROOT / "omarchy-plugin/manifest.json").read_text())
+        shell = json.loads((PLUGIN_ROOT / "manifest.json").read_text())
         service = (PLUGIN_ROOT / "systemd/keyboard-coach.service").read_text()
         bindings = (PLUGIN_ROOT / "scripts/hypr-bindings.lua").read_text()
         skill = (PLUGIN_ROOT / "skills/keyboard-coach/SKILL.md").read_text()
@@ -17,7 +17,7 @@ class PluginIdentityTest(unittest.TestCase):
         self.assertEqual(PLUGIN_ROOT.name, "keyboard-coach")
         self.assertEqual(plugin["name"], "keyboard-coach")
         self.assertEqual(plugin["interface"]["displayName"], "Keyboard Coach")
-        self.assertEqual(shell["id"], "abdullah.keyboard-coach")
+        self.assertEqual(shell["id"], "io.github.n0mahd.keyboard-coach")
         self.assertEqual(shell["name"], "Keyboard Coach")
         self.assertIn("%h/.local/bin/keyboard-coach serve", service)
         self.assertIn("keyboard-coach-emit", bindings)
@@ -26,8 +26,8 @@ class PluginIdentityTest(unittest.TestCase):
     def test_legacy_identity_is_limited_to_migration_compatibility(self):
         public_files = [
             PLUGIN_ROOT / ".codex-plugin/plugin.json",
-            PLUGIN_ROOT / "omarchy-plugin/manifest.json",
-            PLUGIN_ROOT / "omarchy-plugin/Banner.qml",
+            PLUGIN_ROOT / "manifest.json",
+            PLUGIN_ROOT / "Banner.qml",
             PLUGIN_ROOT / "scripts/emit.sh",
             PLUGIN_ROOT / "scripts/hypr-bindings.lua",
             PLUGIN_ROOT / "scripts/ingest_catalog.py",

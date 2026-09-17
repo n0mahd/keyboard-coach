@@ -6,6 +6,8 @@ Keyboard Coach watches your mouse clicks on Omarchy and shows the keyboard short
 done the same thing. Suggestions are deterministic: each one comes from an indexed source, and a
 click with no reliable keyboard equivalent shows nothing.
 
+![Keyboard Coach banner suggesting Ctrl+T after clicking the new tab button](preview.png)
+
 ## How a click is resolved
 
 Passive Hyprland bindings send tiny press and release events to a systemd user daemon over a Unix
@@ -78,11 +80,44 @@ the next change.
 
 ## Install
 
-Run `scripts/install.sh`. It requires `socat`, a Lua 5.5 interpreter (`lua`), and a Rust toolchain
-(`cargo`, or `mise` with this repository's `mise.toml`) to build the harvester. It installs the
-executables, the Omarchy banner panel, and the passive Hyprland bindings, and enables the service
-under `graphical-session.target`. Chromium-based browsers must be restarted once after installation
-so their accessibility flag takes effect.
+Keyboard Coach needs `socat`, a Lua 5.5 interpreter (`lua`), and a Rust toolchain (`cargo`, or `mise`
+with this repository's `mise.toml`) to build the harvester:
+
+```sh
+sudo pacman -S --needed socat lua rust
+```
+
+Add the plugin, then run its installer:
+
+```sh
+omarchy plugin add https://github.com/n0mahd/keyboard-coach.git
+~/.config/omarchy/plugins/io.github.n0mahd.keyboard-coach/scripts/install.sh
+```
+
+The installer builds the harvester and installs these, all under your home directory:
+
+- the `keyboard-coach` executables in `~/.local/bin`
+- the `keyboard-coach` systemd user service, enabled under `graphical-session.target`
+- the passive click bindings, added between `-- BEGIN keyboard-coach` and `-- END keyboard-coach`
+  in `~/.config/hypr/bindings.lua` (the original is first saved as `bindings.lua.bak.keyboard-coach`)
+- GTK accessibility (`toolkit-accessibility`), and `--force-renderer-accessibility` in existing
+  `brave-flags.conf` and `chromium-flags.conf`, so AT-SPI can see controls
+
+It then enables the Omarchy banner panel. Restart Chromium-based browsers once so the accessibility
+flag takes effect. To install from a checkout instead, run `scripts/install.sh` from it.
+
+After `omarchy plugin update io.github.n0mahd.keyboard-coach`, run the installer again.
+
+## Remove
+
+```sh
+~/.config/omarchy/plugins/io.github.n0mahd.keyboard-coach/scripts/uninstall.sh
+omarchy plugin remove io.github.n0mahd.keyboard-coach
+```
+
+The uninstaller stops and removes the service, the executables, the generated index and state, and
+the click bindings. It keeps your command packs in `~/.config/keyboard-coach` and the accessibility
+settings, which other tools may rely on.
 
 ## Use
 
@@ -108,3 +143,7 @@ reads the same corpus.
 python3 -m unittest discover -s tests
 mise exec -- cargo test
 ```
+
+## License
+
+[MIT](LICENSE)

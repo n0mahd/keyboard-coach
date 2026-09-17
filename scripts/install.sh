@@ -6,7 +6,8 @@ bin_path="$HOME/.local/bin/keyboard-coach"
 emit_path="$HOME/.local/bin/keyboard-coach-emit"
 ingest_path="$HOME/.local/bin/keyboard-coach-ingest"
 harvest_path="$HOME/.local/bin/keyboard-coach-harvest"
-shell_plugin_dir="$HOME/.config/omarchy/plugins/abdullah.keyboard-coach"
+plugin_id="io.github.n0mahd.keyboard-coach"
+shell_plugin_dir="$HOME/.config/omarchy/plugins/$plugin_id"
 data_dir="$HOME/.local/share/keyboard-coach"
 config_dir="$HOME/.config/keyboard-coach"
 state_dir="$HOME/.local/state/keyboard-coach"
@@ -18,7 +19,7 @@ end_marker="-- END keyboard-coach"
 old_bin_path="$HOME/.local/bin/mouse-keyboard-coach"
 old_emit_path="$HOME/.local/bin/mouse-keyboard-coach-emit"
 old_ingest_path="$HOME/.local/bin/mouse-keyboard-coach-ingest"
-old_shell_plugin_dir="$HOME/.config/omarchy/plugins/abdullah.mouse-keyboard-coach"
+old_shell_plugin_ids=(abdullah.mouse-keyboard-coach abdullah.keyboard-coach)
 old_data_dir="$HOME/.local/share/mouse-keyboard-coach"
 old_config_dir="$HOME/.config/mouse-keyboard-coach"
 old_state_dir="$HOME/.local/state/mouse-keyboard-coach"
@@ -64,8 +65,12 @@ else
 fi
 install -Dm755 "$plugin_root/target/release/keyboard-coach-harvest" "$harvest_path"
 install -Dm644 "$plugin_root/systemd/keyboard-coach.service" "$service_path"
-install -Dm644 "$plugin_root/omarchy-plugin/manifest.json" "$shell_plugin_dir/manifest.json"
-install -Dm644 "$plugin_root/omarchy-plugin/Banner.qml" "$shell_plugin_dir/Banner.qml"
+# `omarchy plugin add` clones this repository into the plugin directory; an
+# install from any other checkout copies the banner panel there.
+if [[ ! $plugin_root -ef $shell_plugin_dir ]]; then
+  install -Dm644 "$plugin_root/manifest.json" "$shell_plugin_dir/manifest.json"
+  install -Dm644 "$plugin_root/Banner.qml" "$shell_plugin_dir/Banner.qml"
+fi
 install -Dm644 "$plugin_root/assets/base-catalog.json" "$data_dir/base-catalog.json"
 install -Dm644 "$plugin_root/scripts/hypr-bind-dump.lua" "$data_dir/hypr-bind-dump.lua"
 for command_pack in "$plugin_root"/assets/commands/*.json; do
@@ -104,16 +109,18 @@ printf '\n%s\n' "$start_marker" >> "$bindings_path"
 sed -n '1,$p' "$plugin_root/scripts/hypr-bindings.lua" >> "$bindings_path"
 printf '%s\n' "$end_marker" >> "$bindings_path"
 
-omarchy-shell -q shell setPluginEnabled abdullah.mouse-keyboard-coach false || true
-rm -rf -- "$old_shell_plugin_dir"
+for old_id in "${old_shell_plugin_ids[@]}"; do
+  omarchy-shell -q shell setPluginEnabled "$old_id" false || true
+  rm -rf -- "$HOME/.config/omarchy/plugins/$old_id"
+done
 omarchy-shell shell rescanPlugins
 for _ in {1..30}; do
-  if omarchy-shell shell listPlugins 2>/dev/null | grep -Fq 'abdullah.keyboard-coach'; then
+  if omarchy-shell shell listPlugins 2>/dev/null | grep -Fq "$plugin_id"; then
     break
   fi
   sleep 0.1
 done
-omarchy plugin enable abdullah.keyboard-coach
+omarchy plugin enable "$plugin_id"
 hyprctl reload
 errors=$(hyprctl configerrors)
 if [[ -n $errors && $errors != "no flags were set" && $errors != "-- No entries --" ]]; then

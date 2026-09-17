@@ -1,10 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "abdullah.keyboard-coach",
+  "id": "io.github.n0mahd.keyboard-coach",
   "name": "Keyboard Coach",
   "version": "0.1.0",
   "author": "Abdullah",
-  "description": "Top-center keyboard shortcut suggestions after mouse clicks",
+  "license": "MIT",
+  "description": "Shows the keyboard shortcut for what you just clicked",
   "kinds": ["panel"],
   "keepLoaded": true,
   "entryPoints": {
