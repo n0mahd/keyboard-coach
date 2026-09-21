@@ -479,6 +479,109 @@ class HerdrTest(unittest.TestCase):
                 coach.Path = real_path
 
 
+class CoachingPolicyTest(unittest.TestCase):
+    def config(self, **overrides):
+        import copy
+        return {**copy.deepcopy(coach.CONFIG_DEFAULTS), **overrides}
+
+    def decide(self, config, history=(), suggestion="Ctrl+T — open a new tab.", app="brave-browser"):
+        return coach.suggestion_decision(suggestion, {"app": app}, config, list(history), now=1000000.0)
+
+    def history(self, count, suggestion="Ctrl+T — open a new tab.", shown=True):
+        return [{"time": 999000.0, "suggestion": suggestion, "shown": shown} for _ in range(count)]
+
+    def test_the_shipped_settings_suggest_on_the_first_click(self):
+        self.assertEqual(self.decide(self.config()), (True, ""))
+
+    def test_a_repeat_threshold_waits_for_the_habit(self):
+        config = self.config(repeats_before_suggesting=3)
+        self.assertEqual(self.decide(config)[0], False)
+        self.assertEqual(self.decide(config, self.history(1))[0], False)
+        self.assertEqual(self.decide(config, self.history(2)), (True, ""))
+
+    def test_repeats_outside_the_window_do_not_count(self):
+        config = self.config(repeats_before_suggesting=2, repeat_window_hours=1)
+        old = [{"time": 1000.0, "suggestion": "Ctrl+T — open a new tab.", "shown": True}]
+        self.assertEqual(self.decide(config, old)[0], False)
+
+    def test_a_muted_app_stays_silent(self):
+        shown, reason = self.decide(self.config(mute_apps=["^brave"]))
+        self.assertEqual((shown, reason), (False, "muted app"))
+        self.assertTrue(self.decide(self.config(mute_apps=["^signal$"]))[0])
+
+    def test_a_learned_shortcut_can_be_muted(self):
+        self.assertEqual(self.decide(self.config(mute_suggestions=[r"^Ctrl\+T\b"]))[0], False)
+
+    def test_coaching_can_stop_after_enough_reminders(self):
+        config = self.config(stop_after_suggestions=2)
+        self.assertTrue(self.decide(config, self.history(1))[0])
+        self.assertFalse(self.decide(config, self.history(2))[0])
+        # Only the times it was actually shown count towards the limit.
+        self.assertTrue(self.decide(config, self.history(5, shown=False))[0])
+
+    def test_quiet_hours_cover_the_night(self):
+        overnight = self.config(quiet_hours={"from": "22:00", "to": "07:00"})
+        daytime = self.config(quiet_hours={"from": "09:00", "to": "17:00"})
+        at = lambda hour, minute=0: time.struct_time((2026, 1, 1, hour, minute, 0, 3, 1, 0))
+        self.assertTrue(coach.in_quiet_hours(overnight, at(23)))
+        self.assertTrue(coach.in_quiet_hours(overnight, at(3)))
+        self.assertFalse(coach.in_quiet_hours(overnight, at(12)))
+        self.assertTrue(coach.in_quiet_hours(daytime, at(9)))
+        self.assertFalse(coach.in_quiet_hours(daytime, at(17)))
+        self.assertFalse(coach.in_quiet_hours(self.config(), at(3)))
+
+    def test_configuration_is_read_leniently(self):
+        import os
+        saved = os.environ.get("XDG_CONFIG_HOME")
+        with tempfile.TemporaryDirectory() as directory:
+            os.environ["XDG_CONFIG_HOME"] = directory
+            try:
+                self.assertEqual(coach.load_config(), coach.CONFIG_DEFAULTS)
+                path = Path(directory) / "keyboard-coach/config.json"
+                path.parent.mkdir(parents=True)
+                path.write_text('{"banner_duration_ms": 4000, "mute_apps": ["^x$"], "repeats_before_suggesting": "3"}')
+                config = coach.load_config()
+                self.assertEqual(config["banner_duration_ms"], 4000)
+                self.assertEqual(config["mute_apps"], ["^x$"])
+                # A value of the wrong type falls back rather than failing.
+                self.assertEqual(config["repeats_before_suggesting"], 1)
+                path.write_text("{ not json")
+                self.assertEqual(coach.load_config(), coach.CONFIG_DEFAULTS)
+            finally:
+                if saved is None:
+                    del os.environ["XDG_CONFIG_HOME"]
+                else:
+                    os.environ["XDG_CONFIG_HOME"] = saved
+
+
+class ReportTest(unittest.TestCase):
+    def test_report_ranks_habits_and_compares_with_the_period_before(self):
+        import os
+        saved = os.environ.get("XDG_STATE_HOME")
+        now = 2_000_000.0
+        with tempfile.TemporaryDirectory() as directory:
+            os.environ["XDG_STATE_HOME"] = directory
+            try:
+                records = (
+                    [{"time": now - 3600, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 3
+                    + [{"time": now - 7200, "app": "nautilus", "suggestion": "F2 — rename.", "shown": False}]
+                    + [{"time": now - 10 * 86400, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 5
+                )
+                coach.history_path().write_text("\n".join(json.dumps(record) for record in records) + "\n")
+                summary = coach.report_summary(days=7, now=now)
+                self.assertEqual(summary["coached_clicks"], 4)
+                self.assertEqual(summary["previous_period_clicks"], 5)
+                self.assertEqual(summary["distinct_actions"], 2)
+                self.assertEqual(summary["top"][0]["suggestion"], "Ctrl+T — open a new tab.")
+                self.assertEqual(summary["top"][0]["clicks"], 3)
+                self.assertEqual(summary["top"][0]["apps"], ["brave-browser"])
+            finally:
+                if saved is None:
+                    del os.environ["XDG_STATE_HOME"]
+                else:
+                    os.environ["XDG_STATE_HOME"] = saved
+
+
 class CoverageTest(unittest.TestCase):
     def test_coverage_counts_indexed_sources(self):
         catalog = {

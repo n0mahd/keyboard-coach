@@ -494,6 +494,11 @@ def preferred_accelerators(values: list[str]) -> str:
 
 
 def read_brave_accelerators(path: Path) -> dict[str, str]:
+    """Shortcuts the user reassigned inside a Chromium browser, by command id.
+
+    Only Brave publishes `brave.accelerators`; the key is simply absent in the
+    other Chromium browsers, which leaves the pack's defaults in place.
+    """
     if not path.exists():
         return {}
     preferences = read_json(path)
@@ -507,6 +512,45 @@ def read_brave_accelerators(path: Path) -> dict[str, str]:
     }
 
 
+# Where each Chromium browser keeps its default profile, and the window classes
+# a customization found there may be applied to. A user running two of them must
+# not have one browser's reassigned keys suggested inside the other.
+CHROMIUM_BROWSERS = (
+    ("BraveSoftware/Brave-Browser", ["^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$", "^brave-[^-]+-(default|profile[ _]?\\d+)$"]),
+    ("chromium", ["^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$", "^chromium?-[^-]+-(default|profile[ _]?\\d+)$"]),
+    ("google-chrome", ["^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$", "^chrome-[^-]+-(default|profile[ _]?\\d+)$"]),
+    ("vivaldi", ["^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$", "^vivaldi-[^-]+-(default|profile[ _]?\\d+)$"]),
+    ("microsoft-edge", ["^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$", "^microsoft-edge-[^-]+-(default|profile[ _]?\\d+)$"]),
+)
+
+
+def chromium_preference_paths() -> list[tuple[Path, list[str]]]:
+    """Every installed Chromium browser's default profile preferences."""
+    config_home = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+    flatpak = Path.home() / ".var/app"
+    paths = []
+    for directory, apps in CHROMIUM_BROWSERS:
+        candidates = [config_home / directory / "Default/Preferences"]
+        candidates += [
+            path / "config" / directory / "Default/Preferences"
+            for path in sorted(flatpak.glob("*")) if path.is_dir()
+        ]
+        for candidate in candidates:
+            if candidate.is_file():
+                paths.append((candidate, apps))
+    return paths
+
+
+def read_chromium_accelerators(paths: list[tuple[Path, list[str]]]) -> list[dict[str, Any]]:
+    """Per-browser shortcut customizations, each scoped to that browser's windows."""
+    sources = []
+    for path, apps in paths:
+        accelerators = read_brave_accelerators(path)
+        if accelerators:
+            sources.append({"apps": apps, "accelerators": accelerators, "source": str(path)})
+    return sources
+
+
 def resolve_native_shortcuts(pack: dict[str, Any], accelerators: dict[str, str]) -> dict[str, Any]:
     resolved = copy.deepcopy(pack)
     for command in resolved["commands"]:
@@ -516,8 +560,49 @@ def resolve_native_shortcuts(pack: dict[str, Any], accelerators: dict[str, str])
     return resolved
 
 
+ACCELERATOR_SOURCES = {"brave_preferences", "chromium_preferences"}
+# A customization outranks the shipped default for the browser it was read from.
+CUSTOMIZED_PRIORITY_BONUS = 5
+
+
+def accelerator_variants(
+    pack: dict[str, Any], accelerator_sources: list[dict[str, Any]],
+) -> list[tuple[list[str], list[dict[str, Any]], int]]:
+    """The pack as shipped, plus one narrower rule set per browser that reassigned keys.
+
+    A family pack covers every Chromium browser, but a reassigned shortcut holds
+    only in the browser whose preferences declared it, so those commands are
+    emitted again, scoped to that browser's windows and ranked above the default.
+    """
+    variants = [(pack["apps"], pack["commands"], 0)]
+    if pack.get("accelerator_source") not in ACCELERATOR_SOURCES:
+        return variants
+    for source in accelerator_sources:
+        accelerators = source.get("accelerators") or {}
+        customized = [
+            {**command, "shortcut": accelerators[str(command["native_id"])]}
+            for command in pack["commands"]
+            if command.get("native_id") is not None
+            and accelerators.get(str(command["native_id"]))
+            and accelerators[str(command["native_id"])] != command["shortcut"]
+        ]
+        if customized:
+            variants.append((source.get("apps") or pack["apps"], customized, CUSTOMIZED_PRIORITY_BONUS))
+    return variants
+
+
+def normalize_accelerator_sources(accelerators: Any) -> list[dict[str, Any]]:
+    """Accept either one unscoped set of command overrides or several scoped ones."""
+    if not accelerators:
+        return []
+    if isinstance(accelerators, dict):
+        return [{"apps": None, "accelerators": accelerators}]
+    return list(accelerators)
+
+
 def compile_catalog(
-    base_path: Path, pack_paths: list[Path], brave_accelerators: dict[str, str] | None = None,
+    base_path: Path, pack_paths: list[Path],
+    accelerators: dict[str, str] | list[dict[str, Any]] | None = None,
     system_index: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     base = read_json(base_path)
@@ -529,9 +614,8 @@ def compile_catalog(
     for path in pack_paths:
         pack = validate_pack(path, read_json(path))
         packs_by_id[pack["id"]] = (path, pack)
+    accelerator_sources = normalize_accelerator_sources(accelerators)
     for path, pack in packs_by_id.values():
-        if pack.get("accelerator_source") == "brave_preferences":
-            pack = resolve_native_shortcuts(pack, brave_accelerators or {})
         command_sets.append({
             "id": pack["id"], "apps": pack["apps"], "source": pack["source"],
             "commands": [
@@ -539,21 +623,22 @@ def compile_catalog(
                 for command in pack["commands"]
             ],
         })
-        for command in pack["commands"]:
-            if not command.get("match"):
-                continue
-            entry = {
-                "apps": pack["apps"],
-                # A command's own match fields override the pack-wide defaults.
-                **pack.get("default_match", {}),
-                **command["match"],
-                "shortcut": command["shortcut"],
-                "description": command["description"],
-                "priority": int(command.get("priority", 100)),
-                "command_id": f"{pack['id']}.{command['id']}",
-            }
-            entry.setdefault("buttons", ["left"])
-            entries.append(entry)
+        for apps, commands, bonus in accelerator_variants(pack, accelerator_sources):
+            for command in commands:
+                if not command.get("match"):
+                    continue
+                entry = {
+                    "apps": apps,
+                    # A command's own match fields override the pack-wide defaults.
+                    **pack.get("default_match", {}),
+                    **command["match"],
+                    "shortcut": command["shortcut"],
+                    "description": command["description"],
+                    "priority": int(command.get("priority", 100)) + bonus,
+                    "command_id": f"{pack['id']}.{command['id']}",
+                }
+                entry.setdefault("buttons", ["left"])
+                entries.append(entry)
     entries.sort(key=lambda entry: entry["priority"], reverse=True)
     discovered = system_index or {}
     system_entries = discovered.get("entries", []) if isinstance(discovered, dict) else []
@@ -575,8 +660,8 @@ def main() -> int:
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--no-system-index", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument(
-        "--brave-preferences", type=Path,
-        default=Path.home() / ".config/BraveSoftware/Brave-Browser/Default/Preferences",
+        "--chromium-preferences", type=Path, action="append",
+        help="a Chromium browser Preferences file to read shortcut customizations from",
     )
     args = parser.parse_args()
     command_dirs = args.commands_dir or [data_dir / "commands", default_config_dir() / "commands"]
@@ -585,8 +670,12 @@ def main() -> int:
         for path in sorted(directory.glob("*.json"))
     ]
     try:
+        preferences = (
+            [(path, None) for path in args.chromium_preferences]
+            if args.chromium_preferences else chromium_preference_paths()
+        )
         catalog = compile_catalog(
-            args.base, pack_paths, read_brave_accelerators(args.brave_preferences),
+            args.base, pack_paths, read_chromium_accelerators(preferences),
             {} if args.no_system_index else discover_system_index(),
         )
     except ValueError as error:

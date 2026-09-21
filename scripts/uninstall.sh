@@ -18,6 +18,7 @@ rm -f -- \
   "$HOME/.local/bin/keyboard-coach-ingest" \
   "$HOME/.local/bin/keyboard-coach-harvest"
 rm -rf -- "$HOME/.local/share/keyboard-coach" "$HOME/.local/state/keyboard-coach"
+rm -f -- "$HOME/.config/environment.d/90-keyboard-coach.conf"
 
 if [[ -f $bindings_path ]]; then
   sed -i '/^-- BEGIN keyboard-coach$/,/^-- END keyboard-coach$/d' "$bindings_path"

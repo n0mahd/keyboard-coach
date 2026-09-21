@@ -28,16 +28,39 @@ class CatalogCompileTest(unittest.TestCase):
 
         catalog = ingest.compile_catalog(ROOT / "assets/base-catalog.json", packs)
 
-        self.assertEqual({item["id"] for item in catalog["command_sets"]}, {"brave", "brave-installed", "signal-desktop"})
-        self.assertTrue(any(entry.get("command_id") == "brave.settings" for entry in catalog["entries"]))
+        self.assertEqual(
+            {item["id"] for item in catalog["command_sets"]},
+            {"brave", "chromium", "chromium-installed", "firefox", "signal-desktop"},
+        )
+        self.assertTrue(any(entry.get("command_id") == "chromium.settings" for entry in catalog["entries"]))
 
-    def test_installed_brave_accelerator_overrides_pack_default(self):
+    def test_browser_accelerator_customization_is_scoped_to_that_browser(self):
         packs = sorted((ROOT / "assets/commands").glob("*.json"))
 
-        catalog = ingest.compile_catalog(ROOT / "assets/base-catalog.json", packs, {"34020": "Super+3"})
+        catalog = ingest.compile_catalog(ROOT / "assets/base-catalog.json", packs, [
+            {"apps": ["^brave-browser$"], "accelerators": {"34020": "Super+3"}},
+        ])
 
-        command_set = next(item for item in catalog["command_sets"] if item["id"] == "brave-installed")
-        self.assertEqual(next(c["shortcut"] for c in command_set["commands"] if c["id"] == "select-tab-3"), "Super+3")
+        select_tab_3 = [
+            entry for entry in catalog["entries"] if entry.get("command_id") == "chromium-installed.select-tab-3"
+        ]
+        customized = next(entry for entry in select_tab_3 if entry["shortcut"] == "Super+3")
+        shipped = next(entry for entry in select_tab_3 if entry["shortcut"] == "Ctrl+3")
+        # Only Brave windows, and ahead of the shipped default for them.
+        self.assertEqual(customized["apps"], ["^brave-browser$"])
+        self.assertGreater(customized["priority"], shipped["priority"])
+        self.assertLess(catalog["entries"].index(customized), catalog["entries"].index(shipped))
+
+    def test_unchanged_accelerators_add_no_rules(self):
+        packs = sorted((ROOT / "assets/commands").glob("*.json"))
+
+        catalog = ingest.compile_catalog(ROOT / "assets/base-catalog.json", packs, [
+            {"apps": ["^brave-browser$"], "accelerators": {"34020": "Ctrl+3"}},
+        ])
+
+        self.assertEqual(
+            len([entry for entry in catalog["entries"] if entry.get("command_id") == "chromium-installed.select-tab-3"]), 1,
+        )
 
     def test_default_match_applies_unless_a_command_overrides_it(self):
         with tempfile.TemporaryDirectory() as directory:

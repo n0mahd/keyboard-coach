@@ -113,8 +113,192 @@
     }
    },
    "expect": {
-    "suggestion": "Alt+F / Alt+E — open the Brave main menu.",
+    "suggestion": "Alt+F / Alt+E — open the browser's main menu.",
     "source": "catalog"
+   }
+  },
+  {
+   "name": "brave hamburger button named after the browser",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Brave",
+     "description": "Customize and control Brave",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F / Alt+E — open the browser's main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave hamburger button whose name carries the label",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Customize and control Brave",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F / Alt+E — open the browser's main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "chrome hamburger button",
+   "button": "left",
+   "context": {
+    "app": "google-chrome",
+    "title": "Example - Google Chrome",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Chrome",
+     "description": "Customize and control Google Chrome",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F / Alt+E — open the browser's main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "chromium new tab button",
+   "button": "left",
+   "context": {
+    "app": "chromium",
+    "title": "New Tab - Chromium",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "New Tab",
+     "description": "New tab",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+T — open a new tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "brave installed web app window is still a chromium window",
+   "button": "left",
+   "context": {
+    "app": "brave-x.com__-Default",
+    "title": "X",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Brave",
+     "description": "Customize and control Brave",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+F / Alt+E — open the browser's main menu.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "firefox tab uses the linux tab shortcut",
+   "button": "left",
+   "context": {
+    "app": "firefox",
+    "title": "Example — Mozilla Firefox",
+    "omarchy": {},
+    "target": {
+     "role": "page tab",
+     "name": "Example",
+     "description": "",
+     "actions": [],
+     "in_document": false,
+     "position": 3,
+     "set_size": 5,
+     "is_last": false
+    }
+   },
+   "expect": {
+    "suggestion": "Alt+3 / Ctrl+3 — switch directly to this tab.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "firefox downloads button",
+   "button": "left",
+   "context": {
+    "app": "firefox",
+    "title": "Example — Mozilla Firefox",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Downloads",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": "Ctrl+Shift+Y — open downloads.",
+    "source": "catalog"
+   }
+  },
+  {
+   "name": "firefox has no shortcut for its application menu",
+   "button": "left",
+   "context": {
+    "app": "firefox",
+    "title": "Example — Mozilla Firefox",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Open application menu",
+     "description": "",
+     "actions": [],
+     "in_document": false
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
+   }
+  },
+  {
+   "name": "a page control named Menu is not the browser menu",
+   "button": "left",
+   "context": {
+    "app": "brave-browser",
+    "title": "Example - Brave",
+    "omarchy": {},
+    "target": {
+     "role": "button",
+     "name": "Menu",
+     "description": "",
+     "actions": [],
+     "in_document": true,
+     "site": "example.com"
+    }
+   },
+   "expect": {
+    "suggestion": null,
+    "source": "none"
    }
   },
   {
@@ -138,7 +322,7 @@
     }
    },
    "expect": {
-    "suggestion": "Alt+F, then S — open Brave Settings from the main menu.",
+    "suggestion": "Alt+F, then S — open Settings from the main menu.",
     "source": "catalog"
    }
   },

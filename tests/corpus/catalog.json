@@ -1,22 +1,73 @@
 {
   "version": 3,
   "generated_from": [
-    "assets/commands/brave-native.json",
     "assets/commands/brave.json",
+    "assets/commands/chromium-native.json",
+    "assets/commands/chromium.json",
+    "assets/commands/firefox.json",
     "assets/commands/signal.json"
   ],
   "command_sets": [
     {
-      "id": "brave-installed",
+      "id": "brave",
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
       ],
       "source": {
-        "title": "Brave and Chromium command registries",
+        "title": "Brave command registry",
         "url": "https://github.com/brave/brave-core/blob/master/app/brave_command_ids.h",
-        "chromium_url": "https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/app/chrome_command_ids.h",
         "platform": "linux",
-        "retrieved": "2026-09-10"
+        "retrieved": "2026-09-20"
+      },
+      "commands": [
+        {
+          "id": "collapse-vertical-tabs",
+          "shortcut": "Ctrl+Shift+L",
+          "description": "collapse or expand vertical tabs.",
+          "native_id": 34061
+        },
+        {
+          "id": "new-tor-window",
+          "shortcut": "Alt+Shift+N",
+          "description": "open a new private window with Tor.",
+          "native_id": 56003
+        },
+        {
+          "id": "toggle-tab-mute",
+          "shortcut": "Ctrl+M",
+          "description": "mute or unmute the current tab.",
+          "native_id": 56041
+        },
+        {
+          "id": "toggle-sidebar",
+          "shortcut": "Ctrl+B",
+          "description": "show or hide the Brave sidebar.",
+          "native_id": 56044
+        },
+        {
+          "id": "quick-commands",
+          "shortcut": "Ctrl+Space",
+          "description": "open Brave Quick Commands.",
+          "native_id": 56301
+        }
+      ]
+    },
+    {
+      "id": "chromium-installed",
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "source": {
+        "title": "Chromium command registry",
+        "url": "https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/app/chrome_command_ids.h",
+        "platform": "linux",
+        "retrieved": "2026-09-20"
       },
       "commands": [
         {
@@ -58,13 +109,13 @@
         {
           "id": "new-private-window",
           "shortcut": "Ctrl+Shift+N",
-          "description": "open a new Private window.",
+          "description": "open a new private or incognito window.",
           "native_id": 34001
         },
         {
           "id": "close-window",
           "shortcut": "Ctrl+Shift+W / Alt+F4",
-          "description": "close the Brave window.",
+          "description": "close the browser window.",
           "native_id": 34012
         },
         {
@@ -174,12 +225,6 @@
           "shortcut": "Ctrl+Shift+PageUp",
           "description": "move the current tab left.",
           "native_id": 34033
-        },
-        {
-          "id": "collapse-vertical-tabs",
-          "shortcut": "Ctrl+Shift+L",
-          "description": "collapse or expand vertical tabs.",
-          "native_id": 34061
         },
         {
           "id": "new-tab-in-group",
@@ -400,13 +445,13 @@
         {
           "id": "help",
           "shortcut": "F1",
-          "description": "open Brave Help.",
+          "description": "open the browser's help center.",
           "native_id": 40019
         },
         {
           "id": "main-menu",
           "shortcut": "Alt+F / Alt+E",
-          "description": "open the Brave main menu.",
+          "description": "open the browser's main menu.",
           "native_id": 40021
         },
         {
@@ -436,7 +481,7 @@
         {
           "id": "task-manager",
           "shortcut": "Shift+Esc",
-          "description": "open Brave Task Manager.",
+          "description": "open the browser's task manager.",
           "native_id": 40286
         },
         {
@@ -444,43 +489,26 @@
           "shortcut": "Ctrl+Shift+A",
           "description": "search open tabs.",
           "native_id": 52500
-        },
-        {
-          "id": "new-tor-window",
-          "shortcut": "Alt+Shift+N",
-          "description": "open a new Private window with Tor.",
-          "native_id": 56003
-        },
-        {
-          "id": "toggle-tab-mute",
-          "shortcut": "Ctrl+M",
-          "description": "mute or unmute the current tab.",
-          "native_id": 56041
-        },
-        {
-          "id": "toggle-sidebar",
-          "shortcut": "Ctrl+B",
-          "description": "show or hide the Brave sidebar.",
-          "native_id": 56044
-        },
-        {
-          "id": "quick-commands",
-          "shortcut": "Ctrl+Space",
-          "description": "open Brave Quick Commands.",
-          "native_id": 56301
         }
       ]
     },
     {
-      "id": "brave",
+      "id": "chromium",
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "source": {
-        "title": "What keyboard shortcuts can I use in Brave?",
-        "url": "https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave",
+        "title": "Chrome, Chromium and Brave keyboard shortcuts",
+        "url": "https://support.google.com/chrome/answer/157179",
+        "brave_url": "https://support.brave.com/hc/en-us/articles/360032272171-What-keyboard-shortcuts-can-I-use-in-Brave",
         "platform": "linux",
-        "retrieved": "2026-09-10"
+        "retrieved": "2026-09-20"
       },
       "commands": [
         {
@@ -506,12 +534,12 @@
         {
           "id": "settings",
           "shortcut": "Alt+F, then S",
-          "description": "open Brave Settings from the main menu."
+          "description": "open Settings from the main menu."
         },
         {
           "id": "main-menu",
           "shortcut": "Alt+F",
-          "description": "open the Brave main menu."
+          "description": "open the browser's main menu."
         },
         {
           "id": "new-window",
@@ -521,7 +549,7 @@
         {
           "id": "new-private-window",
           "shortcut": "Ctrl+Shift+N",
-          "description": "open a new Private window."
+          "description": "open a new private or incognito window."
         },
         {
           "id": "reopen-closed-tab",
@@ -639,7 +667,7 @@
         {
           "id": "task-manager",
           "shortcut": "Shift+Esc",
-          "description": "open Brave Task Manager."
+          "description": "open the browser's task manager."
         },
         {
           "id": "zoom-in",
@@ -675,7 +703,233 @@
         {
           "id": "help",
           "shortcut": "F1",
-          "description": "open Brave Help."
+          "description": "open the browser's help center."
+        }
+      ]
+    },
+    {
+      "id": "firefox",
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "source": {
+        "title": "Keyboard shortcuts - Perform common Firefox tasks quickly",
+        "url": "https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly",
+        "platform": "linux",
+        "retrieved": "2026-09-20"
+      },
+      "commands": [
+        {
+          "id": "select-tab-direct",
+          "shortcut": "Alt+{target_position} / Ctrl+{target_position}",
+          "description": "switch directly to this tab."
+        },
+        {
+          "id": "select-last-tab",
+          "shortcut": "Alt+9 / Ctrl+9",
+          "description": "switch to the last tab."
+        },
+        {
+          "id": "select-tab",
+          "shortcut": "Ctrl+Tab / Ctrl+Shift+Tab",
+          "description": "switch to the next or previous tab."
+        },
+        {
+          "id": "close-tab-button",
+          "shortcut": "Ctrl+W",
+          "description": "close the current tab."
+        },
+        {
+          "id": "new-tab",
+          "shortcut": "Ctrl+T",
+          "description": "open a new tab."
+        },
+        {
+          "id": "new-window",
+          "shortcut": "Ctrl+N",
+          "description": "open a new window."
+        },
+        {
+          "id": "new-private-window",
+          "shortcut": "Ctrl+Shift+P",
+          "description": "open a new private window."
+        },
+        {
+          "id": "close-tab",
+          "shortcut": "Ctrl+W",
+          "description": "close the current tab."
+        },
+        {
+          "id": "close-window",
+          "shortcut": "Ctrl+Shift+W",
+          "description": "close the browser window."
+        },
+        {
+          "id": "reopen-closed-tab",
+          "shortcut": "Ctrl+Shift+T",
+          "description": "reopen the last closed tab."
+        },
+        {
+          "id": "back",
+          "shortcut": "Alt+Left",
+          "description": "go back."
+        },
+        {
+          "id": "forward",
+          "shortcut": "Alt+Right",
+          "description": "go forward."
+        },
+        {
+          "id": "reload",
+          "shortcut": "Ctrl+R / F5",
+          "description": "reload the page."
+        },
+        {
+          "id": "hard-reload",
+          "shortcut": "Ctrl+Shift+R",
+          "description": "reload while ignoring cached content."
+        },
+        {
+          "id": "stop-loading",
+          "shortcut": "Esc",
+          "description": "stop loading the page."
+        },
+        {
+          "id": "home",
+          "shortcut": "Alt+Home",
+          "description": "open the home page."
+        },
+        {
+          "id": "address-bar",
+          "shortcut": "Ctrl+L / Alt+D",
+          "description": "focus the address bar."
+        },
+        {
+          "id": "search-bar",
+          "shortcut": "Ctrl+K",
+          "description": "search from the address bar."
+        },
+        {
+          "id": "find",
+          "shortcut": "Ctrl+F",
+          "description": "find text on this page."
+        },
+        {
+          "id": "find-again",
+          "shortcut": "Ctrl+G / F3",
+          "description": "go to the next find result."
+        },
+        {
+          "id": "bookmark-page",
+          "shortcut": "Ctrl+D",
+          "description": "bookmark this page."
+        },
+        {
+          "id": "bookmark-all-tabs",
+          "shortcut": "Ctrl+Shift+D",
+          "description": "bookmark all open tabs."
+        },
+        {
+          "id": "bookmarks-sidebar",
+          "shortcut": "Ctrl+B",
+          "description": "show or hide the bookmarks sidebar."
+        },
+        {
+          "id": "bookmarks-toolbar",
+          "shortcut": "Ctrl+Shift+B",
+          "description": "show or hide the bookmarks toolbar."
+        },
+        {
+          "id": "bookmarks-manager",
+          "shortcut": "Ctrl+Shift+O",
+          "description": "open the bookmarks library."
+        },
+        {
+          "id": "history",
+          "shortcut": "Ctrl+H",
+          "description": "open the history sidebar."
+        },
+        {
+          "id": "downloads",
+          "shortcut": "Ctrl+Shift+Y",
+          "description": "open downloads."
+        },
+        {
+          "id": "add-ons",
+          "shortcut": "Ctrl+Shift+A",
+          "description": "open Add-ons and Themes."
+        },
+        {
+          "id": "clear-history",
+          "shortcut": "Ctrl+Shift+Delete",
+          "description": "open Clear Recent History."
+        },
+        {
+          "id": "print",
+          "shortcut": "Ctrl+P",
+          "description": "print this page."
+        },
+        {
+          "id": "save-page",
+          "shortcut": "Ctrl+S",
+          "description": "save this page."
+        },
+        {
+          "id": "open-file",
+          "shortcut": "Ctrl+O",
+          "description": "open a local file."
+        },
+        {
+          "id": "zoom-in",
+          "shortcut": "Ctrl++",
+          "description": "zoom in."
+        },
+        {
+          "id": "zoom-out",
+          "shortcut": "Ctrl+-",
+          "description": "zoom out."
+        },
+        {
+          "id": "zoom-reset",
+          "shortcut": "Ctrl+0",
+          "description": "reset page zoom."
+        },
+        {
+          "id": "fullscreen",
+          "shortcut": "F11",
+          "description": "toggle full-screen mode."
+        },
+        {
+          "id": "reader-view",
+          "shortcut": "Ctrl+Alt+R",
+          "description": "toggle Reader View."
+        },
+        {
+          "id": "view-source",
+          "shortcut": "Ctrl+U",
+          "description": "view page source."
+        },
+        {
+          "id": "developer-tools",
+          "shortcut": "F12 / Ctrl+Shift+I",
+          "description": "open the developer tools."
+        },
+        {
+          "id": "web-console",
+          "shortcut": "Ctrl+Shift+K",
+          "description": "open the Web Console."
+        },
+        {
+          "id": "mute-tab",
+          "shortcut": "Ctrl+M",
+          "description": "mute or unmute the current tab."
+        },
+        {
+          "id": "caret-browsing",
+          "shortcut": "F7",
+          "description": "toggle caret browsing."
         }
       ]
     },
@@ -932,7 +1186,13 @@
   "entries": [
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -946,14 +1206,20 @@
       "shortcut": "Ctrl+1",
       "description": "switch directly to tab 1.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-1",
+      "command_id": "chromium-installed.select-tab-1",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -967,14 +1233,20 @@
       "shortcut": "Ctrl+2",
       "description": "switch directly to tab 2.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-2",
+      "command_id": "chromium-installed.select-tab-2",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -988,14 +1260,20 @@
       "shortcut": "Ctrl+3",
       "description": "switch directly to tab 3.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-3",
+      "command_id": "chromium-installed.select-tab-3",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1009,14 +1287,20 @@
       "shortcut": "Ctrl+4",
       "description": "switch directly to tab 4.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-4",
+      "command_id": "chromium-installed.select-tab-4",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1030,14 +1314,20 @@
       "shortcut": "Ctrl+5",
       "description": "switch directly to tab 5.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-5",
+      "command_id": "chromium-installed.select-tab-5",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1051,14 +1341,20 @@
       "shortcut": "Ctrl+6",
       "description": "switch directly to tab 6.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-6",
+      "command_id": "chromium-installed.select-tab-6",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1072,14 +1368,20 @@
       "shortcut": "Ctrl+7",
       "description": "switch directly to tab 7.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-7",
+      "command_id": "chromium-installed.select-tab-7",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1093,14 +1395,20 @@
       "shortcut": "Ctrl+8",
       "description": "switch directly to tab 8.",
       "priority": 280,
-      "command_id": "brave-installed.select-tab-8",
+      "command_id": "chromium-installed.select-tab-8",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1114,14 +1422,20 @@
       "shortcut": "Ctrl+9",
       "description": "switch directly to the last tab.",
       "priority": 275,
-      "command_id": "brave-installed.select-last-tab",
+      "command_id": "chromium-installed.select-last-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1132,14 +1446,20 @@
       "shortcut": "Alt+Left",
       "description": "go back.",
       "priority": 270,
-      "command_id": "brave-installed.back",
+      "command_id": "chromium-installed.back",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1150,14 +1470,20 @@
       "shortcut": "Alt+Right",
       "description": "go forward.",
       "priority": 270,
-      "command_id": "brave-installed.forward",
+      "command_id": "chromium-installed.forward",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1168,14 +1494,20 @@
       "shortcut": "Ctrl+R / F5",
       "description": "reload the page.",
       "priority": 270,
-      "command_id": "brave-installed.reload",
+      "command_id": "chromium-installed.reload",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1186,14 +1518,20 @@
       "shortcut": "Alt+Home",
       "description": "open the home page.",
       "priority": 270,
-      "command_id": "brave-installed.home",
+      "command_id": "chromium-installed.home",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1204,14 +1542,20 @@
       "shortcut": "Ctrl+Shift+R / Ctrl+F5",
       "description": "reload while bypassing cached content.",
       "priority": 270,
-      "command_id": "brave-installed.hard-reload",
+      "command_id": "chromium-installed.hard-reload",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1222,32 +1566,44 @@
       "shortcut": "Ctrl+N",
       "description": "open a new window.",
       "priority": 270,
-      "command_id": "brave-installed.new-window",
+      "command_id": "chromium-installed.new-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
       ],
       "names": [
-        "new private (window|tab)"
+        "new (private|incognito|inprivate) (window|tab)"
       ],
       "shortcut": "Ctrl+Shift+N",
-      "description": "open a new Private window.",
+      "description": "open a new private or incognito window.",
       "priority": 270,
-      "command_id": "brave-installed.new-private-window",
+      "command_id": "chromium-installed.new-private-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1256,16 +1612,22 @@
         "close window|\\b(exit|quit)\\b"
       ],
       "shortcut": "Ctrl+Shift+W / Alt+F4",
-      "description": "close the Brave window.",
+      "description": "close the browser window.",
       "priority": 270,
-      "command_id": "brave-installed.close-window",
+      "command_id": "chromium-installed.close-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1279,14 +1641,20 @@
       "shortcut": "Ctrl+T",
       "description": "open a new tab.",
       "priority": 270,
-      "command_id": "brave-installed.new-tab",
+      "command_id": "chromium-installed.new-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1297,14 +1665,20 @@
       "shortcut": "Ctrl+W / Ctrl+F4",
       "description": "close the current tab.",
       "priority": 270,
-      "command_id": "brave-installed.close-tab",
+      "command_id": "chromium-installed.close-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1324,14 +1698,20 @@
       "shortcut": "Ctrl+W / Ctrl+F4",
       "description": "close the current tab.",
       "priority": 270,
-      "command_id": "brave-installed.close-tab-button",
+      "command_id": "chromium-installed.close-tab-button",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1342,14 +1722,20 @@
       "shortcut": "Ctrl+L / Alt+D",
       "description": "focus the address bar.",
       "priority": 270,
-      "command_id": "brave-installed.focus-address-bar",
+      "command_id": "chromium-installed.focus-address-bar",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1358,16 +1744,22 @@
         "^open-application-menu$"
       ],
       "shortcut": "Alt+F / Alt+E",
-      "description": "open the Brave main menu.",
+      "description": "open the browser's main menu.",
       "priority": 270,
-      "command_id": "brave-installed.main-menu",
+      "command_id": "chromium-installed.main-menu",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1384,11 +1776,40 @@
       "shortcut": "Ctrl+{target_position} / Ctrl+Tab",
       "description": "switch directly to this tab or cycle tabs.",
       "priority": 240,
-      "command_id": "brave.select-tab-direct"
+      "command_id": "chromium.select-tab-direct"
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_positions": [
+        "^[1-8]$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Alt+{target_position} / Ctrl+{target_position}",
+      "description": "switch directly to this tab.",
+      "priority": 240,
+      "command_id": "firefox.select-tab-direct"
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1405,11 +1826,40 @@
       "shortcut": "Ctrl+9 / Ctrl+Tab",
       "description": "switch to the last tab or cycle tabs.",
       "priority": 235,
-      "command_id": "brave.select-last-tab"
+      "command_id": "chromium.select-last-tab"
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "target_is_last": [
+        "^true$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Alt+9 / Ctrl+9",
+      "description": "switch to the last tab.",
+      "priority": 235,
+      "command_id": "firefox.select-last-tab"
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1423,11 +1873,17 @@
       "shortcut": "Ctrl+Tab / Ctrl+Shift+Tab",
       "description": "switch to the next or previous tab.",
       "priority": 220,
-      "command_id": "brave.select-tab"
+      "command_id": "chromium.select-tab"
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1441,11 +1897,17 @@
       "shortcut": "Ctrl+T",
       "description": "open a new tab.",
       "priority": 220,
-      "command_id": "brave.new-tab"
+      "command_id": "chromium.new-tab"
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1457,9 +1919,49 @@
         "left"
       ],
       "shortcut": "Alt+F, then S",
-      "description": "open Brave Settings from the main menu.",
+      "description": "open Settings from the main menu.",
       "priority": 220,
-      "command_id": "brave.settings"
+      "command_id": "chromium.settings"
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^page tab$"
+      ],
+      "buttons": [
+        "left"
+      ],
+      "shortcut": "Ctrl+Tab / Ctrl+Shift+Tab",
+      "description": "switch to the next or previous tab.",
+      "priority": 220,
+      "command_id": "firefox.select-tab"
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bnew tab\\b|open a new tab"
+      ],
+      "shortcut": "Ctrl+T",
+      "description": "open a new tab.",
+      "priority": 220,
+      "command_id": "firefox.new-tab",
+      "buttons": [
+        "left"
+      ]
     },
     {
       "apps": [
@@ -1493,7 +1995,13 @@
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1505,13 +2013,19 @@
         "left"
       ],
       "shortcut": "Alt+F",
-      "description": "open the Brave main menu.",
+      "description": "open the browser's main menu.",
       "priority": 210,
-      "command_id": "brave.main-menu"
+      "command_id": "chromium.main-menu"
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1522,14 +2036,20 @@
       "shortcut": "Ctrl+W",
       "description": "close the current tab.",
       "priority": 180,
-      "command_id": "brave.close-tab",
+      "command_id": "chromium.close-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1549,122 +2069,63 @@
       "shortcut": "Ctrl+W",
       "description": "close the current tab.",
       "priority": 180,
-      "command_id": "brave.close-tab-button",
+      "command_id": "chromium.close-tab-button",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "roles": [
+        "^(button|push button)$"
+      ],
+      "names": [
+        "^close tab$|^close$"
+      ],
+      "parent_roles": [
+        "^page tab$"
+      ],
+      "target_parent_selected": [
+        "^true$"
+      ],
+      "shortcut": "Ctrl+W",
+      "description": "close the current tab.",
+      "priority": 180,
+      "command_id": "firefox.close-tab-button",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
       ],
       "target_in_document": [
         "^false$"
       ],
       "names": [
-        "next tab"
+        "\\bclose tab\\b"
       ],
-      "shortcut": "Ctrl+Tab",
-      "description": "switch to the next tab.",
-      "priority": 100,
-      "command_id": "brave-installed.next-tab",
+      "shortcut": "Ctrl+W",
+      "description": "close the current tab.",
+      "priority": 180,
+      "command_id": "firefox.close-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "previous tab"
-      ],
-      "shortcut": "Ctrl+Shift+Tab",
-      "description": "switch to the previous tab.",
-      "priority": 100,
-      "command_id": "brave-installed.previous-tab",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "reopen.*closed (tab|window)"
-      ],
-      "shortcut": "Ctrl+Shift+T",
-      "description": "reopen the last closed tab.",
-      "priority": 100,
-      "command_id": "brave-installed.reopen-closed-tab",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "full.?screen"
-      ],
-      "shortcut": "F11",
-      "description": "toggle full-screen mode.",
-      "priority": 100,
-      "command_id": "brave-installed.fullscreen",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "move tab right|move.*next"
-      ],
-      "shortcut": "Ctrl+Shift+PageDown",
-      "description": "move the current tab right.",
-      "priority": 100,
-      "command_id": "brave-installed.move-tab-right",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "move tab left|move.*previous"
-      ],
-      "shortcut": "Ctrl+Shift+PageUp",
-      "description": "move the current tab left.",
-      "priority": 100,
-      "command_id": "brave-installed.move-tab-left",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1675,14 +2136,236 @@
       "shortcut": "Ctrl+Shift+L",
       "description": "collapse or expand vertical tabs.",
       "priority": 100,
-      "command_id": "brave-installed.collapse-vertical-tabs",
+      "command_id": "brave.collapse-vertical-tabs",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "new private window with tor|new tor window"
+      ],
+      "shortcut": "Alt+Shift+N",
+      "description": "open a new private window with Tor.",
+      "priority": 100,
+      "command_id": "brave.new-tor-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "mute (site|tab)|unmute (site|tab)"
+      ],
+      "shortcut": "Ctrl+M",
+      "description": "mute or unmute the current tab.",
+      "priority": 100,
+      "command_id": "brave.toggle-tab-mute",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "show sidebar|hide sidebar|toggle sidebar"
+      ],
+      "shortcut": "Ctrl+B",
+      "description": "show or hide the Brave sidebar.",
+      "priority": 100,
+      "command_id": "brave.toggle-sidebar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "quick commands|command palette"
+      ],
+      "shortcut": "Ctrl+Space",
+      "description": "open Brave Quick Commands.",
+      "priority": 100,
+      "command_id": "brave.quick-commands",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "next tab"
+      ],
+      "shortcut": "Ctrl+Tab",
+      "description": "switch to the next tab.",
+      "priority": 100,
+      "command_id": "chromium-installed.next-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "previous tab"
+      ],
+      "shortcut": "Ctrl+Shift+Tab",
+      "description": "switch to the previous tab.",
+      "priority": 100,
+      "command_id": "chromium-installed.previous-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "reopen.*closed (tab|window)"
+      ],
+      "shortcut": "Ctrl+Shift+T",
+      "description": "reopen the last closed tab.",
+      "priority": 100,
+      "command_id": "chromium-installed.reopen-closed-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "full.?screen"
+      ],
+      "shortcut": "F11",
+      "description": "toggle full-screen mode.",
+      "priority": 100,
+      "command_id": "chromium-installed.fullscreen",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "move tab right|move.*next"
+      ],
+      "shortcut": "Ctrl+Shift+PageDown",
+      "description": "move the current tab right.",
+      "priority": 100,
+      "command_id": "chromium-installed.move-tab-right",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "move tab left|move.*previous"
+      ],
+      "shortcut": "Ctrl+Shift+PageUp",
+      "description": "move the current tab left.",
+      "priority": 100,
+      "command_id": "chromium-installed.move-tab-left",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1693,14 +2376,20 @@
       "shortcut": "Alt+Shift+C",
       "description": "open a new tab in the current group.",
       "priority": 100,
-      "command_id": "brave-installed.new-tab-in-group",
+      "command_id": "chromium-installed.new-tab-in-group",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1711,14 +2400,20 @@
       "shortcut": "Alt+Shift+P",
       "description": "create a new tab group.",
       "priority": 100,
-      "command_id": "brave-installed.create-tab-group",
+      "command_id": "chromium-installed.create-tab-group",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1729,14 +2424,20 @@
       "shortcut": "Alt+Shift+X",
       "description": "focus the next tab group.",
       "priority": 100,
-      "command_id": "brave-installed.next-tab-group",
+      "command_id": "chromium-installed.next-tab-group",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1747,14 +2448,20 @@
       "shortcut": "Alt+Shift+Z",
       "description": "focus the previous tab group.",
       "priority": 100,
-      "command_id": "brave-installed.previous-tab-group",
+      "command_id": "chromium-installed.previous-tab-group",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1765,14 +2472,20 @@
       "shortcut": "Alt+Shift+W",
       "description": "close the current tab group.",
       "priority": 100,
-      "command_id": "brave-installed.close-tab-group",
+      "command_id": "chromium-installed.close-tab-group",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1783,14 +2496,20 @@
       "shortcut": "Ctrl+D",
       "description": "bookmark this tab.",
       "priority": 100,
-      "command_id": "brave-installed.bookmark-tab",
+      "command_id": "chromium-installed.bookmark-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1801,14 +2520,20 @@
       "shortcut": "Ctrl+Shift+D",
       "description": "bookmark all open tabs.",
       "priority": 100,
-      "command_id": "brave-installed.bookmark-all-tabs",
+      "command_id": "chromium-installed.bookmark-all-tabs",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1819,14 +2544,20 @@
       "shortcut": "Ctrl+U",
       "description": "view page source.",
       "priority": 100,
-      "command_id": "brave-installed.view-source",
+      "command_id": "chromium-installed.view-source",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1837,14 +2568,20 @@
       "shortcut": "Ctrl+P",
       "description": "print this page.",
       "priority": 100,
-      "command_id": "brave-installed.print",
+      "command_id": "chromium-installed.print",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1855,14 +2592,20 @@
       "shortcut": "Ctrl+S",
       "description": "save this page.",
       "priority": 100,
-      "command_id": "brave-installed.save-page",
+      "command_id": "chromium-installed.save-page",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1873,14 +2616,20 @@
       "shortcut": "Ctrl+Shift+P",
       "description": "open the system print dialog.",
       "priority": 100,
-      "command_id": "brave-installed.system-print-dialog",
+      "command_id": "chromium-installed.system-print-dialog",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1891,14 +2640,20 @@
       "shortcut": "Ctrl+Shift+S",
       "description": "capture a screenshot.",
       "priority": 100,
-      "command_id": "brave-installed.screenshot",
+      "command_id": "chromium-installed.screenshot",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1909,14 +2664,20 @@
       "shortcut": "Ctrl+F",
       "description": "find text on this page.",
       "priority": 100,
-      "command_id": "brave-installed.find",
+      "command_id": "chromium-installed.find",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1927,14 +2688,20 @@
       "shortcut": "Ctrl+G / F3",
       "description": "go to the next find result.",
       "priority": 100,
-      "command_id": "brave-installed.find-next",
+      "command_id": "chromium-installed.find-next",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1945,14 +2712,20 @@
       "shortcut": "Ctrl+Shift+G / Shift+F3",
       "description": "go to the previous find result.",
       "priority": 100,
-      "command_id": "brave-installed.find-previous",
+      "command_id": "chromium-installed.find-previous",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1963,14 +2736,20 @@
       "shortcut": "Esc",
       "description": "stop loading the page.",
       "priority": 100,
-      "command_id": "brave-installed.stop-loading",
+      "command_id": "chromium-installed.stop-loading",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1981,14 +2760,20 @@
       "shortcut": "Ctrl++",
       "description": "zoom in.",
       "priority": 100,
-      "command_id": "brave-installed.zoom-in",
+      "command_id": "chromium-installed.zoom-in",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -1999,14 +2784,20 @@
       "shortcut": "Ctrl+0",
       "description": "reset page zoom.",
       "priority": 100,
-      "command_id": "brave-installed.zoom-reset",
+      "command_id": "chromium-installed.zoom-reset",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2017,14 +2808,20 @@
       "shortcut": "Ctrl+-",
       "description": "zoom out.",
       "priority": 100,
-      "command_id": "brave-installed.zoom-out",
+      "command_id": "chromium-installed.zoom-out",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2035,14 +2832,20 @@
       "shortcut": "Alt+Shift+T",
       "description": "focus the first toolbar control.",
       "priority": 100,
-      "command_id": "brave-installed.focus-toolbar",
+      "command_id": "chromium-installed.focus-toolbar",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2053,14 +2856,20 @@
       "shortcut": "Alt+Shift+B",
       "description": "focus the bookmarks bar.",
       "priority": 100,
-      "command_id": "brave-installed.focus-bookmarks",
+      "command_id": "chromium-installed.focus-bookmarks",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2071,14 +2880,20 @@
       "shortcut": "Alt+Shift+A",
       "description": "focus an open browser dialog.",
       "priority": 100,
-      "command_id": "brave-installed.focus-dialog",
+      "command_id": "chromium-installed.focus-dialog",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2089,14 +2904,20 @@
       "shortcut": "Ctrl+O",
       "description": "open a local file.",
       "priority": 100,
-      "command_id": "brave-installed.open-file",
+      "command_id": "chromium-installed.open-file",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2107,14 +2928,20 @@
       "shortcut": "Ctrl+Shift+I",
       "description": "open Developer Tools.",
       "priority": 100,
-      "command_id": "brave-installed.developer-tools",
+      "command_id": "chromium-installed.developer-tools",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2125,14 +2952,20 @@
       "shortcut": "Ctrl+Shift+J",
       "description": "open the JavaScript console.",
       "priority": 100,
-      "command_id": "brave-installed.javascript-console",
+      "command_id": "chromium-installed.javascript-console",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2143,14 +2976,20 @@
       "shortcut": "Ctrl+Shift+B",
       "description": "show or hide the bookmarks bar.",
       "priority": 100,
-      "command_id": "brave-installed.bookmarks-bar",
+      "command_id": "chromium-installed.bookmarks-bar",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2161,14 +3000,20 @@
       "shortcut": "Ctrl+H",
       "description": "open browsing history.",
       "priority": 100,
-      "command_id": "brave-installed.history",
+      "command_id": "chromium-installed.history",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2179,14 +3024,20 @@
       "shortcut": "Ctrl+Shift+O",
       "description": "open the Bookmarks Manager.",
       "priority": 100,
-      "command_id": "brave-installed.bookmarks-manager",
+      "command_id": "chromium-installed.bookmarks-manager",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2197,14 +3048,20 @@
       "shortcut": "Ctrl+J",
       "description": "open downloads.",
       "priority": 100,
-      "command_id": "brave-installed.downloads",
+      "command_id": "chromium-installed.downloads",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2215,14 +3072,20 @@
       "shortcut": "Ctrl+Shift+Delete",
       "description": "open Clear Browsing Data.",
       "priority": 100,
-      "command_id": "brave-installed.clear-browsing-data",
+      "command_id": "chromium-installed.clear-browsing-data",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2231,16 +3094,22 @@
         "^help$|help center"
       ],
       "shortcut": "F1",
-      "description": "open Brave Help.",
+      "description": "open the browser's help center.",
       "priority": 100,
-      "command_id": "brave-installed.help",
+      "command_id": "chromium-installed.help",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2251,14 +3120,20 @@
       "shortcut": "Ctrl+Shift+C",
       "description": "inspect a page element.",
       "priority": 100,
-      "command_id": "brave-installed.inspect-element",
+      "command_id": "chromium-installed.inspect-element",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2272,14 +3147,20 @@
       "shortcut": "Ctrl+Shift+M",
       "description": "open the profile menu.",
       "priority": 100,
-      "command_id": "brave-installed.profile-menu",
+      "command_id": "chromium-installed.profile-menu",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2290,14 +3171,20 @@
       "shortcut": "F7",
       "description": "toggle caret browsing.",
       "priority": 100,
-      "command_id": "brave-installed.caret-browsing",
+      "command_id": "chromium-installed.caret-browsing",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2306,16 +3193,22 @@
         "task manager"
       ],
       "shortcut": "Shift+Esc",
-      "description": "open Brave Task Manager.",
+      "description": "open the browser's task manager.",
       "priority": 100,
-      "command_id": "brave-installed.task-manager",
+      "command_id": "chromium-installed.task-manager",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2326,86 +3219,20 @@
       "shortcut": "Ctrl+Shift+A",
       "description": "search open tabs.",
       "priority": 100,
-      "command_id": "brave-installed.tab-search",
+      "command_id": "chromium-installed.tab-search",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "new private window with tor|new tor window"
-      ],
-      "shortcut": "Alt+Shift+N",
-      "description": "open a new Private window with Tor.",
-      "priority": 100,
-      "command_id": "brave-installed.new-tor-window",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "mute (site|tab)|unmute (site|tab)"
-      ],
-      "shortcut": "Ctrl+M",
-      "description": "mute or unmute the current tab.",
-      "priority": 100,
-      "command_id": "brave-installed.toggle-tab-mute",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "show sidebar|hide sidebar|toggle sidebar"
-      ],
-      "shortcut": "Ctrl+B",
-      "description": "show or hide the Brave sidebar.",
-      "priority": 100,
-      "command_id": "brave-installed.toggle-sidebar",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
-      ],
-      "target_in_document": [
-        "^false$"
-      ],
-      "names": [
-        "quick commands|command palette"
-      ],
-      "shortcut": "Ctrl+Space",
-      "description": "open Brave Quick Commands.",
-      "priority": 100,
-      "command_id": "brave-installed.quick-commands",
-      "buttons": [
-        "left"
-      ]
-    },
-    {
-      "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2416,32 +3243,44 @@
       "shortcut": "Ctrl+N",
       "description": "open a new window.",
       "priority": 100,
-      "command_id": "brave.new-window",
+      "command_id": "chromium.new-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
       ],
       "names": [
-        "\\bnew private (window|tab)\\b"
+        "new (private|incognito|inprivate) (window|tab)"
       ],
       "shortcut": "Ctrl+Shift+N",
-      "description": "open a new Private window.",
+      "description": "open a new private or incognito window.",
       "priority": 100,
-      "command_id": "brave.new-private-window",
+      "command_id": "chromium.new-private-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2452,14 +3291,20 @@
       "shortcut": "Ctrl+Shift+T",
       "description": "reopen the last closed tab.",
       "priority": 100,
-      "command_id": "brave.reopen-closed-tab",
+      "command_id": "chromium.reopen-closed-tab",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2470,14 +3315,20 @@
       "shortcut": "Ctrl+Shift+W",
       "description": "close the current window.",
       "priority": 100,
-      "command_id": "brave.close-window",
+      "command_id": "chromium.close-window",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2488,14 +3339,20 @@
       "shortcut": "Alt+Left",
       "description": "go back.",
       "priority": 100,
-      "command_id": "brave.back",
+      "command_id": "chromium.back",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2506,14 +3363,20 @@
       "shortcut": "Alt+Right",
       "description": "go forward.",
       "priority": 100,
-      "command_id": "brave.forward",
+      "command_id": "chromium.forward",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2524,14 +3387,20 @@
       "shortcut": "Alt+Home",
       "description": "open the home page.",
       "priority": 100,
-      "command_id": "brave.home",
+      "command_id": "chromium.home",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2542,14 +3411,20 @@
       "shortcut": "Ctrl+L",
       "description": "focus the address bar.",
       "priority": 100,
-      "command_id": "brave.address-bar",
+      "command_id": "chromium.address-bar",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2560,14 +3435,20 @@
       "shortcut": "Ctrl+R",
       "description": "reload the page.",
       "priority": 100,
-      "command_id": "brave.reload",
+      "command_id": "chromium.reload",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2578,14 +3459,20 @@
       "shortcut": "Ctrl+Shift+R",
       "description": "reload while ignoring cached content.",
       "priority": 100,
-      "command_id": "brave.hard-reload",
+      "command_id": "chromium.hard-reload",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2596,14 +3483,20 @@
       "shortcut": "Ctrl+D",
       "description": "bookmark this page.",
       "priority": 100,
-      "command_id": "brave.bookmark-page",
+      "command_id": "chromium.bookmark-page",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2614,14 +3507,20 @@
       "shortcut": "Ctrl+Shift+O",
       "description": "open the Bookmarks Manager.",
       "priority": 100,
-      "command_id": "brave.bookmarks-manager",
+      "command_id": "chromium.bookmarks-manager",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2632,14 +3531,20 @@
       "shortcut": "Ctrl+Shift+B",
       "description": "show or hide the bookmarks bar.",
       "priority": 100,
-      "command_id": "brave.bookmarks-bar",
+      "command_id": "chromium.bookmarks-bar",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2650,14 +3555,20 @@
       "shortcut": "Ctrl+H",
       "description": "open browsing history.",
       "priority": 100,
-      "command_id": "brave.history",
+      "command_id": "chromium.history",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2668,14 +3579,20 @@
       "shortcut": "Ctrl+J",
       "description": "open downloads.",
       "priority": 100,
-      "command_id": "brave.downloads",
+      "command_id": "chromium.downloads",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2686,14 +3603,20 @@
       "shortcut": "Ctrl+F",
       "description": "find text on this page.",
       "priority": 100,
-      "command_id": "brave.find",
+      "command_id": "chromium.find",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2704,14 +3627,20 @@
       "shortcut": "Ctrl+P",
       "description": "print this page.",
       "priority": 100,
-      "command_id": "brave.print",
+      "command_id": "chromium.print",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2722,14 +3651,20 @@
       "shortcut": "Ctrl+S",
       "description": "save this page.",
       "priority": 100,
-      "command_id": "brave.save-page",
+      "command_id": "chromium.save-page",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2740,14 +3675,20 @@
       "shortcut": "Ctrl+O",
       "description": "open a local file.",
       "priority": 100,
-      "command_id": "brave.open-file",
+      "command_id": "chromium.open-file",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2758,14 +3699,20 @@
       "shortcut": "Ctrl+Shift+J / F12",
       "description": "open Developer Tools.",
       "priority": 100,
-      "command_id": "brave.developer-tools",
+      "command_id": "chromium.developer-tools",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2776,14 +3723,20 @@
       "shortcut": "Ctrl+Shift+Delete",
       "description": "open Clear Browsing Data.",
       "priority": 100,
-      "command_id": "brave.clear-browsing-data",
+      "command_id": "chromium.clear-browsing-data",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2797,14 +3750,20 @@
       "shortcut": "Ctrl+Shift+M",
       "description": "open the profile menu.",
       "priority": 100,
-      "command_id": "brave.profile-menu",
+      "command_id": "chromium.profile-menu",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2813,16 +3772,22 @@
         "task manager"
       ],
       "shortcut": "Shift+Esc",
-      "description": "open Brave Task Manager.",
+      "description": "open the browser's task manager.",
       "priority": 100,
-      "command_id": "brave.task-manager",
+      "command_id": "chromium.task-manager",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2833,14 +3798,20 @@
       "shortcut": "Ctrl++",
       "description": "zoom in.",
       "priority": 100,
-      "command_id": "brave.zoom-in",
+      "command_id": "chromium.zoom-in",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2851,14 +3822,20 @@
       "shortcut": "Ctrl+-",
       "description": "zoom out.",
       "priority": 100,
-      "command_id": "brave.zoom-out",
+      "command_id": "chromium.zoom-out",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2869,14 +3846,20 @@
       "shortcut": "Ctrl+0",
       "description": "reset page zoom.",
       "priority": 100,
-      "command_id": "brave.zoom-reset",
+      "command_id": "chromium.zoom-reset",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2887,14 +3870,20 @@
       "shortcut": "F11",
       "description": "toggle full-screen mode.",
       "priority": 100,
-      "command_id": "brave.fullscreen",
+      "command_id": "chromium.fullscreen",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2905,14 +3894,20 @@
       "shortcut": "Ctrl+U",
       "description": "view page source.",
       "priority": 100,
-      "command_id": "brave.view-source",
+      "command_id": "chromium.view-source",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2923,14 +3918,20 @@
       "shortcut": "Ctrl+Shift+S",
       "description": "capture a screenshot.",
       "priority": 100,
-      "command_id": "brave.screenshot",
+      "command_id": "chromium.screenshot",
       "buttons": [
         "left"
       ]
     },
     {
       "apps": [
-        "^(brave-browser|brave|com\\.brave\\.Browser.*)$"
+        "^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$",
+        "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$",
+        "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$",
+        "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$",
+        "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$",
+        "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$",
+        "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"
       ],
       "target_in_document": [
         "^false$"
@@ -2939,9 +3940,729 @@
         "\\bhelp( center)?\\b"
       ],
       "shortcut": "F1",
-      "description": "open Brave Help.",
+      "description": "open the browser's help center.",
       "priority": 100,
-      "command_id": "brave.help",
+      "command_id": "chromium.help",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "^new window$|open a new window"
+      ],
+      "shortcut": "Ctrl+N",
+      "description": "open a new window.",
+      "priority": 100,
+      "command_id": "firefox.new-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "new private window"
+      ],
+      "shortcut": "Ctrl+Shift+P",
+      "description": "open a new private window.",
+      "priority": 100,
+      "command_id": "firefox.new-private-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "close window|\\b(exit|quit)\\b"
+      ],
+      "shortcut": "Ctrl+Shift+W",
+      "description": "close the browser window.",
+      "priority": 100,
+      "command_id": "firefox.close-window",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "reopen.*closed tab|undo close tab|recently closed tabs"
+      ],
+      "shortcut": "Ctrl+Shift+T",
+      "description": "reopen the last closed tab.",
+      "priority": 100,
+      "command_id": "firefox.reopen-closed-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bback\\b|go back"
+      ],
+      "shortcut": "Alt+Left",
+      "description": "go back.",
+      "priority": 100,
+      "command_id": "firefox.back",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bforward\\b|go forward"
+      ],
+      "shortcut": "Alt+Right",
+      "description": "go forward.",
+      "priority": 100,
+      "command_id": "firefox.forward",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\b(reload|refresh)\\b"
+      ],
+      "shortcut": "Ctrl+R / F5",
+      "description": "reload the page.",
+      "priority": 100,
+      "command_id": "firefox.reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "hard reload|reload.*cache|override cache"
+      ],
+      "shortcut": "Ctrl+Shift+R",
+      "description": "reload while ignoring cached content.",
+      "priority": 100,
+      "command_id": "firefox.hard-reload",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "^stop$|stop loading"
+      ],
+      "shortcut": "Esc",
+      "description": "stop loading the page.",
+      "priority": 100,
+      "command_id": "firefox.stop-loading",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bhome\\b"
+      ],
+      "shortcut": "Alt+Home",
+      "description": "open the home page.",
+      "priority": 100,
+      "command_id": "firefox.home",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "address|awesome ?bar|search with .*(or )?enter|location"
+      ],
+      "shortcut": "Ctrl+L / Alt+D",
+      "description": "focus the address bar.",
+      "priority": 100,
+      "command_id": "firefox.address-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "^search$|search bar|web search"
+      ],
+      "shortcut": "Ctrl+K",
+      "description": "search from the address bar.",
+      "priority": 100,
+      "command_id": "firefox.search-bar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "^find( in page)?(\\.\\.\\.|…)?$|find in this page"
+      ],
+      "shortcut": "Ctrl+F",
+      "description": "find text on this page.",
+      "priority": 100,
+      "command_id": "firefox.find",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "find again|next match|highlight all"
+      ],
+      "shortcut": "Ctrl+G / F3",
+      "description": "go to the next find result.",
+      "priority": 100,
+      "command_id": "firefox.find-again",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "bookmark (this |current )?(page|tab)|^add bookmark|edit this bookmark"
+      ],
+      "shortcut": "Ctrl+D",
+      "description": "bookmark this page.",
+      "priority": 100,
+      "command_id": "firefox.bookmark-page",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "bookmark all tabs"
+      ],
+      "shortcut": "Ctrl+Shift+D",
+      "description": "bookmark all open tabs.",
+      "priority": 100,
+      "command_id": "firefox.bookmark-all-tabs",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "bookmarks sidebar|view bookmarks sidebar"
+      ],
+      "shortcut": "Ctrl+B",
+      "description": "show or hide the bookmarks sidebar.",
+      "priority": 100,
+      "command_id": "firefox.bookmarks-sidebar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "bookmarks toolbar"
+      ],
+      "shortcut": "Ctrl+Shift+B",
+      "description": "show or hide the bookmarks toolbar.",
+      "priority": 100,
+      "command_id": "firefox.bookmarks-toolbar",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "manage bookmarks|bookmark manager|show all bookmarks"
+      ],
+      "shortcut": "Ctrl+Shift+O",
+      "description": "open the bookmarks library.",
+      "priority": 100,
+      "command_id": "firefox.bookmarks-manager",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bhistory\\b"
+      ],
+      "shortcut": "Ctrl+H",
+      "description": "open the history sidebar.",
+      "priority": 100,
+      "command_id": "firefox.history",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "\\bdownloads?\\b"
+      ],
+      "shortcut": "Ctrl+Shift+Y",
+      "description": "open downloads.",
+      "priority": 100,
+      "command_id": "firefox.downloads",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "add-?ons|extensions and themes|manage extensions"
+      ],
+      "shortcut": "Ctrl+Shift+A",
+      "description": "open Add-ons and Themes.",
+      "priority": 100,
+      "command_id": "firefox.add-ons",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "clear.*(history|browsing data)|forget about this site"
+      ],
+      "shortcut": "Ctrl+Shift+Delete",
+      "description": "open Clear Recent History.",
+      "priority": 100,
+      "command_id": "firefox.clear-history",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "^print(\\.\\.\\.|…)?$|print this page"
+      ],
+      "shortcut": "Ctrl+P",
+      "description": "print this page.",
+      "priority": 100,
+      "command_id": "firefox.print",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "save page|save as"
+      ],
+      "shortcut": "Ctrl+S",
+      "description": "save this page.",
+      "priority": 100,
+      "command_id": "firefox.save-page",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "open file"
+      ],
+      "shortcut": "Ctrl+O",
+      "description": "open a local file.",
+      "priority": 100,
+      "command_id": "firefox.open-file",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "zoom in|enlarge"
+      ],
+      "shortcut": "Ctrl++",
+      "description": "zoom in.",
+      "priority": 100,
+      "command_id": "firefox.zoom-in",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "zoom out|reduce"
+      ],
+      "shortcut": "Ctrl+-",
+      "description": "zoom out.",
+      "priority": 100,
+      "command_id": "firefox.zoom-out",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "reset zoom|100%"
+      ],
+      "shortcut": "Ctrl+0",
+      "description": "reset page zoom.",
+      "priority": 100,
+      "command_id": "firefox.zoom-reset",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "full.?screen"
+      ],
+      "shortcut": "F11",
+      "description": "toggle full-screen mode.",
+      "priority": 100,
+      "command_id": "firefox.fullscreen",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "reader view|toggle reader"
+      ],
+      "shortcut": "Ctrl+Alt+R",
+      "description": "toggle Reader View.",
+      "priority": 100,
+      "command_id": "firefox.reader-view",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "view (page )?source"
+      ],
+      "shortcut": "Ctrl+U",
+      "description": "view page source.",
+      "priority": 100,
+      "command_id": "firefox.view-source",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "developer tools|web developer|inspect"
+      ],
+      "shortcut": "F12 / Ctrl+Shift+I",
+      "description": "open the developer tools.",
+      "priority": 100,
+      "command_id": "firefox.developer-tools",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "web console|javascript console"
+      ],
+      "shortcut": "Ctrl+Shift+K",
+      "description": "open the Web Console.",
+      "priority": 100,
+      "command_id": "firefox.web-console",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "mute tab|unmute tab|^(un)?mute this tab$"
+      ],
+      "shortcut": "Ctrl+M",
+      "description": "mute or unmute the current tab.",
+      "priority": 100,
+      "command_id": "firefox.mute-tab",
+      "buttons": [
+        "left"
+      ]
+    },
+    {
+      "apps": [
+        "^(firefox|firefox-esr|firefox-developer-edition|firefox-nightly|navigator|org\\.mozilla\\.(firefox|Firefox).*)$",
+        "^(zen|zen-alpha|zen-browser|app\\.zen_browser\\.zen.*)$",
+        "^(librewolf|io\\.gitlab\\.librewolf-community.*|floorp|waterfox|mullvad-browser|tor-?browser.*)$"
+      ],
+      "target_in_document": [
+        "^false$"
+      ],
+      "names": [
+        "caret browsing"
+      ],
+      "shortcut": "F7",
+      "description": "toggle caret browsing.",
+      "priority": 100,
+      "command_id": "firefox.caret-browsing",
       "buttons": [
         "left"
       ]

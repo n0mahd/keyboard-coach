@@ -2,9 +2,11 @@
 
 pub mod accessibility;
 pub mod gtk;
+pub mod kde;
 pub mod libreoffice;
 pub mod t3code;
 pub mod terminal;
+pub mod vscode;
 
 use std::collections::BTreeSet;
 

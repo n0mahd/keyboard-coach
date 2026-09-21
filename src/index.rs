@@ -8,7 +8,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use crate::desktop::{self, DesktopApp};
 use crate::elf::{self, Elf};
 use crate::gvdb;
-use crate::harvest::{self, gtk, libreoffice, t3code, terminal};
+use crate::harvest::{self, gtk, kde, libreoffice, t3code, terminal, vscode};
 use crate::process;
 use crate::model::{App, Index, Shortcut, SourceReport, SCHEMA_VERSION};
 
@@ -87,6 +87,34 @@ pub fn build(options: &Options) -> Index {
             for (harvester, origin, found) in text_config_shortcuts(options, command) {
                 sources.push(report(harvester, &origin, found.len(), None));
                 shortcuts.extend(found);
+            }
+        }
+
+        // KDE applications inherit KStandardShortcut, with the user's
+        // reassignments in their own config file and in kdeglobals.
+        if toolkit == Some("kde") {
+            let component = app.command.clone().unwrap_or_else(|| app.id.clone());
+            let path = options.config_home.join(format!("{component}rc"));
+            let globals = options.config_home.join("kdeglobals");
+            let found = kde::shortcuts(read_optional(&path).as_deref(), read_optional(&globals).as_deref());
+            sources.push(report("kde-standard-actions", &path, found.len(), None));
+            shortcuts.extend(found);
+        }
+
+        if let Some(directory) = vscode_config_dir(app.command.as_deref()) {
+            toolkit = toolkit.or(Some("electron"));
+            let path = options.config_home.join(directory).join("User/keybindings.json");
+            let flatpak = options.home.join(".var/app").join(vscode_flatpak_id(directory)).join("config").join(directory).join("User/keybindings.json");
+            let user = read_optional(&path).or_else(|| read_optional(&flatpak));
+            match vscode::shortcuts(user.as_deref()) {
+                Ok(found) => {
+                    sources.push(report("vscode-keybindings", &path, found.len(), None));
+                    shortcuts.extend(found);
+                }
+                Err(error) => {
+                    sources.push(report("vscode-keybindings", &path, 0, Some(error)));
+                    shortcuts.extend(vscode::shortcuts(None).unwrap_or_default());
+                }
             }
         }
 
@@ -223,6 +251,29 @@ fn collect_gresource(dir: &Path, depth: usize, files: &mut Vec<PathBuf>) {
         } else if path.extension().is_some_and(|ext| ext == "gresource") {
             files.push(path);
         }
+    }
+}
+
+/// The user configuration directory of a Visual Studio Code fork, keyed by the
+/// command its desktop entry launches.
+fn vscode_config_dir(command: Option<&str>) -> Option<&'static str> {
+    Some(match command? {
+        "code" => "Code",
+        "code-insiders" => "Code - Insiders",
+        "code-oss" => "Code - OSS",
+        "codium" | "vscodium" => "VSCodium",
+        "cursor" => "Cursor",
+        "windsurf" => "Windsurf",
+        _ => return None,
+    })
+}
+
+fn vscode_flatpak_id(directory: &str) -> &'static str {
+    match directory {
+        "Code" => "com.visualstudio.code",
+        "Code - Insiders" => "com.visualstudio.code.insiders",
+        "VSCodium" => "com.vscodium.codium",
+        _ => "com.visualstudio.code.oss",
     }
 }
 

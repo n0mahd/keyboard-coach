@@ -73,6 +73,9 @@ if [[ ! $plugin_root -ef $shell_plugin_dir ]]; then
 fi
 install -Dm644 "$plugin_root/assets/base-catalog.json" "$data_dir/base-catalog.json"
 install -Dm644 "$plugin_root/scripts/hypr-bind-dump.lua" "$data_dir/hypr-bind-dump.lua"
+# The shipped pack directory is owned by the plugin: packs renamed or dropped by
+# an update must not linger and keep matching. User packs live in $config_dir.
+rm -rf -- "$data_dir/commands"
 for command_pack in "$plugin_root"/assets/commands/*.json; do
   install -Dm644 "$command_pack" "$data_dir/commands/$(basename "$command_pack")"
 done
@@ -92,11 +95,20 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface toolkit-accessibility true
 fi
 
-for flags_path in "$HOME/.config/brave-flags.conf" "$HOME/.config/chromium-flags.conf"; do
-  if [[ -f $flags_path ]] && ! grep -Fxq -- '--force-renderer-accessibility' "$flags_path"; then
+for flags_path in "$HOME"/.config/*-flags.conf; do
+  [[ -f $flags_path ]] || continue
+  if ! grep -Fxq -- '--force-renderer-accessibility' "$flags_path"; then
     printf '%s\n' '--force-renderer-accessibility' >> "$flags_path"
   fi
 done
+
+# Qt publishes no accessibility tree unless it is asked to, which leaves every
+# Qt and KDE application invisible to the coach. The variable reaches
+# applications the session starts; it takes effect at the next login.
+install -Dm644 /dev/stdin "$HOME/.config/environment.d/90-keyboard-coach.conf" <<'ENV'
+# Written by Keyboard Coach so Qt and KDE applications publish their menus.
+QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
+ENV
 
 if ! grep -Fq -- "$start_marker" "$bindings_path"; then
   cp -- "$bindings_path" "$bindings_path.bak.keyboard-coach"
@@ -131,3 +143,5 @@ fi
 rm -f -- "$old_bin_path" "$old_emit_path" "$old_ingest_path"
 
 printf 'Keyboard Coach installed and enabled.\n'
+printf 'Restart Chromium-based browsers for the accessibility flag, and log out once so Qt\n'
+printf 'and KDE applications publish their menus. Run `keyboard-coach doctor` to check.\n'

@@ -1,26 +1,19 @@
 {
   "schema_version": 1,
-  "id": "brave-installed",
-  "apps": ["^(brave-browser|brave|com\\.brave\\.Browser.*)$"],
-  "accelerator_source": "brave_preferences",
+  "id": "chromium-installed",
+  "apps": ["^(brave|brave-browser(-(beta|dev|nightly))?|com\\.brave\\.Browser.*)$", "^(chromium|chromium-browser|org\\.chromium\\.Chromium.*|ungoogled-chromium)$", "^(chrome|google-chrome(-(beta|unstable))?|com\\.google\\.Chrome.*)$", "^(vivaldi|vivaldi-stable|vivaldi-snapshot|com\\.vivaldi\\.Vivaldi.*)$", "^(microsoft-edge(-(beta|dev))?|com\\.microsoft\\.Edge.*)$", "^(thorium|thorium-browser|opera|opera-beta|opera-developer)$", "^(brave|chrome|chromium|vivaldi|microsoft-edge|thorium)-[^-]+-(default|profile[ _]?\\d+)$"],
+  "accelerator_source": "chromium_preferences",
   "default_match": {"target_in_document": ["^false$"]},
-  "source": {
-    "title": "Brave and Chromium command registries",
-    "url": "https://github.com/brave/brave-core/blob/master/app/brave_command_ids.h",
-    "chromium_url": "https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/app/chrome_command_ids.h",
-    "platform": "linux",
-    "retrieved": "2026-09-10"
-  },
+  "source": {"title": "Chromium command registry", "url": "https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/app/chrome_command_ids.h", "platform": "linux", "retrieved": "2026-09-20"},
   "commands": [
     {"id":"back","native_id":33000,"shortcut":"Alt+Left","description":"go back.","priority":270,"match":{"names":["\\b(back|previous)\\b"]}},
     {"id":"forward","native_id":33001,"shortcut":"Alt+Right","description":"go forward.","priority":270,"match":{"names":["\\b(forward|next)\\b"]}},
     {"id":"reload","native_id":33002,"shortcut":"Ctrl+R / F5","description":"reload the page.","priority":270,"match":{"names":["\\b(reload|refresh)\\b"]}},
     {"id":"home","native_id":33003,"shortcut":"Alt+Home","description":"open the home page.","priority":270,"match":{"names":["\\bhome\\b"]}},
     {"id":"hard-reload","native_id":33007,"shortcut":"Ctrl+Shift+R / Ctrl+F5","description":"reload while bypassing cached content.","priority":270,"match":{"names":["hard reload|reload.*cache|empty cache"]}},
-
     {"id":"new-window","native_id":34000,"shortcut":"Ctrl+N","description":"open a new window.","priority":270,"match":{"names":["^new window$"]}},
-    {"id":"new-private-window","native_id":34001,"shortcut":"Ctrl+Shift+N","description":"open a new Private window.","priority":270,"match":{"names":["new private (window|tab)"]}},
-    {"id":"close-window","native_id":34012,"shortcut":"Ctrl+Shift+W / Alt+F4","description":"close the Brave window.","priority":270,"match":{"names":["close window|\\b(exit|quit)\\b"]}},
+    {"id":"new-private-window","native_id":34001,"shortcut":"Ctrl+Shift+N","description":"open a new private or incognito window.","priority":270,"match":{"names":["new (private|incognito|inprivate) (window|tab)"]}},
+    {"id":"close-window","native_id":34012,"shortcut":"Ctrl+Shift+W / Alt+F4","description":"close the browser window.","priority":270,"match":{"names":["close window|\\b(exit|quit)\\b"]}},
     {"id":"new-tab","native_id":34014,"shortcut":"Ctrl+T","description":"open a new tab.","priority":270,"match":{"names":["\\bnew tab\\b"],"roles":["^(button|push button)$"]}},
     {"id":"close-tab","native_id":34015,"shortcut":"Ctrl+W / Ctrl+F4","description":"close the current tab.","priority":270,"match":{"names":["\\bclose tab\\b"]}},
     {"id":"close-tab-button","native_id":34015,"shortcut":"Ctrl+W / Ctrl+F4","description":"close the current tab.","priority":270,"match":{"roles":["^(button|push button)$"],"names":["^close$"],"parent_roles":["^page tab$"],"target_parent_selected":["^true$"]}},
@@ -39,13 +32,11 @@
     {"id":"fullscreen","native_id":34030,"shortcut":"F11","description":"toggle full-screen mode.","match":{"names":["full.?screen"]}},
     {"id":"move-tab-right","native_id":34032,"shortcut":"Ctrl+Shift+PageDown","description":"move the current tab right.","match":{"names":["move tab right|move.*next"]}},
     {"id":"move-tab-left","native_id":34033,"shortcut":"Ctrl+Shift+PageUp","description":"move the current tab left.","match":{"names":["move tab left|move.*previous"]}},
-    {"id":"collapse-vertical-tabs","native_id":34061,"shortcut":"Ctrl+Shift+L","description":"collapse or expand vertical tabs.","match":{"names":["(collapse|expand).*vertical tabs"]}},
     {"id":"new-tab-in-group","native_id":34100,"shortcut":"Alt+Shift+C","description":"open a new tab in the current group.","match":{"names":["new tab in (this |current )?group"]}},
     {"id":"create-tab-group","native_id":34101,"shortcut":"Alt+Shift+P","description":"create a new tab group.","match":{"names":["(add|create).*tab group"]}},
     {"id":"next-tab-group","native_id":34102,"shortcut":"Alt+Shift+X","description":"focus the next tab group.","match":{"names":["next tab group"]}},
     {"id":"previous-tab-group","native_id":34103,"shortcut":"Alt+Shift+Z","description":"focus the previous tab group.","match":{"names":["previous tab group"]}},
     {"id":"close-tab-group","native_id":34104,"shortcut":"Alt+Shift+W","description":"close the current tab group.","match":{"names":["close.*tab group"]}},
-
     {"id":"bookmark-tab","native_id":35000,"shortcut":"Ctrl+D","description":"bookmark this tab.","match":{"names":["bookmark (this )?(page|tab)|add bookmark"]}},
     {"id":"bookmark-all-tabs","native_id":35001,"shortcut":"Ctrl+Shift+D","description":"bookmark all open tabs.","match":{"names":["bookmark all tabs|save all.*bookmarks"]}},
     {"id":"view-source","native_id":35002,"shortcut":"Ctrl+U","description":"view page source.","match":{"names":["view (page )?source"]}},
@@ -53,7 +44,6 @@
     {"id":"save-page","native_id":35004,"shortcut":"Ctrl+S","description":"save this page.","match":{"names":["save page|save as"]}},
     {"id":"system-print-dialog","native_id":35007,"shortcut":"Ctrl+Shift+P","description":"open the system print dialog.","match":{"names":["print using system dialog|system print"]}},
     {"id":"screenshot","native_id":35031,"shortcut":"Ctrl+Shift+S","description":"capture a screenshot.","match":{"names":["screenshot|capture"]}},
-
     {"id":"find","native_id":37000,"shortcut":"Ctrl+F","description":"find text on this page.","match":{"names":["^find$|find in page"]}},
     {"id":"find-next","native_id":37001,"shortcut":"Ctrl+G / F3","description":"go to the next find result.","match":{"names":["next match|next result"]}},
     {"id":"find-previous","native_id":37002,"shortcut":"Ctrl+Shift+G / Shift+F3","description":"go to the previous find result.","match":{"names":["previous match|previous result"]}},
@@ -61,7 +51,6 @@
     {"id":"zoom-in","native_id":38001,"shortcut":"Ctrl++","description":"zoom in.","match":{"names":["zoom in"]}},
     {"id":"zoom-reset","native_id":38002,"shortcut":"Ctrl+0","description":"reset page zoom.","match":{"names":["reset zoom|100%"]}},
     {"id":"zoom-out","native_id":38003,"shortcut":"Ctrl+-","description":"zoom out.","match":{"names":["zoom out"]}},
-
     {"id":"focus-toolbar","native_id":39000,"shortcut":"Alt+Shift+T","description":"focus the first toolbar control.","match":{"names":["toolbar|browser controls"]}},
     {"id":"focus-address-bar","native_id":39001,"shortcut":"Ctrl+L / Alt+D","description":"focus the address bar.","priority":270,"match":{"names":["address|location|search.*(bar|box)|omnibox"]}},
     {"id":"search-web","native_id":39002,"shortcut":"Ctrl+E / Ctrl+K","description":"search the web from the address bar."},
@@ -71,7 +60,6 @@
     {"id":"focus-bookmarks","native_id":39006,"shortcut":"Alt+Shift+B","description":"focus the bookmarks bar.","match":{"names":["bookmarks bar"]}},
     {"id":"focus-dialog","native_id":39007,"shortcut":"Alt+Shift+A","description":"focus an open browser dialog.","match":{"roles":["dialog|alert"]}},
     {"id":"focus-page","native_id":39009,"shortcut":"Ctrl+F6","description":"focus the webpage content."},
-
     {"id":"open-file","native_id":40000,"shortcut":"Ctrl+O","description":"open a local file.","match":{"names":["open file"]}},
     {"id":"developer-tools","native_id":40004,"shortcut":"Ctrl+Shift+I","description":"open Developer Tools.","match":{"names":["developer tools"]}},
     {"id":"javascript-console","native_id":40005,"shortcut":"Ctrl+Shift+J","description":"open the JavaScript console.","match":{"names":["javascript console|console"]}},
@@ -80,18 +68,13 @@
     {"id":"bookmarks-manager","native_id":40011,"shortcut":"Ctrl+Shift+O","description":"open the Bookmarks Manager.","match":{"names":["bookmark manager"]}},
     {"id":"downloads","native_id":40012,"shortcut":"Ctrl+J","description":"open downloads.","match":{"names":["^downloads?$|show.*downloads"]}},
     {"id":"clear-browsing-data","native_id":40013,"shortcut":"Ctrl+Shift+Delete","description":"open Clear Browsing Data.","match":{"names":["clear browsing data"]}},
-    {"id":"help","native_id":40019,"shortcut":"F1","description":"open Brave Help.","match":{"names":["^help$|help center"]}},
-    {"id":"main-menu","native_id":40021,"shortcut":"Alt+F / Alt+E","description":"open the Brave main menu.","priority":270,"match":{"intents":["^open-application-menu$"]}},
+    {"id":"help","native_id":40019,"shortcut":"F1","description":"open the browser's help center.","match":{"names":["^help$|help center"]}},
+    {"id":"main-menu","native_id":40021,"shortcut":"Alt+F / Alt+E","description":"open the browser's main menu.","priority":270,"match":{"intents":["^open-application-menu$"]}},
     {"id":"inspect-element","native_id":40023,"shortcut":"Ctrl+Shift+C","description":"inspect a page element.","match":{"names":["inspect|inspect element"]}},
     {"id":"profile-menu","native_id":40134,"shortcut":"Ctrl+Shift+M","description":"open the profile menu.","match":{"names":["profile|account"],"roles":["button|push button|menu item"]}},
     {"id":"developer-tools-f12","native_id":40237,"shortcut":"F12","description":"toggle Developer Tools."},
     {"id":"caret-browsing","native_id":40260,"shortcut":"F7","description":"toggle caret browsing.","match":{"names":["caret browsing"]}},
-    {"id":"task-manager","native_id":40286,"shortcut":"Shift+Esc","description":"open Brave Task Manager.","match":{"names":["task manager"]}},
-    {"id":"tab-search","native_id":52500,"shortcut":"Ctrl+Shift+A","description":"search open tabs.","match":{"names":["tab search|search tabs"]}},
-
-    {"id":"new-tor-window","native_id":56003,"shortcut":"Alt+Shift+N","description":"open a new Private window with Tor.","match":{"names":["new private window with tor|new tor window"]}},
-    {"id":"toggle-tab-mute","native_id":56041,"shortcut":"Ctrl+M","description":"mute or unmute the current tab.","match":{"names":["mute (site|tab)|unmute (site|tab)"]}},
-    {"id":"toggle-sidebar","native_id":56044,"shortcut":"Ctrl+B","description":"show or hide the Brave sidebar.","match":{"names":["show sidebar|hide sidebar|toggle sidebar"]}},
-    {"id":"quick-commands","native_id":56301,"shortcut":"Ctrl+Space","description":"open Brave Quick Commands.","match":{"names":["quick commands|command palette"]}}
+    {"id":"task-manager","native_id":40286,"shortcut":"Shift+Esc","description":"open the browser's task manager.","match":{"names":["task manager"]}},
+    {"id":"tab-search","native_id":52500,"shortcut":"Ctrl+Shift+A","description":"search open tabs.","match":{"names":["tab search|search tabs"]}}
   ]
 }

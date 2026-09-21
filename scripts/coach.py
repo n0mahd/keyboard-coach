@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import collections
+import copy
 import fcntl
 import hashlib
 import json
@@ -103,14 +104,14 @@ def close_banner() -> None:
 
 # --- Hyprland ---------------------------------------------------------------
 
-def hypr_socket_candidates() -> list[Path]:
+def hypr_socket_candidates(name: str = ".socket.sock") -> list[Path]:
     root = Path(os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")) / "hypr"
     signature = os.environ.get("HYPRLAND_INSTANCE_SIGNATURE")
-    candidates = [root / signature / ".socket.sock"] if signature else []
+    candidates = [root / signature / name] if signature else []
     # A service started before the compositor never receives the signature, and
     # a compositor restart changes it; the newest live instance is the right one.
     discovered = []
-    for path in root.glob("*/.socket.sock"):
+    for path in root.glob(f"*/{name}"):
         try:
             discovered.append((path.stat().st_mtime, path))
         except OSError:
@@ -731,18 +732,31 @@ def exposed_shortcut(target: dict[str, Any]) -> str | None:
     return None
 
 
+MENU_BUTTON_ROLES = {"button", "push button", "toggle button"}
+# A hamburger button names itself in one of two ways, and which of the name and
+# the description carries it differs per toolkit: Brave names the button "Brave"
+# and describes it "Customize and control Brave", Chrome reverses them, and GTK
+# apps use "Main Menu" with no description. Each field is therefore tested on
+# its own; concatenating them hides the label behind the product name.
+MENU_BUTTON_LABELS = {
+    "menu", "main menu", "app menu", "application menu", "browser menu", "open menu",
+    "open application menu", "more options", "more actions", "overflow", "overflow menu",
+}
+MENU_BUTTON_PREFIXES = ("customize and control ", "settings and more")
+CHROMIUM_APP = re.compile(r"brave|chrom(?:e|ium)|vivaldi|opera|edge|thorium", re.IGNORECASE)
+
+
 def semantic_intents(context: dict[str, Any]) -> set[str]:
     """Translate unstable accessibility labels into stable UI action concepts."""
     target = context.get("target", {})
     role = str(target.get("role", "")).lower()
-    label = _words(f"{target.get('name', '')} {target.get('description', '')}")
+    if role not in MENU_BUTTON_ROLES or target.get("in_document"):
+        return set()
+    labels = [_words(str(target.get(field) or "")) for field in ("name", "description")]
     intents: set[str] = set()
-    if role in {"button", "push button", "toggle button"} and not target.get("in_document") and (
-        label in {"menu", "main menu", "application menu", "browser menu", "more options", "more actions", "overflow"}
-        or label.startswith("customize and control ")
-    ):
+    if any(label in MENU_BUTTON_LABELS or label.startswith(MENU_BUTTON_PREFIXES) for label in labels if label):
         intents.add("open-menu")
-        if re.search(r"(?:brave|chrom(?:e|ium)|vivaldi|opera|edge)", str(context.get("app", "")), re.IGNORECASE):
+        if CHROMIUM_APP.search(str(context.get("app", ""))):
             intents.add("open-application-menu")
     return intents
 
@@ -1220,6 +1234,154 @@ def deterministic_suggestion(
     return None, "none"
 
 
+# --- Coaching policy --------------------------------------------------------
+#
+# A banner after every single click is what makes a coach into a heckler, and
+# what people uninstall. Everything here is local, optional, and off by
+# default: the shipped behaviour is unchanged until a config file says
+# otherwise.
+
+CONFIG_DEFAULTS: dict[str, Any] = {
+    # How long a suggestion stays on screen.
+    "banner_duration_ms": DEFAULT_BANNER_DURATION_MS,
+    # Show a suggestion only once the same action has been clicked this many
+    # times. 1 shows it the first time.
+    "repeats_before_suggesting": 1,
+    # How far back those repeats are counted.
+    "repeat_window_hours": 168,
+    # Stop showing a suggestion that has already been shown this often. 0 keeps
+    # showing it.
+    "stop_after_suggestions": 0,
+    # Window classes to stay silent in, as regular expressions.
+    "mute_apps": [],
+    # Suggestions to stay silent about, as regular expressions matched against
+    # the banner text: the shortcuts you already know.
+    "mute_suggestions": [],
+    # "22:00" to "07:00" stays silent overnight. Empty values disable it.
+    "quiet_hours": {"from": "", "to": ""},
+}
+HISTORY_LIMIT = 5000
+
+
+def config_path() -> Path:
+    return Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "keyboard-coach/config.json"
+
+
+def load_config() -> dict[str, Any]:
+    """Read the user's coaching preferences, falling back to the shipped ones.
+
+    A broken or partial file never stops coaching: each key is taken only when
+    it has the type the default has.
+    """
+    config = copy.deepcopy(CONFIG_DEFAULTS)
+    try:
+        configured = json.loads(config_path().read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return config
+    if not isinstance(configured, dict):
+        return config
+    for key, default in CONFIG_DEFAULTS.items():
+        value = configured.get(key)
+        if isinstance(value, type(default)) and not isinstance(value, bool):
+            config[key] = value
+    config["mute_apps"] = [str(item) for item in config["mute_apps"] if isinstance(item, str)]
+    config["mute_suggestions"] = [str(item) for item in config["mute_suggestions"] if isinstance(item, str)]
+    return config
+
+
+def history_path() -> Path:
+    return state_dir() / "suggestions.jsonl"
+
+
+def read_history(limit_bytes: int = 512 * 1024) -> list[dict[str, Any]]:
+    """The recent suggestion log, newest last."""
+    try:
+        with history_path().open("rb") as stream:
+            stream.seek(0, os.SEEK_END)
+            start = max(0, stream.tell() - limit_bytes)
+            stream.seek(start)
+            lines = stream.read().decode("utf-8", errors="replace").splitlines()
+    except OSError:
+        return []
+    if start and lines:
+        # Reading from the middle of the file cuts its first line in half.
+        lines = lines[1:]
+    records = []
+    for line in lines:
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(record, dict):
+            records.append(record)
+    return records
+
+
+def record_suggestion(record: dict[str, Any]) -> None:
+    try:
+        with history_path().open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(record, separators=(",", ":")) + "\n")
+        os.chmod(history_path(), 0o600)
+    except OSError:
+        return
+    prune_history()
+
+
+def prune_history() -> None:
+    """Keep the log bounded; it is a coaching aid, not an audit trail."""
+    try:
+        lines = history_path().read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return
+    if len(lines) <= HISTORY_LIMIT * 2:
+        return
+    _write_private(history_path(), "\n".join(lines[-HISTORY_LIMIT:]) + "\n")
+
+
+def _clock_minutes(value: str) -> int | None:
+    match = re.fullmatch(r"(\d{1,2}):(\d{2})", str(value).strip())
+    if not match:
+        return None
+    hours, minutes = int(match.group(1)), int(match.group(2))
+    return hours * 60 + minutes if hours < 24 and minutes < 60 else None
+
+
+def in_quiet_hours(config: dict[str, Any], now: time.struct_time) -> bool:
+    quiet = config.get("quiet_hours") or {}
+    start, end = _clock_minutes(quiet.get("from", "")), _clock_minutes(quiet.get("to", ""))
+    if start is None or end is None or start == end:
+        return False
+    minute = now.tm_hour * 60 + now.tm_min
+    # A range that ends before it starts runs through midnight.
+    return start <= minute < end if start < end else minute >= start or minute < end
+
+
+def suggestion_decision(
+    suggestion: str, context: dict[str, Any], config: dict[str, Any],
+    history: list[dict[str, Any]], now: float | None = None,
+) -> tuple[bool, str]:
+    """Whether to show this suggestion now, and why not when it is held back."""
+    app = str(context.get("app") or "")
+    if any(_matches([pattern], app) for pattern in config["mute_apps"] if pattern):
+        return False, "muted app"
+    if any(_matches([pattern], suggestion) for pattern in config["mute_suggestions"] if pattern):
+        return False, "muted suggestion"
+    if in_quiet_hours(config, time.localtime(now)):
+        return False, "quiet hours"
+    cutoff = (now if now is not None else time.time()) - max(0, int(config["repeat_window_hours"])) * 3600
+    recent = [item for item in history if item.get("suggestion") == suggestion and float(item.get("time", 0)) >= cutoff]
+    shown = sum(1 for item in recent if item.get("shown"))
+    limit = int(config["stop_after_suggestions"])
+    if limit > 0 and shown >= limit:
+        return False, f"already shown {shown} times"
+    repeats = max(1, int(config["repeats_before_suggesting"]))
+    # The click being decided counts as one; `history` holds the ones before it.
+    clicks = len(recent) + 1
+    if clicks < repeats:
+        return False, f"click {clicks} of {repeats} before suggesting"
+    return True, ""
+
+
 # --- Click handling ---------------------------------------------------------
 
 def current_context(catalog: dict[str, Any]) -> dict[str, Any]:
@@ -1292,16 +1454,28 @@ def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
             return 0
         resolve_herdr_effect(context, released_at)
         suggestion, source = deterministic_suggestion(context, button, catalog)
-        _write_private(run_dir / "last-context.json", json.dumps({"button": button, "context": context}, indent=2))
+        config = load_config()
+        shown, held_back = False, ""
+        if suggestion:
+            shown, held_back = suggestion_decision(suggestion, context, config, read_history())
+            record_suggestion({
+                "time": int(time.time()), "app": str(context.get("app") or ""),
+                "source": source, "suggestion": suggestion, "shown": shown,
+            })
+        _write_private(run_dir / "last-context.json", json.dumps({
+            "button": button, "context": context, "suggestion": suggestion,
+            "source": source, "shown": shown, "held_back": held_back,
+        }, indent=2))
         (run_dir / "last-suggestion").write_text(suggestion or "", encoding="utf-8")
         (run_dir / "last-source").write_text(source, encoding="utf-8")
-        if suggestion:
-            show_banner(suggestion)
+        if shown:
+            show_banner(suggestion, int(config["banner_duration_ms"]))
         else:
             # A banner still showing belongs to an earlier click; leaving it up
             # would read as the answer for this one.
             close_banner()
-            record_unmatched(context)
+            if not suggestion:
+                record_unmatched(context)
         maybe_observe(context)
     return 0
 
@@ -1309,29 +1483,31 @@ def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
 OBSERVE_INTERVAL_SECONDS = 900
 _observed_at: dict[tuple[int, str], float] = {}
 _observer: subprocess.Popen | None = None
+# Window classes queued for a first capture, and those already captured in
+# this run of the daemon.
+_pending_observations: collections.deque[str] = collections.deque(maxlen=64)
+_observed_classes: set[str] = set()
 
 
-def maybe_observe(context: dict[str, Any], now: float | None = None) -> bool:
-    """Capture the clicked app's shortcuts in the background, at most every 15 minutes.
+def observe_window(pid: int, app: str, site: str = "", now: float | None = None) -> bool:
+    """Capture one window's shortcuts in the background, at most every 15 minutes.
 
-    Only windows with an accessibility tree are captured (terminals have none), and
-    a page is captured per site because each site brings its own shortcuts.
+    A page is captured per site, because each site brings its own shortcuts.
     """
     global _observer
-    target = context.get("target") or {}
-    pid, app = int(context.get("pid") or 0), str(context.get("app") or "")
-    if not pid or not app or not target or context.get("omarchy"):
+    if not pid or not app:
         return False
     if _observer is not None and _observer.poll() is None:
         return False
     now = time.monotonic() if now is None else now
-    key = (pid, str(target.get("site") or "") if target.get("in_document") else "")
+    key = (pid, site)
     if now - _observed_at.get(key, float("-inf")) < OBSERVE_INTERVAL_SECONDS:
         return False
     command = harvest_command()
     if command is None:
         return False
     _observed_at[key] = now
+    _observed_classes.add(app)
     try:
         _observer = subprocess.Popen(
             [*command, "observe", "--pid", str(pid), "--class", app],
@@ -1342,6 +1518,79 @@ def maybe_observe(context: dict[str, Any], now: float | None = None) -> bool:
         log(f"shortcut capture failed to start: {error}")
         return False
     return True
+
+
+def maybe_observe(context: dict[str, Any], now: float | None = None) -> bool:
+    """Capture the clicked app's shortcuts, for the page it is showing."""
+    target = context.get("target") or {}
+    pid, app = int(context.get("pid") or 0), str(context.get("app") or "")
+    if not target or context.get("omarchy"):
+        return False
+    site = str(target.get("site") or "") if target.get("in_document") else ""
+    return observe_window(pid, app, site, now)
+
+
+def queue_observation(app: str) -> None:
+    """Note a window class to capture once, when its first window opens."""
+    if not app or app in _observed_classes or app in _pending_observations:
+        return
+    _pending_observations.append(app)
+
+
+def drain_observations() -> bool:
+    """Capture one queued class, resolving a live window of it to a process.
+
+    Classes are captured one at a time: a capture reads a whole accessibility
+    tree, and a session that restores a dozen windows at login would otherwise
+    start a dozen at once.
+    """
+    if not _pending_observations or paused():
+        return False
+    if _observer is not None and _observer.poll() is None:
+        return False
+    app = _pending_observations.popleft()
+    try:
+        clients = hypr_request("clients")
+    except HyprlandUnavailable:
+        return False
+    windows = [
+        client for client in clients
+        if str(client.get("class") or "") == app and client.get("mapped", True) and client.get("pid")
+    ]
+    if not windows:
+        return False
+    # The most recently focused window of the class is the one most likely to
+    # have finished building its interface.
+    window = min(windows, key=lambda client: int(client.get("focusHistoryID") or 1 << 30))
+    return observe_window(int(window["pid"]), app)
+
+
+def watch_windows() -> None:
+    """Queue a capture for every window class that appears, from Hyprland's events.
+
+    Waiting for a click means the first click in a newly started application is
+    answered from an index that does not know it yet.
+    """
+    while True:
+        try:
+            for path in hypr_socket_candidates(".socket2.sock"):
+                try:
+                    client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                    client.connect(str(path))
+                except OSError:
+                    continue
+                with client, client.makefile("r", encoding="utf-8", errors="replace") as stream:
+                    for line in stream:
+                        event, _, data = line.strip().partition(">>")
+                        fields = data.split(",")
+                        if event == "openwindow" and len(fields) >= 3:
+                            queue_observation(fields[2].strip())
+                        elif event == "activewindow" and fields:
+                            queue_observation(fields[0].strip())
+                break
+        except OSError:
+            pass
+        time.sleep(2)
 
 
 def record_unmatched(context: dict[str, Any]) -> None:
@@ -1368,6 +1617,13 @@ def event_socket_path() -> Path:
     return runtime_dir() / "events.sock"
 
 
+# Chromium browsers whose preferences carry shortcut customizations; mirrors
+# ingest_catalog.CHROMIUM_BROWSERS, so a change there belongs here too.
+CHROMIUM_PREFERENCE_DIRS = (
+    "BraveSoftware/Brave-Browser", "chromium", "google-chrome", "vivaldi", "microsoft-edge",
+)
+
+
 def discovery_signature() -> str:
     """Fingerprint shortcut sources cheaply enough for periodic hot reloads."""
     config_home = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
@@ -1378,7 +1634,10 @@ def discovery_signature() -> str:
         config_home / "hypr", config_home / "omarchy/plugins", state_home / "omarchy/toggles/hypr",
         config_home / "keyboard-coach/commands", data_home / "keyboard-coach/commands",
         data_home / "keyboard-coach/base-catalog.json",
-        config_home / "BraveSoftware/Brave-Browser/Default/Preferences",
+        *(
+            config_home / directory / "Default/Preferences"
+            for directory in CHROMIUM_PREFERENCE_DIRS
+        ),
         data_home / "applications", Path("/usr/share/applications"),
         # Application shortcut sources read by keyboard-coach-harvest.
         Path("/usr/lib/libreoffice/share/registry"), config_home / "libreoffice/4/user/registrymodifications.xcu",
@@ -1450,6 +1709,13 @@ def serve() -> int:
     # already has the state before it.
     for session in herdr_sessions():
         herdr_watcher(session)
+    # Index what is already open, then everything that opens from now on.
+    threading.Thread(target=watch_windows, name="hypr windows", daemon=True).start()
+    try:
+        for client in hypr_request("clients"):
+            queue_observation(str(client.get("class") or ""))
+    except HyprlandUnavailable as error:
+        log(str(error))
     catalog = load_catalog()
     observed = observed_stamp()
     signature = discovery_signature()
@@ -1461,7 +1727,7 @@ def serve() -> int:
             except socket.timeout:
                 parts = []
             try:
-                if parts and observed_stamp() != observed:
+                if observed_stamp() != observed:
                     # A background capture finished since the last event.
                     observed = observed_stamp()
                     catalog = load_catalog()
@@ -1471,6 +1737,7 @@ def serve() -> int:
                     snapshot_click(parts[1], catalog)
                 elif len(parts) == 2 and parts[0] == "click" and parts[1] in BUTTONS:
                     handle_click(parts[1], catalog)
+                drain_observations()
                 if time.monotonic() - checked_at >= 10:
                     checked_at = time.monotonic()
                     current_signature = discovery_signature()
@@ -1539,9 +1806,252 @@ def coverage_report(catalog: dict[str, Any] | None = None) -> dict[str, Any]:
     }
 
 
+# --- Doctor -----------------------------------------------------------------
+#
+# Coverage depends on what each application publishes through accessibility,
+# which differs per toolkit and is off by default in several of them. The
+# doctor reports, per open window, whether the daemon can see anything at all
+# and what would change that.
+
+TERMINAL_CLASSES = {
+    "foot", "footclient", "alacritty", "kitty", "org.wezfurlong.wezterm", "wezterm",
+    "com.mitchellh.ghostty", "ghostty", "xterm", "st", "urxvt", "org.omarchy.terminal",
+}
+ACCESSIBILITY_FIXES = {
+    "qt-widgets": "set QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1 for the session and restart it",
+    "qt-quick": "set QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1 for the session and restart it",
+    "kde": "set QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1 for the session and restart it",
+    "chromium": "add --force-renderer-accessibility to its flags file, then restart it",
+    "electron": "start it with --force-renderer-accessibility, then restart it",
+    "gtk3": "run: gsettings set org.gnome.desktop.interface toolkit-accessibility true",
+}
+
+
+def accessible_pids() -> set[int] | None:
+    """Processes that publish an accessibility tree, or None without AT-SPI."""
+    Atspi = _atspi()
+    if Atspi is None:
+        return None
+    desktop = _safe(lambda: Atspi.get_desktop(0))
+    if desktop is None:
+        return None
+    found = set()
+    for app in _children(desktop, 256):
+        pid = _safe(app.get_process_id, 0)
+        if pid:
+            found.add(int(pid))
+    return found
+
+
+def indexed_app_entry(app: str, catalog: dict[str, Any]) -> dict[str, Any] | None:
+    lowered = app.lower()
+    for entry in (catalog.get("harvested") or {}).get("apps", []):
+        if lowered in entry.get("classes", []):
+            return entry
+    return None
+
+
+def covering_packs(app: str, catalog: dict[str, Any]) -> list[str]:
+    return [
+        str(command_set.get("id") or "")
+        for command_set in catalog.get("command_sets", [])
+        if _matches(command_set.get("apps", []), app)
+    ]
+
+
+def environment_checks(catalog: dict[str, Any]) -> list[dict[str, Any]]:
+    config_home = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+    checks: list[dict[str, Any]] = []
+
+    def check(name: str, ok: bool, detail: str, fix: str = "") -> None:
+        checks.append({"name": name, "ok": ok, "detail": detail, "fix": "" if ok else fix})
+
+    bindings = config_home / "hypr/bindings.lua"
+    try:
+        installed = "BEGIN keyboard-coach" in bindings.read_text(encoding="utf-8")
+    except OSError:
+        installed = False
+    check("Click bindings", installed, str(bindings), "run scripts/install.sh again")
+    check("socat", bool(shutil.which("socat")), "delivers press and release events", "install socat")
+    check(
+        "Lua interpreter", bool(shutil.which("lua5.5") or shutil.which("lua")),
+        "reads Omarchy's binding commands", "install lua",
+    )
+    harvester = harvest_command()
+    check("Shortcut harvester", harvester is not None, harvester[0] if harvester else "not found", "run scripts/install.sh again")
+
+    entries = len(catalog.get("entries", []))
+    check("Catalog", entries > 0, f"{entries} match rules, {len(catalog.get('command_sets', []))} app packs", "run keyboard-coach-ingest")
+
+    pids = accessible_pids()
+    check(
+        "Accessibility bus", bool(pids), "no AT-SPI connection" if pids is None else f"{len(pids or [])} applications visible",
+        "install python-atspi and at-spi2-core",
+    )
+
+    toolkit_accessibility = run(["gsettings", "get", "org.gnome.desktop.interface", "toolkit-accessibility"]).stdout.strip()
+    check(
+        "GTK accessibility", toolkit_accessibility == "true", toolkit_accessibility or "unknown",
+        ACCESSIBILITY_FIXES["gtk3"],
+    )
+    check(
+        "Qt accessibility", os.environ.get("QT_LINUX_ACCESSIBILITY_ALWAYS_ON") == "1",
+        "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=" + (os.environ.get("QT_LINUX_ACCESSIBILITY_ALWAYS_ON") or "unset"),
+        "run scripts/install.sh again, then log out and back in",
+    )
+    flags = sorted(config_home.glob("*-flags.conf"))
+    enabled = [path.name for path in flags if "--force-renderer-accessibility" in _read_text(path)]
+    check(
+        "Chromium accessibility", bool(enabled) or not flags,
+        ", ".join(enabled) if enabled else "no flags file carries --force-renderer-accessibility",
+        "add --force-renderer-accessibility to " + ", ".join(path.name for path in flags),
+    )
+    return checks
+
+
+def _read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+
+
+def window_report(catalog: dict[str, Any]) -> list[dict[str, Any]]:
+    try:
+        clients = hypr_request("clients")
+    except HyprlandUnavailable:
+        return []
+    pids = accessible_pids()
+    seen = set()
+    rows = []
+    for client in clients:
+        app = str(client.get("class") or "")
+        pid = int(client.get("pid") or 0)
+        if not app or (app, pid) in seen:
+            continue
+        seen.add((app, pid))
+        entry = indexed_app_entry(app, catalog) or {}
+        toolkit = str(entry.get("toolkit") or "")
+        accessible = None if pids is None else pid in pids
+        shortcuts = len(entry.get("shortcuts", []))
+        packs = covering_packs(app, catalog)
+        terminal = app.lower() in TERMINAL_CLASSES
+        if terminal:
+            advice = "terminal: its interface is text, so shortcuts come from the program running in it"
+        elif accessible is False:
+            advice = ACCESSIBILITY_FIXES.get(toolkit, "this window publishes no accessibility tree; check the app's accessibility support")
+        elif shortcuts or packs:
+            advice = ""
+        else:
+            advice = "no shortcuts indexed yet: click in it once, or run keyboard-coach-harvest observe --pid {} --class {} --print".format(pid, app)
+        rows.append({
+            "app": app, "pid": pid, "toolkit": toolkit, "accessible": accessible,
+            "shortcuts": shortcuts, "packs": packs, "advice": advice,
+        })
+    return sorted(rows, key=lambda row: row["app"])
+
+
+def doctor_report(catalog: dict[str, Any] | None = None) -> dict[str, Any]:
+    loaded = catalog if catalog is not None else load_catalog()
+    return {
+        "daemon": {
+            "running": event_socket_path().exists(),
+            "paused": paused(),
+        },
+        "environment": environment_checks(loaded),
+        "windows": window_report(loaded),
+    }
+
+
+def print_doctor(report: dict[str, Any]) -> None:
+    daemon = report["daemon"]
+    state = "paused" if daemon["paused"] else "running" if daemon["running"] else "not running"
+    print(f"Daemon: {state}")
+    print("Environment:")
+    for check in report["environment"]:
+        mark = "ok  " if check["ok"] else "warn"
+        print(f"  [{mark}] {check['name']}: {check['detail']}")
+        if check["fix"]:
+            print(f"         fix: {check['fix']}")
+    print("Open windows:")
+    if not report["windows"]:
+        print("  none")
+    for row in report["windows"]:
+        seen = "no tree" if row["accessible"] is False else "unknown" if row["accessible"] is None else "accessible"
+        packs = f", packs: {', '.join(row['packs'])}" if row["packs"] else ""
+        toolkit = row["toolkit"] or "unknown toolkit"
+        print(f"  {row['app']} (pid {row['pid']}): {toolkit}, {seen}, {row['shortcuts']} shortcuts{packs}")
+        if row["advice"]:
+            print(f"    {row['advice']}")
+
+
+def report_summary(days: int = 7, now: float | None = None) -> dict[str, Any]:
+    """What you clicked that has a shortcut, and whether you are clicking it less."""
+    now = time.time() if now is None else now
+    window = max(1, days) * 86400
+    history = read_history()
+    current = [item for item in history if float(item.get("time", 0)) >= now - window]
+    previous = [
+        item for item in history
+        if now - 2 * window <= float(item.get("time", 0)) < now - window
+    ]
+    counts: dict[str, dict[str, Any]] = {}
+    for item in current:
+        suggestion = str(item.get("suggestion") or "")
+        if not suggestion:
+            continue
+        row = counts.setdefault(suggestion, {"suggestion": suggestion, "clicks": 0, "shown": 0, "apps": set()})
+        row["clicks"] += 1
+        row["shown"] += bool(item.get("shown"))
+        row["apps"].add(str(item.get("app") or ""))
+    unmatched: dict[str, int] = {}
+    try:
+        lines = (state_dir() / "unmatched.jsonl").read_text(encoding="utf-8").splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if float(record.get("time", 0)) >= now - window:
+            app = str(record.get("app") or "unknown")
+            unmatched[app] = unmatched.get(app, 0) + 1
+    top = sorted(counts.values(), key=lambda row: (-row["clicks"], row["suggestion"]))
+    return {
+        "days": days,
+        "coached_clicks": len(current),
+        "previous_period_clicks": len(previous),
+        "distinct_actions": len(counts),
+        "top": [{**row, "apps": sorted(row["apps"])} for row in top[:10]],
+        "unmatched_by_app": dict(sorted(unmatched.items(), key=lambda item: (-item[1], item[0]))[:10]),
+    }
+
+
+def print_report(report: dict[str, Any]) -> None:
+    days = report["days"]
+    print(f"Last {days} day{'s' if days != 1 else ''}: {report['coached_clicks']} clicks with a keyboard equivalent, "
+          f"{report['distinct_actions']} distinct actions.")
+    previous = report["previous_period_clicks"]
+    if previous:
+        change = report["coached_clicks"] - previous
+        direction = "fewer" if change < 0 else "more"
+        print(f"That is {abs(change)} {direction} than the {days} days before.")
+    if report["top"]:
+        print("Worth learning first:")
+        for row in report["top"]:
+            apps = ", ".join(row["apps"]) or "unknown"
+            print(f"  {row['clicks']:>4}x  {row['suggestion']}  ({apps})")
+    if report["unmatched_by_app"]:
+        print("Clicks with no known shortcut:")
+        for app, count in report["unmatched_by_app"].items():
+            print(f"  {count:>4}x  {app}")
+        print("Run `keyboard-coach doctor` to see whether those apps are visible to the coach.")
+
+
 USAGE = (
     "usage: keyboard-coach serve | snapshot|click <left|right|middle> | pause | resume | toggle | status"
-    " | inspect [seconds] | last | coverage [--json]"
+    " | inspect [seconds] | last | coverage [--json] | doctor [--json] | report [--days N] [--json]"
 )
 
 
@@ -1572,6 +2082,24 @@ def main(argv: list[str]) -> int:
         except OSError:
             print("no click recorded since login", file=sys.stderr)
             return 1
+        return 0
+    if command == "report":
+        days, rest = 7, list(arguments)
+        if len(rest) >= 2 and rest[0] == "--days" and rest[1].isdigit():
+            days, rest = int(rest[1]), rest[2:]
+        if rest in ([], ["--json"]):
+            summary = report_summary(days)
+            if rest:
+                print(json.dumps(summary, indent=2))
+            else:
+                print_report(summary)
+            return 0
+    if command == "doctor" and arguments in ([], ["--json"]):
+        report = doctor_report()
+        if arguments:
+            print(json.dumps(report, indent=2))
+        else:
+            print_doctor(report)
         return 0
     if command == "coverage" and arguments in ([], ["--json"]):
         report = coverage_report()
