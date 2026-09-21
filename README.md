@@ -91,7 +91,7 @@ Captures accumulate: a shortcut stays known after its menu or tooltip is gone, a
 of the same title replaces an older one. Application shortcuts never match controls inside web pages.
 
 The daemon re-indexes after changes to Hyprland config, Omarchy plugins, desktop entries, command
-packs, Brave preferences, or the shortcut sources above. A failed re-index is logged and retried on
+packs, any browser's preferences, or the shortcut sources above. A failed re-index is logged and retried on
 the next change.
 
 ## Install
@@ -149,7 +149,8 @@ which other tools may rely on.
   clicks.
 - `keyboard-coach doctor` reports, for every open window, whether the coach can see it, what its
   toolkit is, how many shortcuts are indexed for it, and the one setting that would change the
-  answer. It also checks the click bindings, the catalog, and each toolkit's accessibility setting.
+  answer. It also checks the click bindings, the catalog, and each toolkit's accessibility setting,
+  and ends with every file the coach holds, its size and its mode.
 - `keyboard-coach report` ranks the clicks you make that already have a keyboard equivalent, and
   says whether you are making fewer of them than the week before. `--days N` changes the period.
 - `keyboard-coach forget` deletes everything the coach has recorded, and says what it removed.
@@ -210,6 +211,10 @@ screen. What it keeps, and where, is therefore part of the design:
   It is the right setting for a password manager.
 - **`"history": false`** stops both logs being written. The settings that count repeats need the
   log, so they stop working too; everything else is unaffected.
+
+## Changes
+
+[CHANGELOG.md](CHANGELOG.md) describes what each release changed and why.
 
 ## Develop
 

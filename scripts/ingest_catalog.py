@@ -560,6 +560,8 @@ def resolve_native_shortcuts(pack: dict[str, Any], accelerators: dict[str, str])
     return resolved
 
 
+# "brave_preferences" is the name the shipped Brave pack used before browsers
+# were covered as families; a pack a user copied out of it still works.
 ACCELERATOR_SOURCES = {"brave_preferences", "chromium_preferences"}
 # A customization outranks the shipped default for the browser it was read from.
 CUSTOMIZED_PRIORITY_BONUS = 5

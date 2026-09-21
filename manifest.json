@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.n0mahd.keyboard-coach",
   "name": "Keyboard Coach",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "n0mahd",
   "license": "MIT",
   "description": "Shows the keyboard shortcut for what you just clicked",
