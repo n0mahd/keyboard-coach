@@ -1252,8 +1252,15 @@ CONFIG_DEFAULTS: dict[str, Any] = {
     # Stop showing a suggestion that has already been shown this often. 0 keeps
     # showing it.
     "stop_after_suggestions": 0,
-    # Window classes to stay silent in, as regular expressions.
+    # Window classes to stay silent in, as regular expressions. The coach
+    # still reads them; it just says nothing.
     "mute_apps": [],
+    # Window classes the coach never looks at, as regular expressions: no
+    # accessibility read, no capture, nothing written down.
+    "ignore_apps": [],
+    # Whether to keep the local log behind `report`. Turning it off also
+    # disables the settings that count repeats.
+    "history": True,
     # Suggestions to stay silent about, as regular expressions matched against
     # the banner text: the shortcuts you already know.
     "mute_suggestions": [],
@@ -1282,15 +1289,29 @@ def load_config() -> dict[str, Any]:
         return config
     for key, default in CONFIG_DEFAULTS.items():
         value = configured.get(key)
-        if isinstance(value, type(default)) and not isinstance(value, bool):
+        if isinstance(default, bool):
+            # bool is a subclass of int, so it is taken only where one is meant.
+            if isinstance(value, bool):
+                config[key] = value
+        elif isinstance(value, type(default)) and not isinstance(value, bool):
             config[key] = value
-    config["mute_apps"] = [str(item) for item in config["mute_apps"] if isinstance(item, str)]
-    config["mute_suggestions"] = [str(item) for item in config["mute_suggestions"] if isinstance(item, str)]
+    for key in ("mute_apps", "mute_suggestions", "ignore_apps"):
+        config[key] = [str(item) for item in config[key] if isinstance(item, str)]
     return config
+
+
+def ignored_app(app: str, config: dict[str, Any] | None = None) -> bool:
+    """Whether the user has put this window class out of the coach's reach."""
+    config = config if config is not None else load_config()
+    return any(_matches([pattern], app) for pattern in config["ignore_apps"] if pattern)
 
 
 def history_path() -> Path:
     return state_dir() / "suggestions.jsonl"
+
+
+def unmatched_path() -> Path:
+    return state_dir() / "unmatched.jsonl"
 
 
 def read_history(limit_bytes: int = 512 * 1024) -> list[dict[str, Any]]:
@@ -1324,18 +1345,18 @@ def record_suggestion(record: dict[str, Any]) -> None:
         os.chmod(history_path(), 0o600)
     except OSError:
         return
-    prune_history()
+    prune_log(history_path())
 
 
-def prune_history() -> None:
-    """Keep the log bounded; it is a coaching aid, not an audit trail."""
+def prune_log(path: Path) -> None:
+    """Keep a log bounded; these are coaching aids, not audit trails."""
     try:
-        lines = history_path().read_text(encoding="utf-8").splitlines()
+        lines = path.read_text(encoding="utf-8").splitlines()
     except OSError:
         return
     if len(lines) <= HISTORY_LIMIT * 2:
         return
-    _write_private(history_path(), "\n".join(lines[-HISTORY_LIMIT:]) + "\n")
+    _write_private(path, "\n".join(lines[-HISTORY_LIMIT:]) + "\n")
 
 
 def _clock_minutes(value: str) -> int | None:
@@ -1394,8 +1415,13 @@ def current_context(catalog: dict[str, Any]) -> dict[str, Any]:
     client = window_at(x, y, hypr_request("clients"), monitors)
     if not client:
         return context
+    app = str(client.get("class") or "")[:120]
+    if ignored_app(app):
+        # Not even the window title is read: an ignored app is one the user
+        # does not want looked at, not one they want looked at quietly.
+        return {**context, "app": app, "ignored": True}
     context.update({
-        "app": str(client.get("class") or "")[:120],
+        "app": app,
         "title": str(client.get("title") or "")[:180],
         "pid": int(client.get("pid") or 0),
     })
@@ -1434,6 +1460,9 @@ def _write_private(path: Path, text: str) -> None:
     descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
     with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
         stream.write(text)
+    # O_CREAT sets the mode only for a new file; a file from an older version
+    # keeps the mode it was made with until it is told otherwise.
+    os.chmod(path, 0o600)
 
 
 def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
@@ -1452,29 +1481,34 @@ def handle_click(button: str, catalog: dict[str, Any] | None = None) -> int:
         except HyprlandUnavailable as error:
             log(str(error))
             return 0
+        config = load_config()
+        if context.get("ignored"):
+            close_banner()
+            return 0
         resolve_herdr_effect(context, released_at)
         suggestion, source = deterministic_suggestion(context, button, catalog)
-        config = load_config()
         shown, held_back = False, ""
         if suggestion:
-            shown, held_back = suggestion_decision(suggestion, context, config, read_history())
-            record_suggestion({
-                "time": int(time.time()), "app": str(context.get("app") or ""),
-                "source": source, "suggestion": suggestion, "shown": shown,
-            })
+            history = read_history() if config["history"] else []
+            shown, held_back = suggestion_decision(suggestion, context, config, history)
+            if config["history"]:
+                record_suggestion({
+                    "time": int(time.time()), "app": str(context.get("app") or ""),
+                    "source": source, "suggestion": suggestion, "shown": shown,
+                })
         _write_private(run_dir / "last-context.json", json.dumps({
             "button": button, "context": context, "suggestion": suggestion,
             "source": source, "shown": shown, "held_back": held_back,
         }, indent=2))
-        (run_dir / "last-suggestion").write_text(suggestion or "", encoding="utf-8")
-        (run_dir / "last-source").write_text(source, encoding="utf-8")
+        _write_private(run_dir / "last-suggestion", suggestion or "")
+        _write_private(run_dir / "last-source", source)
         if shown:
             show_banner(suggestion, int(config["banner_duration_ms"]))
         else:
             # A banner still showing belongs to an earlier click; leaving it up
             # would read as the answer for this one.
             close_banner()
-            if not suggestion:
+            if not suggestion and config["history"]:
                 record_unmatched(context)
         maybe_observe(context)
     return 0
@@ -1495,7 +1529,7 @@ def observe_window(pid: int, app: str, site: str = "", now: float | None = None)
     A page is captured per site, because each site brings its own shortcuts.
     """
     global _observer
-    if not pid or not app:
+    if not pid or not app or ignored_app(app):
         return False
     if _observer is not None and _observer.poll() is None:
         return False
@@ -1533,6 +1567,8 @@ def maybe_observe(context: dict[str, Any], now: float | None = None) -> bool:
 def queue_observation(app: str) -> None:
     """Note a window class to capture once, when its first window opens."""
     if not app or app in _observed_classes or app in _pending_observations:
+        return
+    if ignored_app(app):
         return
     _pending_observations.append(app)
 
@@ -1604,11 +1640,14 @@ def record_unmatched(context: dict[str, Any]) -> None:
         "namespace": str(context.get("omarchy", {}).get("namespace") or ""),
         "widget": str(context.get("omarchy", {}).get("widget") or ""),
     }
+    path = unmatched_path()
     try:
-        with (state_dir() / "unmatched.jsonl").open("a", encoding="utf-8") as stream:
+        with path.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(record, separators=(",", ":")) + "\n")
+        os.chmod(path, 0o600)
     except OSError:
-        pass
+        return
+    prune_log(path)
 
 
 # --- Daemon -----------------------------------------------------------------
@@ -1772,7 +1811,7 @@ def coverage_report(catalog: dict[str, Any] | None = None) -> dict[str, Any]:
     plugins = index.get("plugins", [])
     unmatched_by_app: dict[str, int] = {}
     try:
-        lines = (state_dir() / "unmatched.jsonl").read_text(encoding="utf-8").splitlines()[-500:]
+        lines = unmatched_path().read_text(encoding="utf-8").splitlines()[-500:]
     except OSError:
         lines = []
     for line in lines:
@@ -1951,6 +1990,31 @@ def window_report(catalog: dict[str, Any]) -> list[dict[str, Any]]:
     return sorted(rows, key=lambda row: row["app"])
 
 
+def recorded_report() -> dict[str, Any]:
+    """What the coach is holding about this user right now, file by file.
+
+    The coach reads a great deal to do its job, so it should be able to say
+    exactly what it kept.
+    """
+    config = load_config()
+    files = []
+    for path in recorded_paths():
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        files.append({
+            "path": str(path), "bytes": stat.st_size,
+            "mode": format(stat.st_mode & 0o777, "03o"), "modified": int(stat.st_mtime),
+        })
+    return {
+        "history": config["history"],
+        "ignored_apps": config["ignore_apps"],
+        "files": files,
+        "leaves_the_machine": False,
+    }
+
+
 def doctor_report(catalog: dict[str, Any] | None = None) -> dict[str, Any]:
     loaded = catalog if catalog is not None else load_catalog()
     return {
@@ -1960,6 +2024,7 @@ def doctor_report(catalog: dict[str, Any] | None = None) -> dict[str, Any]:
         },
         "environment": environment_checks(loaded),
         "windows": window_report(loaded),
+        "recorded": recorded_report(),
     }
 
 
@@ -1983,13 +2048,23 @@ def print_doctor(report: dict[str, Any]) -> None:
         print(f"  {row['app']} (pid {row['pid']}): {toolkit}, {seen}, {row['shortcuts']} shortcuts{packs}")
         if row["advice"]:
             print(f"    {row['advice']}")
+    recorded = report["recorded"]
+    print("Recorded on this machine:")
+    for row in recorded["files"]:
+        print(f"  {row['bytes']:>9} bytes  mode {row['mode']}  {row['path']}")
+    if not recorded["files"]:
+        print("  nothing")
+    ignored = ", ".join(recorded["ignored_apps"]) or "none"
+    print(f"  History: {'on' if recorded['history'] else 'off'}. Ignored apps: {ignored}.")
+    print("  Nothing is sent anywhere. `keyboard-coach forget` removes all of it.")
 
 
 def report_summary(days: int = 7, now: float | None = None) -> dict[str, Any]:
     """What you clicked that has a shortcut, and whether you are clicking it less."""
     now = time.time() if now is None else now
     window = max(1, days) * 86400
-    history = read_history()
+    config = load_config()
+    history = read_history() if config["history"] else []
     current = [item for item in history if float(item.get("time", 0)) >= now - window]
     previous = [
         item for item in history
@@ -2006,7 +2081,7 @@ def report_summary(days: int = 7, now: float | None = None) -> dict[str, Any]:
         row["apps"].add(str(item.get("app") or ""))
     unmatched: dict[str, int] = {}
     try:
-        lines = (state_dir() / "unmatched.jsonl").read_text(encoding="utf-8").splitlines()
+        lines = unmatched_path().read_text(encoding="utf-8").splitlines()
     except OSError:
         lines = []
     for line in lines:
@@ -2020,6 +2095,7 @@ def report_summary(days: int = 7, now: float | None = None) -> dict[str, Any]:
     top = sorted(counts.values(), key=lambda row: (-row["clicks"], row["suggestion"]))
     return {
         "days": days,
+        "history": config["history"],
         "coached_clicks": len(current),
         "previous_period_clicks": len(previous),
         "distinct_actions": len(counts),
@@ -2030,6 +2106,10 @@ def report_summary(days: int = 7, now: float | None = None) -> dict[str, Any]:
 
 def print_report(report: dict[str, Any]) -> None:
     days = report["days"]
+    if not report.get("history", True):
+        print("History is off in config.json, so there is nothing to report.")
+        print("Anything recorded before it was turned off is removed by `keyboard-coach forget`.")
+        return
     print(f"Last {days} day{'s' if days != 1 else ''}: {report['coached_clicks']} clicks with a keyboard equivalent, "
           f"{report['distinct_actions']} distinct actions.")
     previous = report["previous_period_clicks"]
@@ -2049,9 +2129,40 @@ def print_report(report: dict[str, Any]) -> None:
         print("Run `keyboard-coach doctor` to see whether those apps are visible to the coach.")
 
 
+def recorded_paths() -> list[Path]:
+    """Every file holding something the coach noticed the user do."""
+    run_dir = runtime_dir()
+    return [
+        history_path(), unmatched_path(), observed_path(),
+        run_dir / "last-context.json", run_dir / "last-suggestion", run_dir / "last-source",
+        *(run_dir / f"press-{button}.json" for button in sorted(BUTTONS)),
+    ]
+
+
+def forget() -> int:
+    """Erase what the coach has recorded, leaving the settings and the index.
+
+    Captures of running windows rebuild themselves as those windows are opened
+    again, so this clears what is known now, not what can be learned later.
+    """
+    removed = 0
+    for path in recorded_paths():
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            continue
+        except OSError as error:
+            log(f"could not remove {path}: {error}")
+            return 1
+        print(f"removed {path}")
+        removed += 1
+    print(f"Forgot {removed} file{'' if removed == 1 else 's'}." if removed else "Nothing recorded.")
+    return 0
+
+
 USAGE = (
     "usage: keyboard-coach serve | snapshot|click <left|right|middle> | pause | resume | toggle | status"
-    " | inspect [seconds] | last | coverage [--json] | doctor [--json] | report [--days N] [--json]"
+    " | inspect [seconds] | last | forget | coverage [--json] | doctor [--json] | report [--days N] [--json]"
 )
 
 
@@ -2083,6 +2194,8 @@ def main(argv: list[str]) -> int:
             print("no click recorded since login", file=sys.stderr)
             return 1
         return 0
+    if command == "forget" and not arguments:
+        return forget()
     if command == "report":
         days, rest = 7, list(arguments)
         if len(rest) >= 2 and rest[0] == "--days" and rest[1].isdigit():

@@ -71,6 +71,9 @@ if [[ ! $plugin_root -ef $shell_plugin_dir ]]; then
   install -Dm644 "$plugin_root/manifest.json" "$shell_plugin_dir/manifest.json"
   install -Dm644 "$plugin_root/Banner.qml" "$shell_plugin_dir/Banner.qml"
 fi
+# The index describes which applications this user has and, for web pages, the
+# sites they visit, so the directory is theirs alone to read.
+install -d -m 700 -- "$data_dir"
 install -Dm644 "$plugin_root/assets/base-catalog.json" "$data_dir/base-catalog.json"
 install -Dm644 "$plugin_root/scripts/hypr-bind-dump.lua" "$data_dir/hypr-bind-dump.lua"
 # The shipped pack directory is owned by the plugin: packs renamed or dropped by

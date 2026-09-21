@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
+import contextlib
 import importlib.util
+import io
 import json
+import os
 from pathlib import Path
 import socket
 import tempfile
@@ -554,32 +557,132 @@ class CoachingPolicyTest(unittest.TestCase):
                     os.environ["XDG_CONFIG_HOME"] = saved
 
 
+@contextlib.contextmanager
+def isolated_home():
+    """Run against empty config, state and runtime directories.
+
+    The coach reads the user's real ones, and a test must never depend on, or
+    write to, what is actually on this machine.
+    """
+    names = ("XDG_CONFIG_HOME", "XDG_STATE_HOME", "XDG_DATA_HOME", "XDG_RUNTIME_DIR")
+    saved = {name: os.environ.get(name) for name in names}
+    with tempfile.TemporaryDirectory() as directory:
+        for name in names:
+            os.environ[name] = str(Path(directory) / name.lower())
+            Path(os.environ[name]).mkdir(mode=0o700, parents=True, exist_ok=True)
+        try:
+            yield Path(directory)
+        finally:
+            for name, value in saved.items():
+                if value is None:
+                    os.environ.pop(name, None)
+                else:
+                    os.environ[name] = value
+
+
 class ReportTest(unittest.TestCase):
     def test_report_ranks_habits_and_compares_with_the_period_before(self):
-        import os
-        saved = os.environ.get("XDG_STATE_HOME")
         now = 2_000_000.0
-        with tempfile.TemporaryDirectory() as directory:
-            os.environ["XDG_STATE_HOME"] = directory
-            try:
-                records = (
-                    [{"time": now - 3600, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 3
-                    + [{"time": now - 7200, "app": "nautilus", "suggestion": "F2 — rename.", "shown": False}]
-                    + [{"time": now - 10 * 86400, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 5
-                )
-                coach.history_path().write_text("\n".join(json.dumps(record) for record in records) + "\n")
-                summary = coach.report_summary(days=7, now=now)
-                self.assertEqual(summary["coached_clicks"], 4)
-                self.assertEqual(summary["previous_period_clicks"], 5)
-                self.assertEqual(summary["distinct_actions"], 2)
-                self.assertEqual(summary["top"][0]["suggestion"], "Ctrl+T — open a new tab.")
-                self.assertEqual(summary["top"][0]["clicks"], 3)
-                self.assertEqual(summary["top"][0]["apps"], ["brave-browser"])
-            finally:
-                if saved is None:
-                    del os.environ["XDG_STATE_HOME"]
-                else:
-                    os.environ["XDG_STATE_HOME"] = saved
+        with isolated_home():
+            records = (
+                [{"time": now - 3600, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 3
+                + [{"time": now - 7200, "app": "nautilus", "suggestion": "F2 — rename.", "shown": False}]
+                + [{"time": now - 10 * 86400, "app": "brave-browser", "suggestion": "Ctrl+T — open a new tab.", "shown": True}] * 5
+            )
+            coach.history_path().write_text("\n".join(json.dumps(record) for record in records) + "\n")
+            summary = coach.report_summary(days=7, now=now)
+            self.assertEqual(summary["coached_clicks"], 4)
+            self.assertEqual(summary["previous_period_clicks"], 5)
+            self.assertEqual(summary["distinct_actions"], 2)
+            self.assertEqual(summary["top"][0]["suggestion"], "Ctrl+T — open a new tab.")
+            self.assertEqual(summary["top"][0]["clicks"], 3)
+            self.assertEqual(summary["top"][0]["apps"], ["brave-browser"])
+
+
+class PrivacyTest(unittest.TestCase):
+    """The coach can see everything on screen, so what it keeps is the promise."""
+
+    def write_config(self, **settings):
+        path = coach.config_path()
+        path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        path.write_text(json.dumps(settings), encoding="utf-8")
+
+    def test_an_ignored_app_is_never_looked_at_or_captured(self):
+        with isolated_home():
+            self.write_config(ignore_apps=["^org.keepassxc", "banking"])
+            self.assertTrue(coach.ignored_app("org.keepassxc.KeePassXC"))
+            self.assertTrue(coach.ignored_app("my-banking-app"))
+            self.assertFalse(coach.ignored_app("brave-browser"))
+            # No capture is started for it, from a click or from opening it.
+            self.assertFalse(coach.observe_window(4242, "org.keepassxc.KeePassXC"))
+            coach.queue_observation("org.keepassxc.KeePassXC")
+            self.assertNotIn("org.keepassxc.KeePassXC", coach._pending_observations)
+
+    def test_history_can_be_turned_off(self):
+        with isolated_home():
+            self.write_config(history=False)
+            self.assertFalse(coach.load_config()["history"])
+            summary = coach.report_summary(days=7)
+            self.assertIs(summary["history"], False)
+            self.assertEqual(summary["coached_clicks"], 0)
+
+    def test_history_only_accepts_a_real_boolean(self):
+        with isolated_home():
+            self.write_config(history="no", repeats_before_suggesting=True)
+            config = coach.load_config()
+            # A string is not a switch, and True is not the number 1.
+            self.assertIs(config["history"], True)
+            self.assertEqual(config["repeats_before_suggesting"], 1)
+
+    def test_what_is_recorded_is_readable_only_by_its_owner(self):
+        with isolated_home():
+            coach.record_suggestion({"time": 1, "app": "brave-browser", "suggestion": "Ctrl+T", "shown": True})
+            coach.record_unmatched({"app": "brave-browser", "target": {"role": "button"}})
+            for path in (coach.history_path(), coach.unmatched_path()):
+                self.assertEqual(path.stat().st_mode & 0o077, 0, path)
+
+    def test_the_unmatched_log_keeps_no_labels_or_titles(self):
+        with isolated_home():
+            coach.record_unmatched({
+                "app": "brave-browser", "title": "Payslip March 2026 — Brave",
+                "target": {"role": "push button", "name": "Download payslip.pdf",
+                           "description": "Save to Documents", "in_document": True,
+                           "site": "payroll.example.com"},
+            })
+            record = json.loads(coach.unmatched_path().read_text(encoding="utf-8"))
+            self.assertEqual(record["app"], "brave-browser")
+            self.assertEqual(record["site"], "payroll.example.com")
+            self.assertNotIn("payslip", json.dumps(record).lower())
+            self.assertNotIn("title", record)
+
+    def test_forget_removes_everything_recorded(self):
+        with isolated_home():
+            coach.record_suggestion({"time": 1, "app": "brave-browser", "suggestion": "Ctrl+T", "shown": True})
+            coach.record_unmatched({"app": "brave-browser", "target": {}})
+            coach.observed_path().parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+            coach.observed_path().write_text("{}", encoding="utf-8")
+            self.assertTrue(any(path.exists() for path in coach.recorded_paths()))
+
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(coach.forget(), 0)
+
+            self.assertEqual([path for path in coach.recorded_paths() if path.exists()], [])
+            # Settings survive being forgotten; they are the user's, not a record.
+            self.write_config(history=False)
+            with contextlib.redirect_stdout(io.StringIO()):
+                coach.forget()
+            self.assertTrue(coach.config_path().exists())
+
+    def test_nothing_reaches_the_network(self):
+        """No suggestion is worth a request, so nothing can make one."""
+        sources = [ROOT / "scripts/coach.py", ROOT / "scripts/ingest_catalog.py"]
+        for path in sources:
+            text = path.read_text(encoding="utf-8")
+            for forbidden in ("urlopen", "http.client", "requests.", "AF_INET", "socket.create_connection"):
+                self.assertNotIn(forbidden, text, f"{path.name} reaches the network")
+        manifest = (ROOT / "Cargo.toml").read_text(encoding="utf-8")
+        for crate in ("reqwest", "hyper", "ureq", "curl", "tokio-tungstenite"):
+            self.assertNotIn(f"\n{crate}", manifest, f"{crate} is a network client")
 
 
 class CoverageTest(unittest.TestCase):

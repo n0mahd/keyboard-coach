@@ -37,4 +37,6 @@ Controls whose label differs per browser are matched by intent instead: `semanti
 
 Coaching policy is separate from resolution: `~/.config/keyboard-coach/config.json` can hold back a suggestion until an action repeats, mute apps or suggestions, and set quiet hours. It never changes which shortcut a click resolves to, only whether the banner appears.
 
+What the coach keeps is part of its contract, because it can see whatever is on screen. Nothing leaves the machine; records are written `0600`; the unmatched log keeps a role and a page host but never a label, title, path or filename; `ignore_apps` stops a window being inspected at all, before any accessibility read; and `keyboard-coach forget` deletes everything recorded. Anything that would record more than this belongs in the README's Privacy section and needs a test.
+
 For Omarchy bar widgets that own panels, prefer the widget's named binding (for example `Super+Ctrl+A` for Audio), then the numbered `Bar panel N` binding for its position in the right section.

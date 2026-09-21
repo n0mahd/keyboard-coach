@@ -134,8 +134,8 @@ After `omarchy plugin update io.github.n0mahd.keyboard-coach`, run the installer
 omarchy plugin remove io.github.n0mahd.keyboard-coach
 ```
 
-The uninstaller stops and removes the service, the executables, the generated index and state, the
-click bindings, and the `QT_LINUX_ACCESSIBILITY_ALWAYS_ON` file it wrote. It keeps your command
+The uninstaller stops and removes the service, the executables, the generated index, everything the
+coach recorded, the click bindings, and the `QT_LINUX_ACCESSIBILITY_ALWAYS_ON` file it wrote. It keeps your command
 packs and settings in `~/.config/keyboard-coach`, and the GTK and Chromium accessibility settings,
 which other tools may rely on.
 
@@ -152,6 +152,7 @@ which other tools may rely on.
   answer. It also checks the click bindings, the catalog, and each toolkit's accessibility setting.
 - `keyboard-coach report` ranks the clicks you make that already have a keyboard equivalent, and
   says whether you are making fewer of them than the week before. `--days N` changes the period.
+- `keyboard-coach forget` deletes everything the coach has recorded, and says what it removed.
 - `keyboard-coach-harvest --summary` lists what each app's static sources provide, and
   `keyboard-coach-harvest observe --pid PID --class CLASS --print` captures a running window now.
 - Every click is resolved: a new suggestion replaces the banner on screen, and a click with no
@@ -171,6 +172,8 @@ malformed file falls back to the shipped behaviour rather than stopping the coac
   "stop_after_suggestions": 10,
   "mute_apps": ["^signal$"],
   "mute_suggestions": ["^Ctrl\\+T\\b"],
+  "ignore_apps": ["^org\\.keepassxc\\."],
+  "history": true,
   "quiet_hours": {"from": "22:00", "to": "07:00"}
 }
 ```
@@ -181,9 +184,32 @@ malformed file falls back to the shipped behaviour rather than stopping the coac
 and `mute_suggestions` are regular expressions, matched against the window class and the banner
 text; muting a suggestion is how you retire a shortcut you have learned.
 
-Nothing leaves the machine. The suggestion history behind `keyboard-coach report` is a local file
-in `~/.local/state/keyboard-coach`, readable only by you, holding the window class and the
-suggestion — never what you typed, and for web pages never more than the host.
+`ignore_apps` and `history` are about privacy rather than coaching, and are described below.
+
+## Privacy
+
+The coach resolves a click by looking at what is under the pointer, so it can see whatever is on
+screen. What it keeps, and where, is therefore part of the design:
+
+- **Nothing leaves the machine.** Neither the daemon nor the harvester contains any network code
+  or depends on a network library; the only sockets they open are Hyprland's, the session
+  accessibility bus, and their own. A test fails if that ever changes.
+- **Everything recorded is created `0600`**, in directories under your home that only you can
+  enter. There are no other copies.
+- **What is recorded is deliberately thin.** The suggestion log holds a timestamp, the window
+  class and the shortcut text. The unmatched-click log holds a timestamp, the window class, the
+  role of the control and, for a web page, its host — never a control's label, a window title, a
+  URL path, a file name, or anything you typed.
+- **Titles and labels stay in memory.** The one exception is the most recent click, kept for
+  `keyboard-coach last` in `$XDG_RUNTIME_DIR`, which is RAM and is gone when you log out.
+- **`keyboard-coach doctor` lists every file the coach holds**, with its size and mode, so the
+  answer to "what does it have on me" is one command. **`keyboard-coach forget`** deletes all of
+  them, captures included; your settings and command packs stay.
+- **`ignore_apps` puts an app out of reach.** A window whose class matches is never inspected at
+  all: no accessibility read, not even its title, no background capture, nothing written down.
+  It is the right setting for a password manager.
+- **`"history": false`** stops both logs being written. The settings that count repeats need the
+  log, so they stop working too; everything else is unaffected.
 
 ## Develop
 
