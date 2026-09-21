@@ -1933,10 +1933,15 @@ def environment_checks(catalog: dict[str, Any]) -> list[dict[str, Any]]:
         "GTK accessibility", toolkit_accessibility == "true", toolkit_accessibility or "unknown",
         ACCESSIBILITY_FIXES["gtk3"],
     )
+    qt_value = os.environ.get("QT_LINUX_ACCESSIBILITY_ALWAYS_ON")
+    qt_file = config_home / "environment.d/90-keyboard-coach.conf"
+    # The file is read when the session starts, so writing it does not change
+    # the session that wrote it; saying "run the installer again" would be wrong.
     check(
-        "Qt accessibility", os.environ.get("QT_LINUX_ACCESSIBILITY_ALWAYS_ON") == "1",
-        "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=" + (os.environ.get("QT_LINUX_ACCESSIBILITY_ALWAYS_ON") or "unset"),
-        "run scripts/install.sh again, then log out and back in",
+        "Qt accessibility", qt_value == "1",
+        "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=" + (qt_value or "unset"),
+        f"written to {qt_file}; log out and back in to pick it up" if qt_file.exists()
+        else "run scripts/install.sh again, then log out and back in",
     )
     flags = sorted(config_home.glob("*-flags.conf"))
     enabled = [path.name for path in flags if "--force-renderer-accessibility" in _read_text(path)]
