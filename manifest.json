@@ -3,7 +3,7 @@
   "id": "io.github.n0mahd.keyboard-coach",
   "name": "Keyboard Coach",
   "version": "0.1.0",
-  "author": "Abdullah",
+  "author": "n0mahd",
   "license": "MIT",
   "description": "Shows the keyboard shortcut for what you just clicked",
   "kinds": ["panel"],
