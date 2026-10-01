@@ -2,11 +2,37 @@
 
 [![Built for Omarchy](https://raw.githubusercontent.com/tcballard/omarchy-badges/85f859029e236e784e7b05ada6dbe73506d07a91/badges/v1/built-for-omarchy.svg)](https://github.com/tcballard/omarchy-badges)
 
-Keyboard Coach watches your mouse clicks on Omarchy and shows the keyboard shortcut that would have
-done the same thing. Suggestions are deterministic: each one comes from an indexed source, and a
-click with no reliable keyboard equivalent shows nothing.
+Keyboard Coach runs in the background on Omarchy and teaches you the keyboard shortcuts for the
+things you already do. Click a button that has a shortcut, and a banner tells you the keys that
+would have done the same thing. The click still goes through, so nothing gets in your way.
 
-![Keyboard Coach banner suggesting Ctrl+T after clicking the new tab button](preview.png)
+![Clicking New tab, Back and Reload in Brave, with a banner naming Ctrl+T, Alt+Left and Ctrl+R after each click](docs/demo.gif)
+
+## Why learn shortcuts this way
+
+Cheat sheets and shortcut trainers teach the shortcuts someone else thought you should know, away
+from the work you need them for. Most of them are forgotten before they are ever useful. Keyboard
+Coach works the other way round:
+
+- **It teaches at the moment you need it.** The hint appears right after the click it replaces,
+  while your hand is still on the mouse and the action is still in mind. Seeing the shortcut tied
+  to what you just did is what makes it stick.
+- **Your own habits set the lesson plan.** It only ever mentions actions you actually take, in the
+  apps you actually use, so the first shortcuts you learn are the ones that save you the most.
+- **It goes gradually.** `repeats_before_suggesting` holds back until a click has become a habit,
+  `stop_after_suggestions` stops nagging about one you have seen enough, and muting a suggestion
+  retires a shortcut you have learned. `keyboard-coach report` shows whether you are making those
+  clicks less often than the week before.
+- **It is never wrong.** Every suggestion comes from a real source: your Hyprland bindings, the
+  app's own shortcut definitions, or what the control says about itself. A click with no reliable
+  keyboard equivalent shows nothing. One bad hint would teach you to ignore the banner, so the
+  coach would rather stay quiet than guess.
+- **It stays out of the way.** It has no window to open, no practice sessions, and no change to how
+  your apps behave. Pause it with one key.
+
+The shortcut index is built by `keyboard-coach-harvest`, written in Rust. It reads every installed
+application's own shortcut definitions without running the application, so a new app is covered
+as soon as it is installed. Everything stays on your machine.
 
 ## How a click is resolved
 

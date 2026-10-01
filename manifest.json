@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "author": "n0mahd",
   "license": "MIT",
-  "description": "Shows the keyboard shortcut for what you just clicked",
+  "description": "Learn keyboard shortcuts from your own clicks, as you work",
   "kinds": ["panel"],
   "keepLoaded": true,
   "entryPoints": {
